@@ -1,0 +1,22 @@
+{
+  "name": "contribution-adresse",
+  "version": "1.0.0",
+  "description": "Outil de contribution citoyenne aux référentiels d'adresses",
+  "main": "index.js",
+  "repository": "git@github.com:etalab/contribution-adresse.git",
+  "author": "tech@geo.data.gouv.fr",
+  "license": "AGPL-3.0",
+  "scripts": {
+    "transpile": "babel front/src --out-dir front/dist",
+    "transpile:watch": "babel --watch front/src --out-dir front/dist",
+    "start": "node server"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.4.0"
+  },
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
