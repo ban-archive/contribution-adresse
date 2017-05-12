@@ -13,7 +13,7 @@ class LeafletMap extends Component {
     this.marker = L.marker(this.map.getCenter()).addTo(this.map)
 
     L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(this.map)
   }
 
