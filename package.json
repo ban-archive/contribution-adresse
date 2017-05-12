@@ -9,7 +9,7 @@
   "scripts": {
     "transpile": "babel front/src --out-dir dist",
     "transpile:watch": "babel --watch front/src --out-dir dist",
-    "lint": "eslint *.js front/**/*.js back/**/*.js",
+    "lint": "eslint front/**/*.js",
     "start": "node server"
   },
   "devDependencies": {
@@ -17,12 +17,9 @@
     "babel-eslint": "7.1.1",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.4.0",
-    "eslint": "3.16.1",
-    "eslint-config-react-app": "^0.6.2",
-    "eslint-plugin-flowtype": "2.21.0",
-    "eslint-plugin-import": "2.0.1",
-    "eslint-plugin-jsx-a11y": "4.0.0",
-    "eslint-plugin-react": "6.4.1"
+    "eslint": "^3.19.0",
+    "eslint-plugin-jest": "^19.0.1",
+    "eslint-plugin-react": "^6.10.3"
   },
   "dependencies": {
     "express": "^4.15.2"
