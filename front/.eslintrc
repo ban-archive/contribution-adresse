@@ -12,7 +12,7 @@
   },
   "parserOptions": {
     "ecmaFeatures": {
-      "modules": true,
+      "modules": false,
       "jsx": true
     }
   },
@@ -22,7 +22,6 @@
     }
   },
   "globals": {
-    "sleep": 1,
     "preact": 1
   },
   "rules": {
