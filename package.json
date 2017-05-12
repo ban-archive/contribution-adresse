@@ -7,8 +7,8 @@
   "author": "tech@geo.data.gouv.fr",
   "license": "AGPL-3.0",
   "scripts": {
-    "transpile": "babel front/src --out-dir front/dist",
-    "transpile:watch": "babel --watch front/src --out-dir front/dist",
+    "transpile": "babel front/src --out-dir dist",
+    "transpile:watch": "babel --watch front/src --out-dir dist",
     "start": "node server"
   },
   "devDependencies": {

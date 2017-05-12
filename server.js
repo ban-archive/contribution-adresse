@@ -2,7 +2,7 @@ const express = require('express')
 
 const app = express()
 
-app.use('/dist', express.static(__dirname + '/front/dist'))
+app.use('/dist', express.static(__dirname + '/dist'))
 app.use(express.static(__dirname + '/front/public'))
 
 app.get('*', function (req, res) {
