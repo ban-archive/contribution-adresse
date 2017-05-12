@@ -1,8 +1,12 @@
-const { h, render } = preact;
+const { h, render } = preact
+
+function onClickHandler() {
+  alert('Hi!')
+}
 
 render((
-    <div id="foo">
-        <span>Hello, world!</span>
-        <button onClick={ e => alert("Hi!") }>Click on me</button>
-    </div>
-), document.body);
+  <div id="foo">
+    <span>Hello, world!</span>
+    <button onClick={onClickHandler}>Click on me</button>
+  </div>
+), document.body)
