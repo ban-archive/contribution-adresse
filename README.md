@@ -14,7 +14,7 @@ Outil de contribution citoyenne aux référentiels d'adresses
 yarn
 ```
 
-### Préparation de code front
+### Préparation du code front
 
 ```bash
 yarn transpile
@@ -25,3 +25,5 @@ yarn transpile
 ```bash
 yarn start
 ```
+
+Puis lancez votre navigateur via : http://localhost:5000/
