@@ -29,9 +29,9 @@ class App extends Component {
 
   render() {
     const { coords } = this.state
-    if (!coords) return <div class="loading">Chargement...</div>
+    if (!coords) return <Loading />
 
-    return <LeafletMap coords={coords}/>
+    return <LeafletMap coords={coords} />
   }
 }
 
