@@ -3,11 +3,40 @@ body {
     margin: 0;
 }
 
-html, body, #map {
+html, body, .container, #map {
   height: 100%;
   width: 100%;
-  zoom: 1.5;
 }
+
+#map {
+  zoom: 1.5;
+  position:absolute;
+  top:0;
+  left:0;
+  z-index: -1;
+}
+
+/* Locator */
+
+.locator {
+  width: 50px;
+  height: 50px;
+  background-color: #3F4DAB;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  margin: -25px 0 0 -25px;
+
+  border-radius: 100%;
+  -webkit-animation: sk-scaleout 1.5s infinite ease-in-out;
+  animation: sk-scaleout 1.5s infinite ease-in-out;
+
+  box-shadow: 0 2px 20px 0 rgba(0,0,0,0.50), inset 0 1px 3px 0 rgba(0,0,0,0.50);
+}
+
+/* Loading */
 
 .Loading {
   height: 100%;
