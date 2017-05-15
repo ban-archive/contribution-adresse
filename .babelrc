@@ -1,6 +1,7 @@
 {
   "presets": ["env"],
   "plugins": [
+    "transform-decorators-legacy",
     ["transform-react-jsx", { "pragma":"preact.h" }]
   ]
 }
