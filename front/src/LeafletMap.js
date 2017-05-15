@@ -7,15 +7,20 @@ class LeafletMap extends Component {
       zoomControl: false,
       dragging: false,
       center: [latitude, longitude],
-      zoom: 18,
+      zoom: 20,
       preferCanvas: true,
     })
 
-    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png').addTo(this.map)
+    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+      maxZoom: 20,
+    }).addTo(this.map)
   }
 
   updateMap() {
     const { latitude, longitude } = this.props.coords
+    this.props.markers.map(marker => {
+      if (!this.map.hasLayer(marker)) marker.addTo(this.map)
+    })
     this.map.panTo([latitude, longitude])
   }
 

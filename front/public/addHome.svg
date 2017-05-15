@@ -1,0 +1,31 @@
+<svg viewBox="0 0 109 111" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <path d="M37.5,2.25 L69.75,30.5784457 L5.25,30.5784457 L37.5,2.25 Z M13.7459677,30.5784457 L61.4274194,30.5784457 L61.4274194,62.25 L13.7459677,62.25 L13.7459677,30.5784457 Z" id="path-1"></path>
+        <filter x="-64.3%" y="-65.8%" width="228.7%" height="238.3%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="13.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <filter x="-35.6%" y="-25.8%" width="173.3%" height="167.7%" filterUnits="objectBoundingBox" id="filter-3">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="add-home-copy" transform="translate(17.000000, 20.000000)">
+            <g id="Combined-Shape">
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+            </g>
+            <g id="+" filter="url(#filter-3)" transform="translate(26.250000, 26.250000)" stroke="#3F4DAB" stroke-width="2" stroke-linecap="square">
+                <path d="M11.25,0.375 L11.25,22.875" id="Line"></path>
+                <path d="M0,12 L22.5,12" id="Line"></path>
+            </g>
+        </g>
+    </g>
+</svg>
