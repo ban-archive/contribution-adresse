@@ -10,7 +10,8 @@
     "transpile": "babel front/src --out-dir dist",
     "transpile:watch": "babel --watch front/src --out-dir dist",
     "lint": "eslint front/**/*.js",
-    "start": "node server"
+    "start": "node server",
+    "postinstall": "yarn transpile"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
