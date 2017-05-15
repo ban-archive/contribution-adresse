@@ -31,7 +31,13 @@ class App extends Component {
     const { coords } = this.state
     if (!coords) return <Loading />
 
-    return <LeafletMap coords={coords} />
+    return (
+      <div class="container">
+        <LeafletMap coords={coords} />
+        <div class="locator"></div>
+        <AddAdressButton />
+      </div>
+    )
   }
 }
 

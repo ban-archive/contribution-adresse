@@ -10,17 +10,13 @@ class LeafletMap extends Component {
       zoom: 18,
       preferCanvas: true,
     })
-    this.marker = L.marker(this.map.getCenter()).addTo(this.map)
 
-    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(this.map)
+    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png').addTo(this.map)
   }
 
   updateMap() {
     const { latitude, longitude } = this.props.coords
-    this.marker.setLatLng([latitude, longitude])
-    this.map.panTo(this.marker.getLatLng())
+    this.map.panTo([latitude, longitude])
   }
 
   componentWillUnmount() {
@@ -31,7 +27,7 @@ class LeafletMap extends Component {
     if (this.map) this.updateMap()
     return (
       <div id="map"
-         ref={ ref => this.container = ref } />
+         ref={ref => this.container = ref} />
     )
   }
 }
