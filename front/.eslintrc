@@ -23,7 +23,8 @@
   },
   "globals": {
     "preact": 1,
-    "L": 1
+    "L": 1,
+    "decko": 1
   },
   "rules": {
     "react/jsx-no-bind": [1, { "ignoreRefs": true }],

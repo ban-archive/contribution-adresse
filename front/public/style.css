@@ -16,6 +16,22 @@ html, body, .container, #map {
   z-index: -1;
 }
 
+/* AddAddressButton: */
+
+.AddAddressButton {
+  display: flex;
+  width: 76px;
+  height: 76px;
+  border-radius: 100%;
+  background: #3F4DAB;
+  box-shadow: 0 2px 20px 0 rgba(0,0,0,0.50), inset 0 1px 3px 0 rgba(0,0,0,0.50);
+  margin: 1em;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin: 0 0 10px -38px;
+}
+
 /* Locator */
 
 .locator {
