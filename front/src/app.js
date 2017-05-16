@@ -1,11 +1,10 @@
 const { h, render, Component } = preact
 const { bind } = decko
 
-let greenIcon = L.icon({
-  iconUrl: 'homeMarker.svg',
-
-  iconSize:     [84, 86], // size of the icon
-  // iconAnchor:   [20, 22], // point of the icon which will correspond to marker's location
+let homeIcon = L.icon({
+  iconUrl: 'home_icon.png',
+  iconSize:     [84, 86],
+  iconAnchor:   [43, 42],
 })
 
 class App extends Component {
@@ -15,7 +14,11 @@ class App extends Component {
       coords: null,
       watchId: null,
       markers: [],
-      error: false,
+      geoOptions: {
+        enableHighAccuracy: true,
+        maximumAge: 3000,
+      },
+      error: null,
     }
   }
 
@@ -38,14 +41,12 @@ class App extends Component {
 
   @bind
   addAddress() {
-    navigator.geolocation.getCurrentPosition(position => {
-      const { latitude, longitude } = position.coords
-      const newMarker = L.marker([latitude, longitude], {icon: greenIcon})
-      if (!this.farEnough(newMarker) || this.isAlreadyExist(newMarker)) return
-      const markers = [...this.state.markers]
-      markers.push(newMarker)
-      this.setState({markers})
-    })
+    const { coords, markers } = this.state
+    const newMarker = L.marker([coords.latitude, coords.longitude], {icon: homeIcon})
+    if (!this.farEnough(newMarker) || this.isAlreadyExist(newMarker)) return
+    const markersCopy = [...markers]
+    markersCopy.push(newMarker)
+    this.setState({markers: markersCopy})
   }
 
   componentWillUnmount() {
@@ -53,22 +54,31 @@ class App extends Component {
     navigator.geolocation.clearWatch(watchId)
   }
 
-  updatePosition() {
-    if ('geolocation' in navigator) {
-      const watchId = navigator.geolocation.watchPosition(position => {
-        // console.log('updatePosition to :', position.coords)
-        this.setState({coords: position.coords})
-      }, () => this.setState({error: true}))
+  @bind
+  geoError(error) {
+    console.log(error)
+    this.setState({error: error.message})
+  }
 
+  @bind
+  geoSuccess(position) {
+    console.log('updatePosition to :', position.coords)
+    this.setState({coords: position.coords})
+  }
+
+  updatePosition() {
+    const { geoOptions } = this.state
+    if ('geolocation' in navigator) {
+      const watchId = navigator.geolocation.watchPosition(this.geoSuccess, this.geoError, geoOptions)
       this.setState({watchId})
     } else {
-      this.setState({error: true})
+      this.setState({error: 'La géolocalisation n\'est pas prise en charge par votre navigateur.'})
     }
   }
 
   render() {
     const { coords, markers, error } = this.state
-    if (error) return <h1>Erreur</h1>
+    if (error) return <Error error={error} />
     if (!coords) return <Loading />
 
     return (
