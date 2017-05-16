@@ -17,7 +17,7 @@ class App extends Component {
       geoOptions: {
         timeout: 27000,
         enableHighAccuracy: true,
-        maximumAge: Infinity,
+        maximumAge: 5000,
       },
       error: null,
     }
