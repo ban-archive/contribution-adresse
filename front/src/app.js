@@ -15,9 +15,8 @@ class App extends Component {
       watchId: null,
       markers: [],
       geoOptions: {
-        timeout: 27000,
         enableHighAccuracy: true,
-        maximumAge: 5000,
+        maximumAge: 3000,
       },
       error: null,
     }
@@ -62,7 +61,7 @@ class App extends Component {
   }
 
   @bind
-  geoSucces(position) {
+  geoSuccess(position) {
     console.log('updatePosition to :', position.coords)
     this.setState({coords: position.coords})
   }
@@ -70,7 +69,7 @@ class App extends Component {
   updatePosition() {
     const { geoOptions } = this.state
     if ('geolocation' in navigator) {
-      const watchId = navigator.geolocation.watchPosition(this.geoSucces, this.geoError, geoOptions)
+      const watchId = navigator.geolocation.watchPosition(this.geoSuccess, this.geoError, geoOptions)
       this.setState({watchId})
     } else {
       this.setState({error: 'La géolocalisation n\'est pas prise en charge par votre navigateur.'})
