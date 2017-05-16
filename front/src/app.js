@@ -3,8 +3,8 @@ const { bind } = decko
 
 let homeIcon = L.icon({
   iconUrl: 'home_icon.png',
-  iconSize:     [84, 86],
-  iconAnchor:   [43, 42],
+  iconSize:     [43, 42],
+  iconAnchor:   [22, 21],
 })
 
 class App extends Component {
