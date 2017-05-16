@@ -2,9 +2,9 @@ const { h, render, Component } = preact
 const { bind } = decko
 
 let homeIcon = L.icon({
-  iconUrl: 'homeMarker.svg',
+  iconUrl: 'home_icon.png',
   iconSize:     [84, 86],
-  iconAnchor:   [84, 86],
+  iconAnchor:   [43, 42],
 })
 
 class App extends Component {
