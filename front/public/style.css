@@ -1,6 +1,7 @@
 body {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
+  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
 }
 
 html, body, .container, #map {
@@ -94,4 +95,29 @@ html, body, .container, #map {
     transform: scale(1.0);
     opacity: 0;
   }
+}
+
+/* Error */
+
+.Error {
+  color: #fff;
+  background-color: #3F4DAB;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  height: 100%;
+}
+
+.Error img {
+  /*width: 50%;*/
+}
+
+.Error > div {
+  font-size: xx-large;
+}
+
+.Error p {
+  font-size: large;
 }
