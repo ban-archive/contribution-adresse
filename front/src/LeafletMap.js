@@ -7,7 +7,7 @@ class LeafletMap extends Component {
       zoomControl: false,
       dragging: false,
       center: [latitude, longitude],
-      zoom: 20,
+      zoom: 18,
       preferCanvas: true,
     })
 
