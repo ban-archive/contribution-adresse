@@ -15,7 +15,7 @@ class App extends Component {
       watchId: null,
       markers: [],
       geoOptions: {
-        timeout: 0,
+        timeout: 27000,
         enableHighAccuracy: true,
         maximumAge: Infinity,
       },
