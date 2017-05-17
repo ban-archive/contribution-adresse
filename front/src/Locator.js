@@ -1,10 +1,12 @@
 const { h } = preact
 
 const Locator = ({ accuracy }) => {
-  const margin = (accuracy / 2) * -1
+  const dimensionMin = screen.width > screen.height ? screen.height - 150 : screen.width
+  const accuracyMin = accuracy > dimensionMin ? dimensionMin : accuracy
+  const margin = (accuracyMin / 2) * -1
   const style = {
-    width: accuracy,
-    height: accuracy,
+    width: accuracyMin,
+    height: accuracyMin,
     marginTop: margin,
     marginLeft: margin,
   }
