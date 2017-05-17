@@ -56,7 +56,6 @@ class App extends Component {
 
   @bind
   geoError(error) {
-    console.log(error)
     this.setState({error: error.message})
   }
 
@@ -84,7 +83,7 @@ class App extends Component {
     return (
       <div class="container">
         <LeafletMap coords={coords} markers={markers} />
-        <div class="locator"></div>
+        <Locator accuracy={coords.accuracy} />
         <AddAddressButton action={this.addAddress} />
       </div>
     )
