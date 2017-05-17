@@ -21,8 +21,8 @@ html, body, .container, #map {
 
 .AddAddressButton {
   display: flex;
-  width: 160px;
-  height: 160px;
+  width: 50px;
+  height: 50px;
   border-radius: 100%;
   background: #3F4DAB;
   box-shadow: 0 2px 20px 0 rgba(0,0,0,0.50), inset 0 1px 3px 0 rgba(0,0,0,0.50);
@@ -30,7 +30,7 @@ html, body, .container, #map {
   position: absolute;
   bottom: 0;
   left: 50%;
-  margin: 0 0 50px -80px;
+  margin: 0 0 20px -25px;
 }
 
 .AddAddressButton img {
