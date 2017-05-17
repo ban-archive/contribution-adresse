@@ -7,13 +7,6 @@ let homeIcon = L.icon({
   iconAnchor:   [22, 21],
 })
 
-function locatorAccuracy(accuracy) {
-  const locator = document.getElementById('locator')
-  if (!locator) return
-  locator.style.width = accuracy
-  locator.style.height = accuracy
-}
-
 class App extends Component {
   constructor(props) {
     super(props)
@@ -86,12 +79,11 @@ class App extends Component {
     const { coords, markers, error } = this.state
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
-    locatorAccuracy(coords.accuracy)
 
     return (
       <div class="container">
         <LeafletMap coords={coords} markers={markers} />
-        <div id="locator"></div>
+        <Locator accuracy={coords.accuracy} />
         <AddAddressButton action={this.addAddress} />
       </div>
     )
