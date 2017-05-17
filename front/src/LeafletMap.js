@@ -22,6 +22,7 @@ class LeafletMap extends Component {
       if (!this.map.hasLayer(marker)) marker.addTo(this.map)
     })
     this.map.panTo([latitude, longitude])
+    this.map.invalidateSize(true) // Check if Checks if the map container size changed and updates the map
   }
 
   componentWillUnmount() {
@@ -29,10 +30,11 @@ class LeafletMap extends Component {
   }
 
   render() {
+    const { fullscreen } = this.props
     if (this.map) this.updateMap()
+
     return (
-      <div id="map"
-         ref={ref => this.container = ref} />
+      <div id="map" style={{height: fullscreen ? '100%' : '50%'}} ref={ref => this.container = ref} />
     )
   }
 }

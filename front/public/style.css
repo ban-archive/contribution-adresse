@@ -5,7 +5,6 @@ body {
 }
 
 html, body, .container, #map {
-  height: 100%;
   width: 100%;
 }
 
@@ -39,15 +38,12 @@ html, body, .container, #map {
 
 /* Locator */
 
-#locator {
+#radar {
   width: 50px;
   height: 50px;
   background-color: #3F4DAB;
 
   position: absolute;
-  top: 50%;
-  left: 50%;
-
   margin: -25px 0 0 -25px;
 
   border-radius: 100%;
@@ -63,8 +59,6 @@ html, body, .container, #map {
   background-color: #3F4DAB;
 
   position: absolute;
-  top: 50%;
-  left: 50%;
 
   margin: -4px 0 0 -4px;
 
