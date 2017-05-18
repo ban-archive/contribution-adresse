@@ -11,6 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      address: '',
       coords: null,
       watchId: null,
       markers: [],
@@ -41,10 +42,21 @@ class App extends Component {
   }
 
   @bind
-  addAddress() {
-    this.setState({fullscreen: !this.state.fullscreen}) // TEST
-    const { coords, markers } = this.state
-    const newMarker = L.marker([coords.latitude, coords.longitude], {icon: homeIcon})
+  openForm() {
+    this.setState({fullscreen: false})
+  }
+
+  @bind
+  closeForm() {
+    this.setState({fullscreen: true})
+  }
+
+  @bind
+  addAddress(coords, address) {
+    const { markers } = this.state
+    this.closeForm()
+    const newMarker = L.marker([coords.latitude, coords.longitude], {icon: homeIcon, title: address})
+    newMarker.bindTooltip(address).openTooltip()
     if (!this.farEnough(newMarker) || this.isAlreadyExist(newMarker)) return
     const markersCopy = [...markers]
     markersCopy.push(newMarker)
@@ -54,6 +66,11 @@ class App extends Component {
   componentWillUnmount() {
     const { watchId } = this.state
     navigator.geolocation.clearWatch(watchId)
+  }
+
+  @bind
+  displayAddress(address) {
+    this.setState({address})
   }
 
   @bind
@@ -78,15 +95,18 @@ class App extends Component {
   }
 
   render() {
-    const { coords, markers, fullscreen, error } = this.state
+    const { coords, markers, fullscreen, address, error } = this.state
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
 
     return (
       <div class="container">
-        <LeafletMap coords={coords} markers={markers} fullscreen={fullscreen} />
+        <LeafletMap coords={coords} markers={markers} fullscreen={fullscreen} closeForm={this.closeForm} />
         <Locator accuracy={coords.accuracy} fullscreen={fullscreen} />
-        <AddAddressButton action={this.addAddress} />
+        {fullscreen ?
+          <AddAddressButton action={this.openForm} /> :
+          <CreateAddress coords={coords} createAddress={this.addAddress} />}
+        <div>{address}</div>
       </div>
     )
   }
