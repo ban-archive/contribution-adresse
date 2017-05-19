@@ -24,6 +24,7 @@ class LeafletMap extends Component {
     this.props.markers.map(marker => {
       if (!this.map.hasLayer(marker)) {
         marker.addTo(this.map)
+        marker.on('click', this.props.displayAddress)
       }
     })
     this.map.panTo([latitude, longitude])

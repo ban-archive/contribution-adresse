@@ -4,33 +4,33 @@ class CreateAddress extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      address: '',
+      street: '',
     }
   }
 
   @bind
   handleChange(e) {
-    this.setState({address: e.target.value})
+    this.setState({street: e.target.value})
   }
 
   @bind
   add() {
-    const { address } = this.state
+    const { street } = this.state
     const { coords, createAddress } = this.props
 
-    createAddress(coords, address)
+    createAddress(coords, {street, town: '28100 Dreux'})
   }
 
   render() {
-    const { address } = this.state
+    const { street } = this.state
 
     return (
-      <div class="CreateAddress">
+      <div>
         <div class="searchbar">
-          <input type="text" value={address} onInput={this.handleChange} />
+          <input type="text" value={street} onInput={this.handleChange} />
           <img src="location_logo.png" alt="location_logo" />
         </div>
-        {address.length ? <div onClick={this.add} class="create-button">Créer le {address}</div> : null}
+        {street.length ? <div onClick={this.add} class="create-button">Créer le {street}</div> : null}
       </div>
     )
   }

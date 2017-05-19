@@ -11,7 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      address: '',
+      address: null,
       coords: null,
       watchId: null,
       markers: [],
@@ -48,18 +48,52 @@ class App extends Component {
 
   @bind
   closeForm() {
-    this.setState({fullscreen: true})
+    this.setState({
+      fullscreen: true,
+      address: '',
+    })
   }
 
   @bind
   addAddress(coords, address) {
     const { markers } = this.state
-    this.closeForm()
-    const newMarker = L.marker([coords.latitude, coords.longitude], {icon: homeIcon, title: address})
-    newMarker.bindTooltip(address).openTooltip()
+    const newMarker = L.marker([coords.latitude, coords.longitude], {icon: homeIcon, address})
+
     if (!this.farEnough(newMarker) || this.isAlreadyExist(newMarker)) return
     const markersCopy = [...markers]
     markersCopy.push(newMarker)
+
+    this.closeForm()
+    this.setState({markers: markersCopy})
+  }
+
+  @bind
+  removeAddress(address) {
+    const { markers } = this.state
+    const markersCopy = [...markers]
+
+    for (let i = 0; i < markersCopy.length; i++) {
+      if (markersCopy[i].options.address === address) {
+        markersCopy[i].remove()
+        markersCopy.splice(markersCopy[i], 1)
+      }
+    }
+
+    this.closeForm()
+    this.setState({markers: markersCopy})
+  }
+
+  @bind
+  editAddress(address, newAddress) {
+    const { markers } = this.state
+    const markersCopy = [...markers]
+
+    for (let i = 0; i < markersCopy.length; i++) {
+      if (markersCopy[i].options.address === address) {
+        markersCopy[i].options.address = newAddress
+      }
+    }
+
     this.setState({markers: markersCopy})
   }
 
@@ -69,8 +103,11 @@ class App extends Component {
   }
 
   @bind
-  displayAddress(address) {
-    this.setState({address})
+  displayAddress(e) {
+    this.setState({
+      fullscreen: false,
+      address: e.target.options.address,
+    })
   }
 
   @bind
@@ -101,12 +138,12 @@ class App extends Component {
 
     return (
       <div class="container">
-        <LeafletMap coords={coords} markers={markers} fullscreen={fullscreen} closeForm={this.closeForm} />
+        <LeafletMap displayAddress={this.displayAddress} coords={coords} markers={markers} fullscreen={fullscreen} closeForm={this.closeForm} />
         <Locator accuracy={coords.accuracy} fullscreen={fullscreen} />
         {fullscreen ?
           <AddAddressButton action={this.openForm} /> :
-          <CreateAddress coords={coords} createAddress={this.addAddress} />}
-        <div>{address}</div>
+          <Menu address={address} coords={coords} createAddress={this.addAddress} editAddress={this.editAddress} removeAddress={this.removeAddress} />
+        }
       </div>
     )
   }
