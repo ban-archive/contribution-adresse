@@ -5,8 +5,11 @@ class Address extends Component {
     super(props)
     this.state = {
       editInput: false,
-      newAddress: props.address,
     }
+  }
+
+  componentDidMount() {
+    this.setState({newAddress: this.props.address})
   }
 
   @bind
@@ -43,6 +46,8 @@ class Address extends Component {
 
   render() {
     const { editInput, newAddress } = this.state
+    const street = newAddress ? newAddress.street : ''
+    const town = newAddress ? newAddress.town : ''
 
     return (
       <div class="Address">
@@ -50,14 +55,14 @@ class Address extends Component {
           <img class="location_logo" src="location_logo.png" alt="location_logo" />
             {editInput ? (
               <div class="address">
-                <input type="text" value={newAddress.street} onChange={this.changeStreet} />
-                <input type="text" value={newAddress.town} onChange={this.changeTown} />
+                <input type="text" value={street} onChange={this.changeStreet} />
+                <input type="text" value={town} onChange={this.changeTown} />
                 <button onClick={this.edit}>Enregister</button>
               </div>
             ) : (
               <div class="address">
-                <div>{newAddress.street}</div>
-                <div>{newAddress.town}</div>
+                <div>{street}</div>
+                <div>{town}</div>
               </div>
             )}
         </div>

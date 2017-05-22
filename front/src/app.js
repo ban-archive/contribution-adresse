@@ -14,6 +14,13 @@ function createMarker(coords, address) {
   return L.marker([coords.latitude, coords.longitude], {icon: homeIcon, address})
 }
 
+function updateLocalStorage(markers) {
+  localStorage.setItem('markers', JSON.stringify(markers.map(marker => {
+    const { lat, lng } = marker.getLatLng()
+    return {coords: {latitude: lat, longitude: lng}, address: marker.options.address}
+  })))
+}
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -84,12 +91,7 @@ class App extends Component {
     markersCopy.push(newMarker)
 
     this.closeForm()
-    this.setState({markers: markersCopy}, () => {
-      localStorage.setItem('markers', JSON.stringify(markersCopy.map(marker => {
-        const { lat, lng } = marker.getLatLng()
-        return {coords: {latitude: lat, longitude: lng}, address: marker.options.address}
-      }))
-    )})
+    this.setState({markers: markersCopy}, () => updateLocalStorage(markersCopy))
   }
 
   @bind
@@ -105,7 +107,7 @@ class App extends Component {
     }
 
     this.closeForm()
-    this.setState({markers: markersCopy})
+    this.setState({markers: markersCopy}, () => updateLocalStorage(markersCopy))
   }
 
   @bind
@@ -119,7 +121,7 @@ class App extends Component {
       }
     }
 
-    this.setState({markers: markersCopy})
+    this.setState({markers: markersCopy}, () => updateLocalStorage(markersCopy))
   }
 
   componentWillUnmount() {
