@@ -11,6 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      address: null,
       coords: null,
       watchId: null,
       markers: [],
@@ -18,6 +19,7 @@ class App extends Component {
         enableHighAccuracy: true,
         maximumAge: 3000,
       },
+      fullscreen: true,
       error: null,
     }
   }
@@ -40,18 +42,72 @@ class App extends Component {
   }
 
   @bind
-  addAddress() {
-    const { coords, markers } = this.state
-    const newMarker = L.marker([coords.latitude, coords.longitude], {icon: homeIcon})
+  openForm() {
+    this.setState({fullscreen: false})
+  }
+
+  @bind
+  closeForm() {
+    this.setState({
+      fullscreen: true,
+      address: '',
+    })
+  }
+
+  @bind
+  addAddress(coords, address) {
+    const { markers } = this.state
+    const newMarker = L.marker([coords.latitude, coords.longitude], {icon: homeIcon, address})
+
     if (!this.farEnough(newMarker) || this.isAlreadyExist(newMarker)) return
     const markersCopy = [...markers]
     markersCopy.push(newMarker)
+
+    this.closeForm()
+    this.setState({markers: markersCopy})
+  }
+
+  @bind
+  removeAddress(address) {
+    const { markers } = this.state
+    const markersCopy = [...markers]
+
+    for (let i = 0; i < markersCopy.length; i++) {
+      if (markersCopy[i].options.address === address) {
+        markersCopy[i].remove()
+        markersCopy.splice(markersCopy[i], 1)
+      }
+    }
+
+    this.closeForm()
+    this.setState({markers: markersCopy})
+  }
+
+  @bind
+  editAddress(address, newAddress) {
+    const { markers } = this.state
+    const markersCopy = [...markers]
+
+    for (let i = 0; i < markersCopy.length; i++) {
+      if (markersCopy[i].options.address === address) {
+        markersCopy[i].options.address = newAddress
+      }
+    }
+
     this.setState({markers: markersCopy})
   }
 
   componentWillUnmount() {
     const { watchId } = this.state
     navigator.geolocation.clearWatch(watchId)
+  }
+
+  @bind
+  displayAddress(e) {
+    this.setState({
+      fullscreen: false,
+      address: e.target.options.address,
+    })
   }
 
   @bind
@@ -76,15 +132,18 @@ class App extends Component {
   }
 
   render() {
-    const { coords, markers, error } = this.state
+    const { coords, markers, fullscreen, address, error } = this.state
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
 
     return (
       <div class="container">
-        <LeafletMap coords={coords} markers={markers} />
-        <Locator accuracy={coords.accuracy} />
-        <AddAddressButton action={this.addAddress} />
+        <LeafletMap onShowAddress={this.displayAddress} onCloseForm={this.closeForm} coords={coords} markers={markers} fullscreen={fullscreen} />
+        <Locator accuracy={coords.accuracy} fullscreen={fullscreen} />
+        {fullscreen ?
+          <AddAddressButton action={this.openForm} /> :
+          <Menu address={address} coords={coords} createAddress={this.addAddress} editAddress={this.editAddress} removeAddress={this.removeAddress} />
+        }
       </div>
     )
   }
