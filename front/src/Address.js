@@ -4,12 +4,9 @@ class Address extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      newAddress: {street: '', town: ''},
       editInput: false,
     }
-  }
-
-  componentDidMount() {
-    this.setState({newAddress: this.props.address})
   }
 
   @bind
@@ -27,16 +24,16 @@ class Address extends Component {
 
   @bind
   changeTown(e) {
+    const { address } = this.props
     const { newAddress } = this.state
-    const address = {town: e.target.value, street: newAddress.street}
-    this.setState({newAddress: address})
+    this.setState({newAddress: {street: newAddress ? newAddress.street : address.street, town: e.target.value}})
   }
 
   @bind
   changeStreet(e) {
+    const { address } = this.props
     const { newAddress } = this.state
-    const address = {town: newAddress.town, street: e.target.value}
-    this.setState({newAddress: address})
+    this.setState({newAddress: {town: newAddress ? newAddress.town : address.town, street: e.target.value}})
   }
 
   @bind
@@ -45,9 +42,8 @@ class Address extends Component {
   }
 
   render() {
+    const { address } = this.props
     const { editInput, newAddress } = this.state
-    const street = newAddress ? newAddress.street : ''
-    const town = newAddress ? newAddress.town : ''
 
     return (
       <div class="Address">
@@ -55,14 +51,14 @@ class Address extends Component {
           <img class="location_logo" src="location_logo.png" alt="location_logo" />
             {editInput ? (
               <div class="address">
-                <input type="text" value={street} onChange={this.changeStreet} />
-                <input type="text" value={town} onChange={this.changeTown} />
+                <input type="text" defaultValue={address.street} onChange={this.changeStreet} />
+                <input type="text" defaultValue={address.town} onChange={this.changeTown} />
                 <button onClick={this.edit}>Enregister</button>
               </div>
             ) : (
               <div class="address">
-                <div>{street}</div>
-                <div>{town}</div>
+                <div>{newAddress.street.length ? newAddress.street : address.street}</div>
+                <div>{newAddress.town.length ? newAddress.town : address.town}</div>
               </div>
             )}
         </div>
