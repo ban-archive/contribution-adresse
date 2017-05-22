@@ -138,7 +138,7 @@ class App extends Component {
 
     return (
       <div class="container">
-        <LeafletMap displayAddress={this.displayAddress} coords={coords} markers={markers} fullscreen={fullscreen} closeForm={this.closeForm} />
+        <LeafletMap onShowAddress={this.displayAddress} onCloseForm={this.closeForm} coords={coords} markers={markers} fullscreen={fullscreen} />
         <Locator accuracy={coords.accuracy} fullscreen={fullscreen} />
         {fullscreen ?
           <AddAddressButton action={this.openForm} /> :

@@ -25,14 +25,14 @@ class Address extends Component {
   @bind
   changeTown(e) {
     const { newAddress } = this.state
-    let address = {town: e.target.value, street: newAddress.street}
+    const address = {town: e.target.value, street: newAddress.street}
     this.setState({newAddress: address})
   }
 
   @bind
   changeStreet(e) {
     const { newAddress } = this.state
-    let address = {town: newAddress.town, street: e.target.value}
+    const address = {town: newAddress.town, street: e.target.value}
     this.setState({newAddress: address})
   }
 
@@ -43,7 +43,6 @@ class Address extends Component {
 
   render() {
     const { editInput, newAddress } = this.state
-    const { address } = this.props
 
     return (
       <div class="Address">

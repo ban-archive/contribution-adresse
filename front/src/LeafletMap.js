@@ -2,7 +2,7 @@ const { h, Component } = preact
 
 class LeafletMap extends Component {
   componentDidMount() {
-    const { coords, closeForm, fullscreen } = this.props
+    const { coords, onCloseForm, fullscreen } = this.props
     const { latitude, longitude } = coords
     this.map = L.map(this.container, {
       zoomControl: false,
@@ -12,7 +12,7 @@ class LeafletMap extends Component {
       preferCanvas: true,
     })
 
-    if (fullscreen) this.map.on('click', closeForm)
+    if (fullscreen) this.map.on('click', onCloseForm)
 
     L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
       maxZoom: 20,
@@ -24,7 +24,7 @@ class LeafletMap extends Component {
     this.props.markers.map(marker => {
       if (!this.map.hasLayer(marker)) {
         marker.addTo(this.map)
-        marker.on('click', this.props.displayAddress)
+        marker.on('click', this.props.onShowAddress)
       }
     })
     this.map.panTo([latitude, longitude])
