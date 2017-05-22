@@ -1,11 +1,18 @@
 const { h, render, Component } = preact
 const { bind } = decko
 
+/*
+  HELPERS
+*/
 let homeIcon = L.icon({
   iconUrl: 'home_icon.png',
   iconSize:     [43, 42],
   iconAnchor:   [22, 21],
 })
+
+function createMarker(coords, address) {
+  return L.marker([coords.latitude, coords.longitude], {icon: homeIcon, address})
+}
 
 class App extends Component {
   constructor(props) {
@@ -13,8 +20,8 @@ class App extends Component {
     this.state = {
       address: null,
       coords: null,
-      watchId: null,
-      markers: [],
+      watchId: localStorage.getItem('watchId') || null,
+      markers:  this.loadMarkers(),
       geoOptions: {
         enableHighAccuracy: true,
         maximumAge: 3000,
@@ -26,6 +33,19 @@ class App extends Component {
 
   componentDidMount() {
     this.updatePosition()
+  }
+
+  loadMarkers() {
+    const markersSaved = JSON.parse(localStorage.getItem('markers'))
+    if (!markersSaved) return []
+
+    const markers = []
+    for (let i = 0; i < markersSaved.length; i++) {
+      const { coords, address } = markersSaved[i]
+      markers.push(createMarker(coords, address))
+    }
+
+    return markers
   }
 
   isAlreadyExist(newMarker) {
@@ -57,14 +77,19 @@ class App extends Component {
   @bind
   addAddress(coords, address) {
     const { markers } = this.state
-    const newMarker = L.marker([coords.latitude, coords.longitude], {icon: homeIcon, address})
+    const newMarker = createMarker(coords, address)
 
     if (!this.farEnough(newMarker) || this.isAlreadyExist(newMarker)) return
     const markersCopy = [...markers]
     markersCopy.push(newMarker)
 
     this.closeForm()
-    this.setState({markers: markersCopy})
+    this.setState({markers: markersCopy}, () => {
+      localStorage.setItem('markers', JSON.stringify(markersCopy.map(marker => {
+        const { lat, lng } = marker.getLatLng()
+        return {coords: {latitude: lat, longitude: lng}, address: marker.options.address}
+      }))
+    )})
   }
 
   @bind
