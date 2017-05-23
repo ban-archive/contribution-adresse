@@ -14,8 +14,11 @@ class LeafletMap extends Component {
 
     if (fullscreen) this.map.on('click', onCloseForm)
 
-    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-      maxZoom: 20,
+    L.vectorGrid.protobuf('https://free-{s}.tilehosting.com/data/v3/{z}/{x}/{y}.pbf.pict?key={key}', {
+      subdomains: '0123',
+      key: 'Cix9ftgsKpmlL57ju0pR',
+      maxZoom: 14,
+      rendererFactory: L.canvas.tile,
     }).addTo(this.map)
   }
 
