@@ -11,29 +11,29 @@ class Address extends Component {
 
   @bind
   edit() {
-    const { address, editAddress } = this.props
+    const { marker, editAddress } = this.props
     const { newAddress } = this.state
-    this.setState({editInput: false}, editAddress(address, newAddress))
+    this.setState({editInput: false}, editAddress(marker, newAddress))
   }
 
   @bind
   remove() {
-    const { address, removeAddress } = this.props
-    removeAddress(address)
+    const { marker, removeAddress } = this.props
+    removeAddress(marker)
   }
 
   @bind
   changeTown(e) {
-    const { address } = this.props
+    const { street } = this.props.marker.options.address
     const { newAddress } = this.state
-    this.setState({newAddress: {street: newAddress ? newAddress.street : address.street, town: e.target.value}})
+    this.setState({newAddress: {street: newAddress.street ? newAddress.street : street, town: e.target.value}})
   }
 
   @bind
   changeStreet(e) {
-    const { address } = this.props
+    const { town } = this.props.marker.options.address
     const { newAddress } = this.state
-    this.setState({newAddress: {town: newAddress ? newAddress.town : address.town, street: e.target.value}})
+    this.setState({newAddress: {town: newAddress.town ? newAddress.town : town, street: e.target.value}})
   }
 
   @bind
@@ -42,7 +42,7 @@ class Address extends Component {
   }
 
   render() {
-    const { address } = this.props
+    const { street, town } = this.props.marker.options.address
     const { editInput, newAddress } = this.state
 
     return (
@@ -51,14 +51,14 @@ class Address extends Component {
           <img class="location_logo" src="location_logo.png" alt="location_logo" />
             {editInput ? (
               <div class="address">
-                <input type="text" defaultValue={address.street} onChange={this.changeStreet} />
-                <input type="text" defaultValue={address.town} onChange={this.changeTown} />
+                <input type="text" defaultValue={street} onChange={this.changeStreet} />
+                <input type="text" defaultValue={town} onChange={this.changeTown} />
                 <button onClick={this.edit}>Enregister</button>
               </div>
             ) : (
               <div class="address">
-                <div>{newAddress.street.length ? newAddress.street : address.street}</div>
-                <div>{newAddress.town.length ? newAddress.town : address.town}</div>
+                <div>{newAddress.street.length ? newAddress.street : street}</div>
+                <div>{newAddress.town.length ? newAddress.town : town}</div>
               </div>
             )}
         </div>

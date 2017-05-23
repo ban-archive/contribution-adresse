@@ -17,16 +17,19 @@ class LeafletMap extends Component {
     L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
       maxZoom: 20,
     }).addTo(this.map)
+
+    this.props.markers.addTo(this.map)
+    this.updateMap()
+  }
+
+  componentWillUpdate() {
+    if (this.map) this.updateMap()
   }
 
   updateMap() {
+    console.log('updateMap')
     const { latitude, longitude } = this.props.coords
-    this.props.markers.map(marker => {
-      if (!this.map.hasLayer(marker)) {
-        marker.addTo(this.map)
-        marker.on('click', this.props.onShowAddress)
-      }
-    })
+
     this.map.panTo([latitude, longitude])
     this.map.invalidateSize(true) // Check if Checks if the map container size changed and updates the map
   }
@@ -37,7 +40,6 @@ class LeafletMap extends Component {
 
   render() {
     const { fullscreen } = this.props
-    if (this.map) this.updateMap()
 
     return (
       <div id="map" style={{height: fullscreen ? '100%' : '50%'}} ref={ref => this.container = ref} />

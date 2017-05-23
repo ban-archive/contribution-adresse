@@ -15,7 +15,7 @@ function createMarker(coords, address) {
 }
 
 function updateLocalStorage(markers) {
-  localStorage.setItem('markers', JSON.stringify(markers.map(marker => {
+  localStorage.setItem('markers', JSON.stringify(markers.getLayers().map(marker => {
     const { lat, lng } = marker.getLatLng()
     return {coords: {latitude: lat, longitude: lng}, address: marker.options.address}
   })))
@@ -25,10 +25,10 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      address: null,
+      marker: null,
       coords: null,
       watchId: localStorage.getItem('watchId') || null,
-      markers:  this.loadMarkers(),
+      markers: this.loadMarkers(),
       geoOptions: {
         enableHighAccuracy: true,
         maximumAge: 3000,
@@ -43,42 +43,38 @@ class App extends Component {
   }
 
   loadMarkers() {
+    const markers = new L.FeatureGroup()
     const markersSaved = JSON.parse(localStorage.getItem('markers'))
-    if (!markersSaved) return []
 
-    const markers = []
-    for (let i = 0; i < markersSaved.length; i++) {
-      const { coords, address } = markersSaved[i]
-      markers.push(createMarker(coords, address))
+    if (markersSaved) {
+      for (let i = 0; i < markersSaved.length; i++) {
+        const { coords, address } = markersSaved[i]
+        createMarker(coords, address).on('click', this.displayMarker).addTo(markers)
+      }
     }
 
     return markers
   }
 
-  isAlreadyExist(newMarker) {
-    const { markers } = this.state
-    return markers.find(marker => marker.getLatLng() === newMarker.getLatLng())
-  }
-
   farEnough(newMarker) {
     const { markers } = this.state
-    for (let i = 0; i < markers.length; i++) {
-      if (markers[i].getLatLng().distanceTo(newMarker.getLatLng()) < 2) return false
+    for (let i = 0; i < markers.getLayers().length; i++) {
+      if (markers.getLayers()[i].getLatLng().distanceTo(newMarker.getLatLng()) < 2) return false
     }
     return true
   }
 
   @bind
   openForm() {
-    this.setState({fullscreen: false})
+    this.setState({fullscreen: false}, () => this.map.forceUpdate())
   }
 
   @bind
   closeForm() {
     this.setState({
       fullscreen: true,
-      address: '',
-    })
+      marker: null,
+    }, () => this.map.forceUpdate())
   }
 
   @bind
@@ -86,42 +82,28 @@ class App extends Component {
     const { markers } = this.state
     const newMarker = createMarker(coords, address)
 
-    if (!this.farEnough(newMarker) || this.isAlreadyExist(newMarker)) return
-    const markersCopy = [...markers]
-    markersCopy.push(newMarker)
+    if (!this.farEnough(newMarker) || markers.hasLayer(newMarker)) return
+    newMarker.on('click', this.displayMarker).addTo(markers)
 
     this.closeForm()
-    this.setState({markers: markersCopy}, () => updateLocalStorage(markersCopy))
+    this.setState({markers}, () => updateLocalStorage(markers))
   }
 
   @bind
-  removeAddress(address) {
+  removeAddress(marker) {
     const { markers } = this.state
-    const markersCopy = [...markers]
+    markers.removeLayer(marker)
 
-    for (let i = 0; i < markersCopy.length; i++) {
-      if (markersCopy[i].options.address === address) {
-        markersCopy[i].remove()
-        markersCopy.splice(markersCopy[i], 1)
-      }
-    }
-
+    updateLocalStorage(markers)
     this.closeForm()
-    this.setState({markers: markersCopy}, () => updateLocalStorage(markersCopy))
+    this.setState({markers})
   }
 
   @bind
-  editAddress(address, newAddress) {
+  editAddress(marker, newAddress) {
     const { markers } = this.state
-    const markersCopy = [...markers]
-
-    for (let i = 0; i < markersCopy.length; i++) {
-      if (markersCopy[i].options.address === address) {
-        markersCopy[i].options.address = newAddress
-      }
-    }
-
-    this.setState({markers: markersCopy}, () => updateLocalStorage(markersCopy))
+    marker.options.address = newAddress
+    this.setState({markers}, () => updateLocalStorage(markers))
   }
 
   componentWillUnmount() {
@@ -130,11 +112,11 @@ class App extends Component {
   }
 
   @bind
-  displayAddress(e) {
+  displayMarker(e) {
     this.setState({
       fullscreen: false,
-      address: e.target.options.address,
-    })
+      marker: e.target,
+    }, () => this.map.forceUpdate())
   }
 
   @bind
@@ -159,17 +141,17 @@ class App extends Component {
   }
 
   render() {
-    const { coords, markers, fullscreen, address, error } = this.state
+    const { coords, markers, fullscreen, marker, error } = this.state
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
 
     return (
       <div class="container">
-        <LeafletMap onShowAddress={this.displayAddress} onCloseForm={this.closeForm} coords={coords} markers={markers} fullscreen={fullscreen} />
+        <LeafletMap ref={ref => this.map = ref} onShowAddress={this.displayMarker} onCloseForm={this.closeForm} coords={coords} markers={markers} fullscreen={fullscreen} />
         <Locator accuracy={coords.accuracy} fullscreen={fullscreen} />
         {fullscreen ?
           <AddAddressButton action={this.openForm} /> :
-          <Menu address={address} coords={coords} createAddress={this.addAddress} editAddress={this.editAddress} removeAddress={this.removeAddress} />
+          <Menu marker={marker} coords={coords} createAddress={this.addAddress} editAddress={this.editAddress} removeAddress={this.removeAddress} />
         }
       </div>
     )
