@@ -145,13 +145,16 @@ class App extends Component {
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
 
+    const speed = Number((coords.speed || 0).toFixed())
+    const accuracy = Number((coords.accuracy || 0).toFixed())
+
     return (
       <div class="container">
         <LeafletMap ref={ref => this.map = ref} onShowAddress={this.displayMarker} onCloseForm={this.closeForm} coords={coords} markers={markers} fullscreen={fullscreen} />
         <Locator accuracy={coords.accuracy} fullscreen={fullscreen} />
         {fullscreen ?
-          <AddAddressButton action={this.openForm} /> :
-          <Menu marker={marker} coords={coords} createAddress={this.addAddress} editAddress={this.editAddress} removeAddress={this.removeAddress} />
+          <Dashboard speed={speed} accuracy={accuracy} openForm={this.openForm}/> :
+          <Menu address={address} coords={coords} createAddress={this.addAddress} editAddress={this.editAddress} removeAddress={this.removeAddress} />
         }
       </div>
     )

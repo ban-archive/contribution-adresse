@@ -4,6 +4,10 @@ body {
   font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
 }
 
+html, body {
+  height: 100%;
+}
+
 html, body, .container, #map {
   width: 100%;
 }
@@ -97,8 +101,8 @@ html, body, .container, #map {
   height: 100%;
   position: absolute;
   top: 50%;
-  background-color: #fff;
   margin-top: 10px;
+  background-color: rgba(256, 256, 256, 0.8);
 }
 
 .address-form {
@@ -195,6 +199,14 @@ button.edit {
   flex-direction: column;
 }
 
+/* Dashboard */
+
+.Dashboard {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .suggestion {
   margin: 0.5em 1em;
   padding: 10px 0 10px 0;
@@ -226,13 +238,14 @@ button.edit {
   width: 60px;
 }
 
-.accuracy {
+.measures {
   display: flex;
   justify-content: center;
   flex-direction: column;
+  align-items: center;
 }
 
-.accuracy img {
+.measures img {
   width: 30px;
   margin: 3px;
 }
