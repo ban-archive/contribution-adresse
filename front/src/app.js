@@ -41,9 +41,13 @@ class App extends Component {
     this.updatePosition()
   }
 
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchId)		
+  }
+
   loadMarkers() {
     const markers = new L.FeatureGroup()
-    const markersSaved = JSON.parse(localStorage.getItem('markers'))
+    const markersSaved = JSON.parse(localStorage.getItem('markers') || null)
 
     if (markersSaved) {
       for (let i = 0; i < markersSaved.length; i++) {
@@ -69,7 +73,7 @@ class App extends Component {
   }
 
   @bind
-  setStateAndUpdateLocalStorage(markers) {
+  saveMarkers(markers) {
     this.setState({markers}, () => updateLocalStorage(markers))
   }
 
@@ -92,7 +96,7 @@ class App extends Component {
     newMarker.on('click', this.displayMarker).addTo(markers)
 
     this.closeForm()
-    this.setStateAndUpdateLocalStorage(markers)
+    this.saveMarkers(markers)
   }
 
   @bind
@@ -109,7 +113,7 @@ class App extends Component {
   editAddress(marker, newAddress) {
     const { markers } = this.state
     marker.options.address = newAddress
-    this.setStateAndUpdateLocalStorage(markers)
+    this.saveMarkers(markers)
   }
 
   @bind
@@ -131,7 +135,7 @@ class App extends Component {
   updatePosition() {
     const { geoOptions } = this.state
     if ('geolocation' in navigator) {
-      navigator.geolocation.watchPosition(this.geoSuccess, this.geoError, geoOptions)
+      this.watchId = navigator.geolocation.watchPosition(this.geoSuccess, this.geoError, geoOptions)
     } else {
       this.setState({error: 'La géolocalisation n\'est pas prise en charge par votre navigateur.'})
     }
