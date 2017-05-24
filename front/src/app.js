@@ -27,7 +27,6 @@ class App extends Component {
     this.state = {
       marker: null,
       coords: null,
-      watchId: localStorage.getItem('watchId') || null,
       markers: this.loadMarkers(),
       geoOptions: {
         enableHighAccuracy: true,
@@ -113,11 +112,6 @@ class App extends Component {
     this.setStateAndUpdateLocalStorage(markers)
   }
 
-  componentWillUnmount() {
-    const { watchId } = this.state
-    navigator.geolocation.clearWatch(watchId)
-  }
-
   @bind
   displayMarker(e) {
     this.setStateAndUpdateMap({fullscreen: false, marker: e.target})
@@ -137,8 +131,7 @@ class App extends Component {
   updatePosition() {
     const { geoOptions } = this.state
     if ('geolocation' in navigator) {
-      const watchId = navigator.geolocation.watchPosition(this.geoSuccess, this.geoError, geoOptions)
-      this.setState({watchId})
+      navigator.geolocation.watchPosition(this.geoSuccess, this.geoError, geoOptions)
     } else {
       this.setState({error: 'La géolocalisation n\'est pas prise en charge par votre navigateur.'})
     }
