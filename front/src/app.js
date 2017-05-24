@@ -1,20 +1,33 @@
 const { h, render, Component } = preact
 const { bind } = decko
 
-let homeIcon = L.icon({
+/*
+  HELPERS
+*/
+const homeIcon = L.icon({
   iconUrl: 'home_icon.png',
   iconSize:     [43, 42],
   iconAnchor:   [22, 21],
 })
 
+function createMarker(coords, address) {
+  return L.marker([coords.latitude, coords.longitude], {icon: homeIcon, address})
+}
+
+function updateLocalStorage(markers) {
+  localStorage.setItem('markers', JSON.stringify(markers.getLayers().map(marker => {
+    const { lat, lng } = marker.getLatLng()
+    return {coords: {latitude: lat, longitude: lng}, address: marker.options.address}
+  })))
+}
+
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      address: null,
+      marker: null,
       coords: null,
-      watchId: null,
-      markers: [],
+      markers: this.loadMarkers(),
       geoOptions: {
         enableHighAccuracy: true,
         maximumAge: 3000,
@@ -28,86 +41,84 @@ class App extends Component {
     this.updatePosition()
   }
 
-  isAlreadyExist(newMarker) {
-    const { markers } = this.state
-    return markers.find(marker => marker.getLatLng() === newMarker.getLatLng())
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchId)		
+  }
+
+  loadMarkers() {
+    const markers = new L.FeatureGroup()
+    const markersSaved = JSON.parse(localStorage.getItem('markers') || null)
+
+    if (markersSaved) {
+      for (let i = 0; i < markersSaved.length; i++) {
+        const { coords, address } = markersSaved[i]
+        createMarker(coords, address).on('click', this.displayMarker).addTo(markers)
+      }
+    }
+
+    return markers
   }
 
   farEnough(newMarker) {
     const { markers } = this.state
-    for (let i = 0; i < markers.length; i++) {
-      if (markers[i].getLatLng().distanceTo(newMarker.getLatLng()) < 2) return false
+    for (let i = 0; i < markers.getLayers().length; i++) {
+      if (markers.getLayers()[i].getLatLng().distanceTo(newMarker.getLatLng()) < 2) return false
     }
     return true
   }
 
   @bind
+  setStateAndUpdateMap(state) {
+    this.setState(state, () => this.map.forceUpdate())
+  }
+
+  @bind
+  saveMarkers(markers) {
+    this.setState({markers}, () => updateLocalStorage(markers))
+  }
+
+  @bind
   openForm() {
-    this.setState({fullscreen: false})
+    this.setStateAndUpdateMap({fullscreen: false})
   }
 
   @bind
   closeForm() {
-    this.setState({
-      fullscreen: true,
-      address: '',
-    })
+    this.setStateAndUpdateMap({fullscreen: true, marker: null})
   }
 
   @bind
   addAddress(coords, address) {
     const { markers } = this.state
-    const newMarker = L.marker([coords.latitude, coords.longitude], {icon: homeIcon, address})
+    const newMarker = createMarker(coords, address)
 
-    if (!this.farEnough(newMarker) || this.isAlreadyExist(newMarker)) return
-    const markersCopy = [...markers]
-    markersCopy.push(newMarker)
-
-    this.closeForm()
-    this.setState({markers: markersCopy})
-  }
-
-  @bind
-  removeAddress(address) {
-    const { markers } = this.state
-    const markersCopy = [...markers]
-
-    for (let i = 0; i < markersCopy.length; i++) {
-      if (markersCopy[i].options.address === address) {
-        markersCopy[i].remove()
-        markersCopy.splice(markersCopy[i], 1)
-      }
-    }
+    if (!this.farEnough(newMarker) || markers.hasLayer(newMarker)) return
+    newMarker.on('click', this.displayMarker).addTo(markers)
 
     this.closeForm()
-    this.setState({markers: markersCopy})
+    this.saveMarkers(markers)
   }
 
   @bind
-  editAddress(address, newAddress) {
+  removeAddress(marker) {
     const { markers } = this.state
-    const markersCopy = [...markers]
+    markers.removeLayer(marker)
 
-    for (let i = 0; i < markersCopy.length; i++) {
-      if (markersCopy[i].options.address === address) {
-        markersCopy[i].options.address = newAddress
-      }
-    }
-
-    this.setState({markers: markersCopy})
-  }
-
-  componentWillUnmount() {
-    const { watchId } = this.state
-    navigator.geolocation.clearWatch(watchId)
+    updateLocalStorage(markers)
+    this.closeForm()
+    this.setState({markers})
   }
 
   @bind
-  displayAddress(e) {
-    this.setState({
-      fullscreen: false,
-      address: e.target.options.address,
-    })
+  editAddress(marker, newAddress) {
+    const { markers } = this.state
+    marker.options.address = newAddress
+    this.saveMarkers(markers)
+  }
+
+  @bind
+  displayMarker(e) {
+    this.setStateAndUpdateMap({fullscreen: false, marker: e.target})
   }
 
   @bind
@@ -124,25 +135,24 @@ class App extends Component {
   updatePosition() {
     const { geoOptions } = this.state
     if ('geolocation' in navigator) {
-      const watchId = navigator.geolocation.watchPosition(this.geoSuccess, this.geoError, geoOptions)
-      this.setState({watchId})
+      this.watchId = navigator.geolocation.watchPosition(this.geoSuccess, this.geoError, geoOptions)
     } else {
       this.setState({error: 'La géolocalisation n\'est pas prise en charge par votre navigateur.'})
     }
   }
 
   render() {
-    const { coords, markers, fullscreen, address, error } = this.state
+    const { coords, markers, fullscreen, marker, error } = this.state
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
 
     return (
       <div class="container">
-        <LeafletMap onShowAddress={this.displayAddress} onCloseForm={this.closeForm} coords={coords} markers={markers} fullscreen={fullscreen} />
+        <LeafletMap ref={ref => this.map = ref} onShowAddress={this.displayMarker} onCloseForm={this.closeForm} coords={coords} markers={markers} fullscreen={fullscreen} />
         <Locator accuracy={coords.accuracy} fullscreen={fullscreen} />
         {fullscreen ?
           <AddAddressButton action={this.openForm} /> :
-          <Menu address={address} coords={coords} createAddress={this.addAddress} editAddress={this.editAddress} removeAddress={this.removeAddress} />
+          <Menu marker={marker} coords={coords} createAddress={this.addAddress} editAddress={this.editAddress} removeAddress={this.removeAddress} />
         }
       </div>
     )
