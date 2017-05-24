@@ -41,9 +41,18 @@ class App extends Component {
     navigator.geolocation.clearWatch(this.watchId)
   }
 
+  @bind
   createMarker(coords, address) {
-    return L.marker([coords.latitude, coords.longitude], {icon: homeIcon, address})
+    const marker = L.marker([coords.latitude, coords.longitude], {draggable: true, icon: homeIcon, address})
       .on('click', this.displayMarker)
+      .on('dragend', e => {
+        const marker = e.target
+        const position = marker.getLatLng()
+        marker.setLatLng(new L.LatLng(position.lat, position.lng), {draggable:'true'})
+        this.saveMarkers()
+      })
+
+      return marker
   }
 
   loadMarkers() {
@@ -74,7 +83,8 @@ class App extends Component {
   }
 
   @bind
-  saveMarkers(markers) {
+  saveMarkers() {
+    const { markers } = this.state
     this.setState({markers}, () => updateLocalStorage(markers))
   }
 
@@ -97,7 +107,7 @@ class App extends Component {
     newMarker.addTo(markers)
 
     this.closeForm()
-    this.saveMarkers(markers)
+    this.saveMarkers()
   }
 
   @bind
@@ -114,7 +124,7 @@ class App extends Component {
   editAddress(marker, newAddress) {
     const { markers } = this.state
     marker.options.address = newAddress
-    this.saveMarkers(markers)
+    this.saveMarkers()
   }
 
   @bind
