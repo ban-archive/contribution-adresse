@@ -27,7 +27,6 @@ class LeafletMap extends Component {
   }
 
   updateMap() {
-    console.log('updateMap')
     const { latitude, longitude } = this.props.coords
 
     this.map.panTo([latitude, longitude])

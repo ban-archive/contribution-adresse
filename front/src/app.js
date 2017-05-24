@@ -4,7 +4,7 @@ const { bind } = decko
 /*
   HELPERS
 */
-let homeIcon = L.icon({
+const homeIcon = L.icon({
   iconUrl: 'home_icon.png',
   iconSize:     [43, 42],
   iconAnchor:   [22, 21],
@@ -65,16 +65,23 @@ class App extends Component {
   }
 
   @bind
+  setStateAndUpdateMap(state) {
+    this.setState(state, () => this.map.forceUpdate())
+  }
+
+  @bind
+  setStateAndUpdateLocalStorage(markers) {
+    this.setState({markers}, () => updateLocalStorage(markers))
+  }
+
+  @bind
   openForm() {
-    this.setState({fullscreen: false}, () => this.map.forceUpdate())
+    this.setStateAndUpdateMap({fullscreen: false})
   }
 
   @bind
   closeForm() {
-    this.setState({
-      fullscreen: true,
-      marker: null,
-    }, () => this.map.forceUpdate())
+    this.setStateAndUpdateMap({fullscreen: true, marker: null})
   }
 
   @bind
@@ -86,7 +93,7 @@ class App extends Component {
     newMarker.on('click', this.displayMarker).addTo(markers)
 
     this.closeForm()
-    this.setState({markers}, () => updateLocalStorage(markers))
+    this.setStateAndUpdateLocalStorage(markers)
   }
 
   @bind
@@ -103,7 +110,7 @@ class App extends Component {
   editAddress(marker, newAddress) {
     const { markers } = this.state
     marker.options.address = newAddress
-    this.setState({markers}, () => updateLocalStorage(markers))
+    this.setStateAndUpdateLocalStorage(markers)
   }
 
   componentWillUnmount() {
@@ -113,10 +120,7 @@ class App extends Component {
 
   @bind
   displayMarker(e) {
-    this.setState({
-      fullscreen: false,
-      marker: e.target,
-    }, () => this.map.forceUpdate())
+    this.setStateAndUpdateMap({fullscreen: false, marker: e.target})
   }
 
   @bind

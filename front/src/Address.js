@@ -57,8 +57,8 @@ class Address extends Component {
               </div>
             ) : (
               <div class="address">
-                <div>{newAddress.street.length ? newAddress.street : street}</div>
-                <div>{newAddress.town.length ? newAddress.town : town}</div>
+                <div>{newAddress.street ? newAddress.street : street}</div>
+                <div>{newAddress.town ? newAddress.town : town}</div>
               </div>
             )}
         </div>
