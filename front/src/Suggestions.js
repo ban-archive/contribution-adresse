@@ -1,10 +1,10 @@
 class Suggestions extends Component {
   render() {
-    const { suggestions  } = this.props
-
+    const { suggestions, selectNumber, selectStreet, active } = this.props
     return (
       <div class="Suggestions">
-        {suggestions.map(suggestion => <div class="suggestion">{suggestion}</div>)}
+        {suggestions[active].map(suggestion =>
+          <div class="suggestion" onClick={active === 'numbers' ? () => selectNumber(suggestion) : () => selectStreet(suggestion)}>{suggestion}</div>)}
       </div>
     )
   }
