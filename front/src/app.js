@@ -119,7 +119,6 @@ class App extends Component {
 
   @bind
   displayMarker(e) {
-    console.log('displayMarker');
     this.setStateAndUpdateMap({fullscreen: false, marker: e.target})
   }
 
@@ -143,7 +142,7 @@ class App extends Component {
   }
 
   render() {
-    const { coords, markers, address, fullscreen, error } = this.state
+    const { coords, markers, marker, fullscreen, error } = this.state
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
 
@@ -156,7 +155,7 @@ class App extends Component {
         <Locator accuracy={coords.accuracy} fullscreen={fullscreen} />
         {fullscreen ?
           <Dashboard speed={speed} accuracy={accuracy} openForm={this.openForm}/> :
-          <Menu address={address} coords={coords} createAddress={this.addAddress} editAddress={this.editAddress} removeAddress={this.removeAddress} />
+          <Menu marker={marker} coords={coords} createAddress={this.addAddress} editAddress={this.editAddress} removeAddress={this.removeAddress} />
         }
       </div>
     )
