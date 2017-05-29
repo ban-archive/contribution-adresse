@@ -4,33 +4,75 @@ class CreateAddress extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      activeInput: 'numbers',
+      number: '',
+      compl: '',
       street: '',
+      numbers: [],
+      streets: [],
     }
   }
 
+  componentDidMount() {
+      this.getNumbersSuggestions(),
+      this.getStreetsSuggestions()
+  }
+
   @bind
-  handleChange(e) {
-    this.setState({street: e.target.value})
+  getNumbersSuggestions() {
+    this.setState({numbers: [8, 10, 12, 14, 16, 1, 5, 7, 9, 11]})
+  }
+
+  @bind
+  getStreetsSuggestions() {
+    this.setState({streets: ['rue de Javel', 'avenue Émile Zola', 'Quai André Citroën', 'port de Javel Haut']})
+  }
+
+  @bind
+  handleStreetChange(e) {
+    this.setStreet(e.target.value)
+  }
+
+  @bind
+  handleNumberChange(e) {
+    this.setNumber(e.target.value)
+  }
+
+  @bind
+  setNumber(number) {
+    this.setState({number})
+  }
+
+  @bind
+  setStreet(street) {
+    this.setState({street})
+  }
+
+  @bind
+  selectInput(input) {
+    this.setState({activeInput: input})
   }
 
   @bind
   add() {
-    const { street } = this.state
+    const { number, street } = this.state
     const { coords, createAddress } = this.props
 
-    createAddress(coords, {street, town: '28100 Dreux'})
+    createAddress(coords, {number, street})
   }
 
   render() {
-    const { street } = this.state
+    const { activeInput, number, street, numbers, streets, error } = this.state
+    if (error) return <Error error={error}/>
 
     return (
       <div>
-        <div class="searchbar">
-          <input type="text" value={street} onInput={this.handleChange} />
-          <img src="location_logo.png" alt="location_logo" />
+        <div class="address-form">
+          <input class="number-input" type="text" placeholder="N°" value={number} onInput={this.handleNumberChange} onClick={() => this.selectInput('numbers')} />
+          <input class="street-input" type="text" placeholder="Nom de la voie" value={street} onInput={this.handleStreetChange} onClick={() => this.selectInput('streets')} />
         </div>
-        {street.length ? <div onClick={this.add} class="create-button">Créer le {street}</div> : null}
+        {number && street ? <div onClick={this.add} class="create-button">Créer le {number} {street}</div> : null}
+        <Suggestions suggestions={{numbers, streets}} selectNumber={this.setNumber} selectStreet={this.setStreet} activeInput={activeInput} />
       </div>
     )
   }

@@ -118,24 +118,29 @@ html, body, .container, #map {
   position: absolute;
   top: 50%;
   background-color: #fff;
+  margin-top: 10px;
 }
 
-.searchbar {
+.address-form {
   display: flex;
-  justify-content: center;
-
-  border: 1px solid #ccc;
-  margin: 10px;
+  justify-content: space-around;
 }
 
-.searchbar input {
-  width: 80%;
-  padding-left: 10px;
+.address-form input {
+  border-bottom: 3px solid whitesmoke;
+  height: 36px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
   font-size: larger;
 }
 
-input:focus{
-  outline: none;
+.number-input {
+  width: 16%;
+}
+
+.street-input {
+  width: 60%;
 }
 
 .searchbar img {
@@ -200,6 +205,29 @@ button.edit {
 
 .divider {
   border-top: 3px solid whitesmoke;
+}
+
+/* Suggestions */
+
+.Suggestions {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+
+.suggestion {
+  margin: 0.5em 1em;
+  padding: 10px 0 10px 0;
+  border-bottom: 1px solid #9B9B9B;
+  text-align: left;
+  color: #9B9B9B;
+  font-weight: 700;
+  font-size: larger;
+}
+
+.suggestion:active {
+  color: #fff;
+  background-color: #3F4DAB;
 }
 
 /* Error */

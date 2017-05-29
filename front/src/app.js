@@ -42,7 +42,7 @@ class App extends Component {
   }
 
   componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchId)		
+    navigator.geolocation.clearWatch(this.watchId)
   }
 
   loadMarkers() {
@@ -128,7 +128,6 @@ class App extends Component {
 
   @bind
   geoSuccess(position) {
-    console.log('updatePosition to :', position.coords)
     this.setState({coords: position.coords})
   }
 

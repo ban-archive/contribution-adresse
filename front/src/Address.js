@@ -4,7 +4,7 @@ class Address extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      newAddress: {street: '', town: ''},
+      newAddress: {street: '', number: ''},
       editInput: false,
     }
   }
@@ -23,17 +23,17 @@ class Address extends Component {
   }
 
   @bind
-  changeTown(e) {
+  changeNumber(e) {
     const { street } = this.props.marker.options.address
     const { newAddress } = this.state
-    this.setState({newAddress: {street: newAddress.street ? newAddress.street : street, town: e.target.value}})
+    this.setState({newAddress: {street: newAddress.street ? newAddress.street : street, number: e.target.value}})
   }
 
   @bind
   changeStreet(e) {
-    const { town } = this.props.marker.options.address
+    const { number } = this.props.marker.options.address
     const { newAddress } = this.state
-    this.setState({newAddress: {town: newAddress.town ? newAddress.town : town, street: e.target.value}})
+    this.setState({newAddress: {number: newAddress.number ? newAddress.number : number, street: e.target.value}})
   }
 
   @bind
@@ -42,7 +42,7 @@ class Address extends Component {
   }
 
   render() {
-    const { street, town } = this.props.marker.options.address
+    const { street, number } = this.props.marker.options.address
     const { editInput, newAddress } = this.state
 
     return (
@@ -51,14 +51,14 @@ class Address extends Component {
           <img class="location_logo" src="location_logo.png" alt="location_logo" />
             {editInput ? (
               <div class="address">
+                <input type="text" defaultValue={number} onChange={this.changeNumber} />
                 <input type="text" defaultValue={street} onChange={this.changeStreet} />
-                <input type="text" defaultValue={town} onChange={this.changeTown} />
                 <button onClick={this.edit}>Enregister</button>
               </div>
             ) : (
               <div class="address">
+                <div>{newAddress.number ? newAddress.number : number}</div>
                 <div>{newAddress.street ? newAddress.street : street}</div>
-                <div>{newAddress.town ? newAddress.town : town}</div>
               </div>
             )}
         </div>
