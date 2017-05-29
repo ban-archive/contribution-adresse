@@ -14,10 +14,10 @@ html, body, .container, #map {
 
 #map {
   zoom: 1.5;
-  position:absolute;
+  position: absolute;
   top:0;
   left:0;
-  z-index: -1;
+  z-index: 0;
 }
 
 /* Locator */
@@ -97,6 +97,7 @@ html, body, .container, #map {
 /* Menu */
 
 .Menu {
+  z-index: 1;
   width: 100%;
   height: 100%;
   position: absolute;
