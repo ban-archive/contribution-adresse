@@ -206,6 +206,11 @@ button.edit {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  height: 68px;
+  background-color: rgba(256, 256, 256, 0.8);
 }
 
 .suggestion {
