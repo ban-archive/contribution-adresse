@@ -4,36 +4,20 @@ body {
   font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
 }
 
+html, body {
+  height: 100%;
+}
+
 html, body, .container, #map {
   width: 100%;
 }
 
 #map {
   zoom: 1.5;
-  position:absolute;
+  position: absolute;
   top:0;
   left:0;
-  z-index: -1;
-}
-
-/* AddAddressButton: */
-
-.AddAddressButton {
-  display: flex;
-  width: 50px;
-  height: 50px;
-  border-radius: 100%;
-  background: #3F4DAB;
-  box-shadow: 0 2px 20px 0 rgba(0,0,0,0.50), inset 0 1px 3px 0 rgba(0,0,0,0.50);
-  margin: 1em;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  margin: 0 0 20px -25px;
-}
-
-.AddAddressButton img {
-  position: absolute;
+  z-index: 0;
 }
 
 /* Locator */
@@ -113,12 +97,13 @@ html, body, .container, #map {
 /* Menu */
 
 .Menu {
+  z-index: 1;
   width: 100%;
   height: 100%;
   position: absolute;
   top: 50%;
-  background-color: #fff;
   margin-top: 10px;
+  background-color: rgba(256, 256, 256, 0.8);
 }
 
 .address-form {
@@ -215,6 +200,19 @@ button.edit {
   flex-direction: column;
 }
 
+/* Dashboard */
+
+.Dashboard {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  height: 68px;
+  background-color: rgba(256, 256, 256, 0.8);
+}
+
 .suggestion {
   margin: 0.5em 1em;
   padding: 10px 0 10px 0;
@@ -228,6 +226,41 @@ button.edit {
 .suggestion:active {
   color: #fff;
   background-color: #3F4DAB;
+}
+
+/* AddAddressButton: */
+
+.AddAddressButton {
+  display: flex;
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  background: #3F4DAB;
+  box-shadow: 0 2px 20px 0 rgba(0,0,0,0.50), inset 0 1px 3px 0 rgba(0,0,0,0.50);
+  margin: 9px;
+}
+
+.AddAddressButton img {
+  width: 60px;
+}
+
+.measures {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.measures img {
+  width: 30px;
+  margin: 3px;
+}
+
+.circle {
+  width: 78px;
+  height: 78px;
+  border-radius: 100%;
+  background: rgba(256, 256, 256, 1);
 }
 
 /* Error */

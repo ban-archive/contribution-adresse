@@ -10,10 +10,6 @@ const homeIcon = L.icon({
   iconAnchor:   [22, 21],
 })
 
-function createMarker(coords, address) {
-  return L.marker([coords.latitude, coords.longitude], {icon: homeIcon, address})
-}
-
 function updateLocalStorage(markers) {
   localStorage.setItem('markers', JSON.stringify(markers.getLayers().map(marker => {
     const { lat, lng } = marker.getLatLng()
@@ -45,6 +41,11 @@ class App extends Component {
     navigator.geolocation.clearWatch(this.watchId)
   }
 
+  createMarker(coords, address) {
+    return L.marker([coords.latitude, coords.longitude], {icon: homeIcon, address})
+      .on('click', this.displayMarker)
+  }
+
   loadMarkers() {
     const markers = new L.FeatureGroup()
     const markersSaved = JSON.parse(localStorage.getItem('markers') || null)
@@ -52,7 +53,7 @@ class App extends Component {
     if (markersSaved) {
       for (let i = 0; i < markersSaved.length; i++) {
         const { coords, address } = markersSaved[i]
-        createMarker(coords, address).on('click', this.displayMarker).addTo(markers)
+        this.createMarker(coords, address).addTo(markers)
       }
     }
 
@@ -90,10 +91,10 @@ class App extends Component {
   @bind
   addAddress(coords, address) {
     const { markers } = this.state
-    const newMarker = createMarker(coords, address)
+    const newMarker = this.createMarker(coords, address)
 
     if (!this.farEnough(newMarker) || markers.hasLayer(newMarker)) return
-    newMarker.on('click', this.displayMarker).addTo(markers)
+    newMarker.addTo(markers)
 
     this.closeForm()
     this.saveMarkers(markers)
@@ -141,16 +142,19 @@ class App extends Component {
   }
 
   render() {
-    const { coords, markers, fullscreen, marker, error } = this.state
+    const { coords, markers, marker, fullscreen, error } = this.state
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
 
+    const speed = Number((coords.speed || 0).toFixed())
+    const accuracy = Number((coords.accuracy || 0).toFixed())
+
     return (
       <div class="container">
-        <LeafletMap ref={ref => this.map = ref} onShowAddress={this.displayMarker} onCloseForm={this.closeForm} coords={coords} markers={markers} fullscreen={fullscreen} />
+        <LeafletMap ref={ref => this.map = ref} onCloseForm={this.closeForm} coords={coords} markers={markers} fullscreen={fullscreen} />
         <Locator accuracy={coords.accuracy} fullscreen={fullscreen} />
         {fullscreen ?
-          <AddAddressButton action={this.openForm} /> :
+          <Dashboard speed={speed} accuracy={accuracy} openForm={this.openForm}/> :
           <Menu marker={marker} coords={coords} createAddress={this.addAddress} editAddress={this.editAddress} removeAddress={this.removeAddress} />
         }
       </div>
