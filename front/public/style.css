@@ -118,7 +118,7 @@ html, body, .container, #map {
   position: absolute;
   top: 50%;
   background-color: #fff;
-  padding: 10px;
+  margin-top: 10px;
 }
 
 /*.searchbar {
