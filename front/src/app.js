@@ -141,7 +141,7 @@ class App extends Component {
   }
 
   render() {
-    const { coords, markers, fullscreen, marker, error } = this.state
+    const { coords, markers, address, fullscreen, marker, error } = this.state
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
 
