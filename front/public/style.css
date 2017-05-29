@@ -121,23 +121,6 @@ html, body, .container, #map {
   margin-top: 10px;
 }
 
-/*.searchbar {
-  display: flex;
-  justify-content: center;
-  width: 94%;
-  border: 1px solid #ccc;
-}
-
-.searchbar input {
-  width: 80%;
-  padding-left: 10px;
-  font-size: larger;
-}*/
-
-/*input:focus{
-  outline: none;
-}*/
-
 .address-form {
   display: flex;
   justify-content: space-around;
@@ -240,6 +223,11 @@ button.edit {
   color: #9B9B9B;
   font-weight: 700;
   font-size: larger;
+}
+
+.suggestion:active {
+  color: #fff;
+  background-color: #3F4DAB;
 }
 
 /* Error */

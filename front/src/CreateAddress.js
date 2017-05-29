@@ -4,7 +4,7 @@ class CreateAddress extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      active: 'numbers',
+      activeInput: 'numbers',
       number: '',
       compl: '',
       street: '',
@@ -21,21 +21,11 @@ class CreateAddress extends Component {
   @bind
   getNumbersSuggestions() {
     this.setState({numbers: [8, 10, 12, 14, 16, 1, 5, 7, 9, 11]})
-    // const { latitude, longitude } = this.props.coords
-    // fetch(`https://geo.api.gouv.fr/communes?lat=${latitude}&lon=${longitude}`)
-    //   .then(response => response.json())
-    //   .then(result => this.setState({numbers: result}))
-    //   .catch(error => this.setState({error}))
   }
 
   @bind
   getStreetsSuggestions() {
     this.setState({streets: ['rue de Javel', 'avenue Émile Zola', 'Quai André Citroën', 'port de Javel Haut']})
-    // const { latitude, longitude } = this.props.coords
-    // fetch(`https://geo.api.gouv.fr/communes?lat=${latitude}&lon=${longitude}`)
-    //   .then(response => response.json())
-    //   .then(result => this.setState({numbers: result}))
-    //   .catch(error => this.setState({error}))
   }
 
   @bind
@@ -60,7 +50,7 @@ class CreateAddress extends Component {
 
   @bind
   selectInput(input) {
-    this.setState({active: input})
+    this.setState({activeInput: input})
   }
 
   @bind
@@ -72,7 +62,7 @@ class CreateAddress extends Component {
   }
 
   render() {
-    const { active, number, street, numbers, streets, error } = this.state
+    const { activeInput, number, street, numbers, streets, error } = this.state
     if (error) return <Error error={error}/>
 
     return (
@@ -82,7 +72,7 @@ class CreateAddress extends Component {
           <input class="street-input" type="text" placeholder="Nom de la voie" value={street} onInput={this.handleStreetChange} onClick={() => this.selectInput('streets')} />
         </div>
         {number && street ? <div onClick={this.add} class="create-button">Créer le {number} {street}</div> : null}
-        <Suggestions suggestions={{numbers, streets}} selectNumber={this.setNumber} selectStreet={this.setStreet} active={active} />
+        <Suggestions suggestions={{numbers, streets}} selectNumber={this.setNumber} selectStreet={this.setStreet} activeInput={activeInput} />
       </div>
     )
   }

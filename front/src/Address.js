@@ -23,7 +23,7 @@ class Address extends Component {
   }
 
   @bind
-  changeTown(e) {
+  changeNumber(e) {
     const { street } = this.props.marker.options.address
     const { newAddress } = this.state
     this.setState({newAddress: {street: newAddress.street ? newAddress.street : street, number: e.target.value}})
@@ -51,7 +51,7 @@ class Address extends Component {
           <img class="location_logo" src="location_logo.png" alt="location_logo" />
             {editInput ? (
               <div class="address">
-                <input type="text" defaultValue={number} onChange={this.changeTown} />
+                <input type="text" defaultValue={number} onChange={this.changeNumber} />
                 <input type="text" defaultValue={street} onChange={this.changeStreet} />
                 <button onClick={this.edit}>Enregister</button>
               </div>
