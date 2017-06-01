@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="923px" height="528px" viewBox="0 0 923 528" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>GPS</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="364.174187 315.158562 391.995524 302.654035 406.610499 321.054965 401.144093 333.114667 381.467998 338.744175"></polygon>
+        <filter x="-16.5%" y="-13.9%" width="133.0%" height="138.8%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <polygon id="path-3" points="291.524369 316.250854 320.171103 347.017922 302.7735 348.762624 291.237704 333.35685"></polygon>
+        <filter x="-24.2%" y="-15.4%" width="148.4%" height="143.1%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <polygon id="path-5" points="383.122367 398.73625 435.315175 423.725534 415.248622 469.616653 376.870104 462.291867 361.177664 433.373295"></polygon>
+        <filter x="-9.4%" y="-7.1%" width="118.9%" height="119.8%" filterUnits="objectBoundingBox" id="filter-6">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <polygon id="path-7" points="163.681644 89.1330589 188.048172 116.163596 172.751133 124.348377 146.466913 110.662592"></polygon>
+        <filter x="-16.8%" y="-14.2%" width="133.7%" height="139.8%" filterUnits="objectBoundingBox" id="filter-8">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <polygon id="path-9" points="451.445147 433.303759 457.979133 442.808188 461.883708 435.102829"></polygon>
+        <filter x="-67.1%" y="-52.6%" width="234.1%" height="247.3%" filterUnits="objectBoundingBox" id="filter-10">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <ellipse id="path-11" cx="249.852202" cy="269.446394" rx="25.8522017" ry="24.4463942"></ellipse>
+        <ellipse id="path-12" cx="60.8522017" cy="156.446394" rx="25.8522017" ry="24.4463942"></ellipse>
+        <rect id="path-13" x="11" y="12" width="200" height="133"></rect>
+        <rect id="path-14" x="168" y="150" width="16" height="9"></rect>
+    </defs>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="GPS">
+            <polygon id="Path-2" fill="#000000" points="0 30 101.020005 58.5869542 125.15349 137.885601 190.810585 176.891147 247.344791 365.012537 336.22675 409.176448 408.574235 528.181461 0.301515766 527.969585"></polygon>
+            <g id="Path-4">
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                <use fill="#000000" fill-rule="evenodd" xlink:href="#path-1"></use>
+            </g>
+            <polygon id="Path-5" fill="#000000" points="207.042203 45.6687071 221.770855 64.1190625 202.74717 80.9482776 201.867405 61.7170071"></polygon>
+            <g id="Path-7">
+                <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                <use fill="#000000" fill-rule="evenodd" xlink:href="#path-3"></use>
+            </g>
+            <g id="Path-8">
+                <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
+                <use fill="#000000" fill-rule="evenodd" xlink:href="#path-5"></use>
+            </g>
+            <polygon id="Path-9" fill="#000000" points="284.644408 259.036465 296.363077 266.736882 285.89486 268.951122"></polygon>
+            <g id="Path-3">
+                <use fill="black" fill-opacity="1" filter="url(#filter-8)" xlink:href="#path-7"></use>
+                <use fill="#000000" fill-rule="evenodd" xlink:href="#path-7"></use>
+            </g>
+            <polygon id="Path-6" fill="#000000" points="246.908414 226.069985 263.772227 243.220463 280.433397 227.018945 271.868043 213.708791 256.175603 215.908204"></polygon>
+            <g id="Path-10">
+                <use fill="black" fill-opacity="1" filter="url(#filter-10)" xlink:href="#path-9"></use>
+                <use fill="#000000" fill-rule="evenodd" xlink:href="#path-9"></use>
+            </g>
+            <g id="voiture" transform="translate(195.000000, 4.000000)">
+                <path d="M95.0471487,182.133454 C106.279805,159.388065 102.185767,141.799353 82.7650343,129.367316 C63.3443013,116.935279 44.1047932,121.230312 25.0465103,142.252415 C15.4709866,139.250027 8.61573803,134.954994 4.48076457,129.367316 C0.345791106,123.779638 -0.217653982,118.049632 2.7904293,112.177298 L36.5625371,56.638417 C80.807804,19.9749462 110.106949,1.64321088 124.459971,1.64321088 C138.812993,1.64321088 144.159131,1.40926584 140.498386,0.941375767 L287.859046,84.4745813 C293.344202,90.4839766 296.606252,96.9372351 297.645198,103.834357 C298.684143,110.731479 300.427199,137.505005 302.874364,184.154937 L366.266879,239.950828 C370.805073,245.523427 372.052231,250.7147 370.008352,255.524648 C366.942533,262.73957 340.728977,311.572607 335.143951,313.193747 C331.420601,314.274507 326.10247,313.734127 319.189559,311.572607 L285.778253,290.744908 C297.17566,266.085125 291.972854,247.634769 270.169836,235.393842 C248.366818,223.152915 230.30033,229.273379 215.970373,253.755233 L95.0471487,182.133454 Z M87.2676525,56.865772 L165.403647,103.424129 L193.897164,59.8411575 C156.844541,37.2736989 135.545486,25.9899697 130,25.9899697 C124.454514,25.9899697 110.210398,36.2819038 87.2676525,56.865772 Z M215.619455,67.9616862 L189.473626,113.526601 L271.746494,164.982976 C271.746494,126.019595 270.225851,104.172094 267.184566,99.4404736 C264.14328,94.7088529 246.95491,84.2159238 215.619455,67.9616862 Z" id="Path-12" stroke="#979797" stroke-width="1" fill="#000000" fill-rule="evenodd"></path>
+                <g id="Path">
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-11"></use>
+                    <ellipse stroke="#000000" stroke-width="17" cx="249.852202" cy="269.446394" rx="34.3522017" ry="32.9463942"></ellipse>
+                </g>
+                <g id="Path">
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-12"></use>
+                    <ellipse stroke="#000000" stroke-width="17" cx="60.8522017" cy="156.446394" rx="34.3522017" ry="32.9463942"></ellipse>
+                </g>
+            </g>
+            <text id="Vous-êtes-arrivé-!" font-family="AvenirNext-DemiBold, Avenir Next" font-size="48" font-weight="500" fill="#3F4DAB">
+                <tspan x="645.704" y="349">Vous êtes </tspan>
+                <tspan x="674.648" y="415">arrivé !</tspan>
+            </text>
+            <g id="gps" transform="translate(640.000000, 80.000000)">
+                <g id="Group" stroke-width="1" fill-rule="evenodd">
+                    <rect id="Rectangle" fill="#000000" x="0" y="0" width="224" height="163" rx="8"></rect>
+                    <g id="Rectangle-2">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-13"></use>
+                        <rect stroke="#FFFFFF" stroke-width="2" x="12" y="13" width="198" height="131"></rect>
+                    </g>
+                    <g id="Rectangle-3">
+                        <use fill="#D8D8D8" fill-rule="evenodd" xlink:href="#path-14"></use>
+                        <rect stroke="#979797" stroke-width="1" x="168.5" y="150.5" width="15" height="8"></rect>
+                    </g>
+                    <rect id="Rectangle-3" fill="#FFFFFF" x="168" y="150" width="16" height="9"></rect>
+                    <rect id="Rectangle-3" fill="#FFFFFF" x="11" y="150" width="60" height="9"></rect>
+                    <rect id="Rectangle-3" fill="#FFFFFF" x="195" y="150" width="16" height="9"></rect>
+                    <path d="M112.5,12.5 L112.5,146.5" id="Line" stroke="#000000" stroke-width="17" stroke-linecap="square"></path>
+                    <path d="M210.5,12.5 L11.5,51.5" id="Line" stroke="#000000" stroke-width="17" stroke-linecap="square"></path>
+                    <path d="M52.5,49.5 L11.5,136.5" id="Line" stroke="#000000" stroke-width="17" stroke-linecap="square"></path>
+                    <circle id="Oval-5" stroke="#000000" stroke-width="2" fill="#FFFFFF" cx="112.5" cy="116.5" r="16.5"></circle>
+                    <polygon id="Path-11" fill="#000000" points="112.586503 101.093168 125.830363 127.193037 112.482423 121.548001 99.1344823 127.069365"></polygon>
+                </g>
+                <path d="M48.5,74.5 L108.5,74.5" id="Line" stroke="#000000" stroke-width="5" stroke-linecap="square"></path>
+                <path d="M118.5,93 L217.5,93" id="Line" stroke="#000000" stroke-width="12" stroke-linecap="square"></path>
+            </g>
+            <ellipse id="Oval-5" fill="#000000" cx="434.5" cy="112" rx="22.5" ry="23"></ellipse>
+            <ellipse id="Oval-5" fill="#000000" cx="408.5" cy="147" rx="22.5" ry="23"></ellipse>
+        </g>
+    </g>
+</svg>

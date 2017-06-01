@@ -10,7 +10,7 @@ class Welcome extends Component {
           <p>Ras-le-bol que personne ne trouve votre adresse ?</p>
         </div>
         <div class="slogan">
-          <div><img class="gps" src="gps.png" /></div>
+          <div><img class="gps" src="gps.svg" /></div>
           <div><button onClick={skip}>Je veux contribuer !</button></div>
         </div>
       </div>
