@@ -1,5 +1,11 @@
 const { h, Component } = preact
 
+const homeIcon = L.icon({
+  iconUrl: 'home_icon.png',
+  iconSize:     [43, 42],
+  iconAnchor:   [22, 21],
+})
+
 class LeafletMap extends Component {
   componentDidMount() {
     const { coords, onCloseForm, fullscreen } = this.props
@@ -18,19 +24,53 @@ class LeafletMap extends Component {
       maxZoom: 20,
     }).addTo(this.map)
 
-    this.props.markers.addTo(this.map)
+    this.markers = new L.FeatureGroup()
+    this.markers.addTo(this.map)
+
     this.updateMap()
+    this.updateMarkers()
   }
 
   componentWillUpdate() {
-    if (this.map) this.updateMap()
+    if (this.map) {
+      this.updateMap()
+      this.updateMarkers()
+    }
+  }
+
+  createMarker(address) {
+    const { displayAddress } = this.props
+    const options = {icon: homeIcon, address: address.address, id: address.id}
+    return new L.marker([address.coords.latitude, address.coords.longitude], options)
+      .on('click', displayAddress)
   }
 
   updateMap() {
     const { latitude, longitude } = this.props.coords
-
     this.map.panTo([latitude, longitude])
     this.map.invalidateSize(true) // Check if Checks if the map container size changed and updates the map
+  }
+
+  updateMarkers() {
+    const { addresses } = this.props
+    const markerToRemove = this.markers.getLayers().filter(marker => !addresses.find(address => address === marker))
+    markerToRemove.map(marker => this.markers.removeLayer(marker))
+
+    addresses.map(address => {
+      const marker = this.getMarker(address)
+      if (!marker) {
+        const newMarker = this.createMarker(address)
+        this.markers.addLayer(newMarker)
+      } else {
+        const latLng = new L.latLng(address.coords.latitude, address.coords.longitude)
+        marker.setLatLng(latLng)
+        marker.options.address = address.address
+      }
+    })
+  }
+
+  getMarker(address) {
+    this.markers.getLayers().find(marker => marker.options.id === address.id)
   }
 
   componentWillUnmount() {

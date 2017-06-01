@@ -1,29 +1,32 @@
 const { h, render, Component } = preact
 const { bind } = decko
 
-/*
-  HELPERS
-*/
-const homeIcon = L.icon({
-  iconUrl: 'home_icon.png',
-  iconSize:     [43, 42],
-  iconAnchor:   [22, 21],
-})
-
-function updateLocalStorage(markers) {
-  localStorage.setItem('markers', JSON.stringify(markers.getLayers().map(marker => {
-    const { lat, lng } = marker.getLatLng()
-    return {coords: {latitude: lat, longitude: lng}, address: marker.options.address}
-  })))
-}
+// [
+//   {
+//     id: '76517531867311',
+//     address: {
+//       houseNumber: '9c',
+//       street: 'rue du moulin'
+//     },
+//     coords: {
+//       accuracy : 30
+//       altitude : 100
+//       altitudeAccuracy
+//       heading
+//       latitude
+//       longitude
+//       speed
+//    }
+//   }
+// ]
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      marker: null,
-      coords: null,
-      markers: this.loadMarkers(),
+      selectedAddress: null,
+      userCoords: null,
+      addresses: [],
       geoOptions: {
         enableHighAccuracy: true,
         maximumAge: 3000,
@@ -31,6 +34,7 @@ class App extends Component {
       fullscreen: true,
       error: null,
     }
+    this.loadLocalStorage()
   }
 
   componentDidMount() {
@@ -41,23 +45,20 @@ class App extends Component {
     navigator.geolocation.clearWatch(this.watchId)
   }
 
-  createMarker(coords, address) {
-    return L.marker([coords.latitude, coords.longitude], {icon: homeIcon, address})
-      .on('click', this.displayMarker)
+  saveToLocalStorage() {
+    const { addresses, user } = this.state
+    localStorage.setItem('addresses', JSON.stringify(addresses))
+    localStorage.setItem('user', JSON.stringify(user))
   }
 
-  loadMarkers() {
-    const markers = new L.FeatureGroup()
-    const markersSaved = JSON.parse(localStorage.getItem('markers') || null)
+  loadLocalStorage() {
+    const addresses = JSON.parse(localStorage.getItem('addresses') || null)
+    const user = JSON.parse(localStorage.getItem('user') || '{"token": "null"}')
 
-    if (markersSaved) {
-      for (let i = 0; i < markersSaved.length; i++) {
-        const { coords, address } = markersSaved[i]
-        this.createMarker(coords, address).addTo(markers)
-      }
-    }
-
-    return markers
+    this.setState({
+      user,
+      addresses: addresses || []
+    })
   }
 
   farEnough(newMarker) {
@@ -70,12 +71,12 @@ class App extends Component {
 
   @bind
   setStateAndUpdateMap(state) {
-    this.setState(state, () => this.map.forceUpdate())
+    this.setState(state, () => this.leafletMap.forceUpdate())
   }
 
   @bind
-  saveMarkers(markers) {
-    this.setState({markers}, () => updateLocalStorage(markers))
+  saveAddresses(addresses) {
+    this.setState({addresses}, () => this.saveToLocalStorage(addresses))
   }
 
   @bind
@@ -85,41 +86,50 @@ class App extends Component {
 
   @bind
   closeForm() {
-    this.setStateAndUpdateMap({fullscreen: true, marker: null})
+    this.setStateAndUpdateMap({fullscreen: true, selectedAddress: null})
   }
 
   @bind
-  addAddress(coords, address) {
-    const { markers } = this.state
-    const newMarker = this.createMarker(coords, address)
-
-    if (!this.farEnough(newMarker) || markers.hasLayer(newMarker)) return
-    newMarker.addTo(markers)
-
+  addAddress(coordinates, address) {
+    const { addresses } = this.state
+    const newAddresses = [...addresses]
+    const coords = {
+      accuracy: coordinates.accuracy,
+      altitude: coordinates.altitude,
+      altitudeAccuracy: coordinates.altitudeAccuracy,
+      heading: coordinates.heading,
+      latitude: coordinates.latitude,
+      longitude: coordinates.longitude,
+      speed: coordinates.speed,
+    }
+    newAddresses.push({coords, address, id: `${address.houseNumber}_${address.street}`})
     this.closeForm()
-    this.saveMarkers(markers)
+    this.saveAddresses(newAddresses)
   }
 
   @bind
-  removeAddress(marker) {
-    const { markers } = this.state
-    markers.removeLayer(marker)
-
-    updateLocalStorage(markers)
+  removeAddress(address) {
+    const { addresses } = this.state
+    const newAddresses = [...addresses]
+    newAddresses.pop(address)
     this.closeForm()
-    this.setState({markers})
+    this.saveAddresses(newAddresses)
   }
 
   @bind
-  editAddress(marker, newAddress) {
-    const { markers } = this.state
-    marker.options.address = newAddress
-    this.saveMarkers(markers)
+  editAddress(address, newAddress) {
+    const { addresses } = this.state
+    const newAddresses = [...addresses]
+    const addressToEdit = newAddresses.find(addr => addr.id === address.id)
+    addressToEdit.address = newAddress
+    this.saveAddresses(newAddresses)
   }
 
   @bind
-  displayMarker(e) {
-    this.setStateAndUpdateMap({fullscreen: false, marker: e.target})
+  displayAddress(e) {
+    const { addresses } = this.state
+    const address = addresses.find(address => address.id === e.target.options.id)
+    this.setStateAndUpdateMap({fullscreen: false, selectedAddress: address})
   }
 
   @bind
@@ -142,7 +152,7 @@ class App extends Component {
   }
 
   render() {
-    const { coords, markers, marker, fullscreen, error } = this.state
+    const { coords, addresses, selectedAddress, fullscreen, error } = this.state
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
 
@@ -151,11 +161,11 @@ class App extends Component {
 
     return (
       <div class="container">
-        <LeafletMap ref={ref => this.map = ref} onCloseForm={this.closeForm} coords={coords} markers={markers} fullscreen={fullscreen} />
+        <LeafletMap ref={ref => this.leafletMap = ref} addresses={addresses} displayAddress={this.displayAddress} onCloseForm={this.closeForm} coords={coords} fullscreen={fullscreen} />
         <Locator accuracy={coords.accuracy} fullscreen={fullscreen} />
         {fullscreen ?
           <Dashboard speed={speed} accuracy={accuracy} openForm={this.openForm}/> :
-          <Menu marker={marker} coords={coords} createAddress={this.addAddress} editAddress={this.editAddress} removeAddress={this.removeAddress} />
+          <Menu selectedAddress={selectedAddress} coords={coords} createAddress={this.addAddress} editAddress={this.editAddress} removeAddress={this.removeAddress} />
         }
       </div>
     )

@@ -1,11 +1,11 @@
 class Menu extends Component {
   render() {
-    const { marker, coords, createAddress, editAddress, removeAddress } = this.props
+    const { selectedAddress, coords, createAddress, editAddress, removeAddress } = this.props
 
     return (
       <div class="Menu">
-        {marker ?
-          <Address marker={marker} editAddress={editAddress} removeAddress={removeAddress} /> :
+        {selectedAddress ?
+          <Address selectedAddress={selectedAddress} editAddress={editAddress} removeAddress={removeAddress} /> :
           <CreateAddress coords={coords} createAddress={createAddress} />}
       </div>
     )
