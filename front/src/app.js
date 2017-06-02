@@ -167,14 +167,12 @@ class App extends Component {
   @bind
   setToken() {
     const { user } = this.state
-    console.log(user);
     user.token = generateToken()
     this.setState({user}, localStorage.setItem('user', JSON.stringify(user)))
   }
 
   render() {
     const { user, coords, addresses, selectedAddress, fullscreen, error } = this.state
-    console.log(user);
     if (!user.token) return <Welcome skip={this.setToken}/>
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
