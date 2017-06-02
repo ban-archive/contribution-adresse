@@ -20,6 +20,19 @@ const { bind } = decko
 //   }
 // ]
 
+const stringArray = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','!','?']
+
+function generateToken() {
+  let rndString = ''
+
+  for (var i = 0; i <= 15; i++) {
+			var rndNum = Math.ceil(Math.random() * stringArray.length) - 1
+			rndString = rndString + stringArray[rndNum];
+		}
+
+  return rndString
+}
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -53,10 +66,10 @@ class App extends Component {
 
   loadLocalStorage() {
     const addresses = JSON.parse(localStorage.getItem('addresses') || null)
-    const user = JSON.parse(localStorage.getItem('user') || '{"token": "null"}')
+    const user = JSON.parse(localStorage.getItem('user') || null)
 
     this.setState({
-      user,
+      user: user || {token: null},
       addresses: addresses || []
     })
   }
@@ -151,8 +164,16 @@ class App extends Component {
     }
   }
 
+  @bind
+  setToken() {
+    const { user } = this.state
+    user.token = generateToken()
+    this.setState({user}, localStorage.setItem('user', JSON.stringify(user)))
+  }
+
   render() {
-    const { coords, addresses, selectedAddress, fullscreen, error } = this.state
+    const { user, coords, addresses, selectedAddress, fullscreen, error } = this.state
+    if (!user.token) return <Welcome skip={this.setToken}/>
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
 
