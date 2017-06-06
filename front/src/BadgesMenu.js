@@ -1,13 +1,6 @@
 const badges = [
   {id: 1, name: 'tutorial', condition: 'Terminer le tutoriel', img: 'badges/tutorial_badge.png'},
   {id: 2, name: 'first address', condition: 'Ajouter sa première adresse', img: 'badges/first_address_badge.png'},
-  {id: 3, name: 'first address', condition: 'Ajouter sa première adresse', img: 'badges/first_address_badge.png'},
-  {id: 4, name: 'first address', condition: 'Ajouter sa première adresse', img: 'badges/first_address_badge.png'},
-  {id: 5, name: 'first address', condition: 'Ajouter sa première adresse', img: 'badges/first_address_badge.png'},
-  {id: 6, name: 'first address', condition: 'Ajouter sa première adresse', img: 'badges/first_address_badge.png'},
-  {id: 7, name: 'first address', condition: 'Ajouter sa première adresse', img: 'badges/first_address_badge.png'},
-  {id: 8, name: 'first address', condition: 'Ajouter sa première adresse', img: 'badges/first_address_badge.png'},
-  {id: 9, name: 'first address', condition: 'Ajouter sa première adresse', img: 'badges/first_address_badge.png'},
 ]
 
 class BadgesMenu extends Component {
