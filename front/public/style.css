@@ -82,6 +82,37 @@ html, body, .container, #map {
   z-index: 0;
 }
 
+/* NewBadge */
+.NewBadge {
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.NewBadge img {
+  z-index: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -70px 0 0 -62px;
+}
+
+.NewBadge .background {
+  background-image: url('badges/background.png');
+  width: 300px;
+  height: 325px;
+  -webkit-animation:spin 4s linear infinite;
+  -moz-animation:spin 4s linear infinite;
+  animation:spin 4s linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
 /* Tuto */
 .Tuto {
   z-index: 3;
@@ -98,14 +129,18 @@ html, body, .container, #map {
 }
 
 .panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   background-color: #3f4dab;
   color: #fff;
   margin: 10px;
   padding: 10px;
-  text-align: center;
 }
 
 .panel button {
+  width: 50%;
   border: none;
   background-color: #fff;
   margin: 10px;
@@ -113,6 +148,11 @@ html, body, .container, #map {
   font-size: small;
   font-weight: 800;
   padding: 0.5em 1em;
+}
+
+.panel .buttons {
+  display: flex;
+  justify-content: space-between;
 }
 
 .tuto1 {

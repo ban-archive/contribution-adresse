@@ -18,7 +18,10 @@ class Tuto extends Component {
         <div class="panel">
           <p>Félicitations vous venez de créer votre première adresse !</p>
           <p>Grâce à votre contribution, la base adresse national s'est enrichie</p>
-          <button onClick={() => props.nextStep(4)}>Ok</button>
+          <div class="buttons">
+            <button onClick={() => props.nextStep(4)}>Fermer</button>
+            <button onClick={() => props.nextStep(4)}>Sauvegarder ma progression</button>
+          </div>
         </div>
       </div>,
     ]

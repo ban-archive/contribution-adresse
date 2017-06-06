@@ -33,11 +33,16 @@ function generateToken() {
   return rndString
 }
 
+function getBadge(badgeName) {
+  return badges.find(badge => badge.name === badgeName)
+}
+
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       tuto: 0,
+      newBadge: null,
       selectedAddress: null,
       userCoords: null,
       addresses: [],
@@ -70,7 +75,7 @@ class App extends Component {
     const user = JSON.parse(localStorage.getItem('user') || null)
 
     this.setState({
-      user: user || {token: null},
+      user: user || {token: null, badges: []},
       addresses: addresses || []
     })
   }
@@ -115,6 +120,7 @@ class App extends Component {
   @bind
   addAddress() {
     const { addresses, coords, houseNumber, street, tuto } = this.state
+    if (!addresses.length) this.winBadge(getBadge('first address'))
     const newAddresses = [...addresses]
     const coordinates = {
       accuracy: coords.accuracy,
@@ -186,11 +192,39 @@ class App extends Component {
   @bind
   tutoNextStep() {
     const { tuto } = this.state
-    this.setState({tuto: tuto + 1})
+    const nextTuto = tuto + 1
+    if (nextTuto === 4) {
+      const tutorialBadge = getBadge('tutorial')
+      this.winBadge(tutorialBadge)
+    }
+    this.setState({tuto: nextTuto})
+  }
+
+  @bind
+  winBadge(newBadge) {
+    const { badges } = this.state.user
+    const newBadges = [...badges]
+    if (newBadges.find(badge => badge.id === newBadge.id)) return
+    badges.push(newBadge)
+    this.setState({badges, newBadge})
+    this.saveToLocalStorage()
+  }
+
+  @bind
+  unlockedBadge(badgeName) {
+    const { badges } = this.state.user
+    const badge = getBadge(badgeName)
+    if (!badges) return false
+    return badges.find(unlockedBadge => unlockedBadge.id === badge.id)
+  }
+
+  @bind
+  resetNewBadge() {
+    this.setState({newBadge: null})
   }
 
   render() {
-    const { user, tuto, coords, houseNumber, street, addresses, selectedAddress, fullscreen, error } = this.state
+    const { user, tuto, coords, newBadge, houseNumber, street, addresses, selectedAddress, fullscreen, error } = this.state
     if (!user.token) return <Welcome skip={this.setToken}/>
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
@@ -200,7 +234,8 @@ class App extends Component {
 
     return (
       <div class="container">
-        {tuto <= 3 ? <Tuto nextStep={this.tutoNextStep} stepIndex={tuto} /> : null}
+        {!this.unlockedBadge('tutorial') && !newBadge ? <Tuto nextStep={this.tutoNextStep} stepIndex={tuto} /> : null}
+        {newBadge ? <NewBadge badge={newBadge} closeWindow={this.resetNewBadge} /> : null}
         <LeafletMap ref={ref => this.leafletMap = ref} addresses={addresses} displayAddress={this.displayAddress} onCloseForm={this.closeForm} coords={coords} fullscreen={fullscreen} />
         <Locator accuracy={coords.accuracy} fullscreen={fullscreen} />
         {fullscreen ?
