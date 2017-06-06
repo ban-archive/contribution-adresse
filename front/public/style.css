@@ -79,28 +79,23 @@ html, body, .container, #map {
   position: absolute;
   top:0;
   left:0;
-  z-index: -1;
+  z-index: 0;
 }
 
 /* BadgesMenu */
 .badges-menu-minimize {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin: 20px 10px;
-}
-
-.badges-menu-minimize > div {
-  height: 50px;
-  color: #fff;
-  width: 62px;
-  text-align: center;
   z-index: 1;
-  font-size: xx-large;
-}
-
-.badges-menu-minimize img {
   position: absolute;
+  background-image: url(badges/empty.png);
+  height: 70px;
+  width: 60px;
+  text-align: center;
+  right: 10px;
+  top: 10px;
+  color: #fff;
+  background-repeat: no-repeat;
+  padding-top: 10px;
+  font-size: xx-large;
 }
 
 .BadgesMenu {
@@ -144,7 +139,6 @@ html, body, .container, #map {
 
 /* NewBadge */
 .NewBadge {
-  z-index: 1;
   position: absolute;
   width: 100%;
   height: 100%;
@@ -175,7 +169,7 @@ html, body, .container, #map {
 
 /* Tuto */
 .Tuto {
-  z-index: 3;
+  z-index: 1;
   position: absolute;
   width: 100%;
   height: 100%;
@@ -189,6 +183,7 @@ html, body, .container, #map {
 }
 
 .panel {
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -249,7 +244,7 @@ html, body, .container, #map {
 }
 
 .tuto2 {
-  z-index: 3;
+  z-index: 2;
   position: absolute;
 }
 
@@ -336,7 +331,6 @@ html, body, .container, #map {
 /* Menu */
 
 .Menu {
-  z-index: 1;
   width: 100%;
   height: 100%;
   position: absolute;

@@ -8,10 +8,7 @@ class BadgesMenu extends Component {
     const { minimize, unlockedBadges, displayMenu } = this.props
 
     if (minimize) return (
-      <div class="badges-menu-minimize" onClick={displayMenu}>
-        <div>{unlockedBadges.length}</div>
-        <img alt="badge icon" src="badges/empty.png" />
-      </div>
+      <div class="badges-menu-minimize" onClick={displayMenu}>{unlockedBadges.length}</div>
     )
 
     return (
