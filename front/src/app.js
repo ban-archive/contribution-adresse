@@ -43,6 +43,7 @@ class App extends Component {
     this.state = {
       tuto: 0,
       newBadge: null,
+      showBadges: false,
       selectedAddress: null,
       userCoords: null,
       addresses: [],
@@ -223,8 +224,13 @@ class App extends Component {
     this.setState({newBadge: null})
   }
 
+  @bind
+  displayBadgesMenu() {
+    this.setState({showBadges: !this.state.showBadges})
+  }
+
   render() {
-    const { user, tuto, coords, newBadge, houseNumber, street, addresses, selectedAddress, fullscreen, error } = this.state
+    const { user, tuto, coords, newBadge, showBadges, houseNumber, street, addresses, selectedAddress, fullscreen, error } = this.state
     if (!user.token) return <Welcome skip={this.setToken}/>
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
@@ -236,6 +242,7 @@ class App extends Component {
       <div class="container">
         {!this.unlockedBadge('tutorial') && !newBadge ? <Tuto nextStep={this.tutoNextStep} stepIndex={tuto} /> : null}
         {newBadge ? <NewBadge badge={newBadge} closeWindow={this.resetNewBadge} /> : null}
+        <BadgesMenu minimize={!showBadges} unlockedBadges={user.badges} displayMenu={this.displayBadgesMenu}/>
         <LeafletMap ref={ref => this.leafletMap = ref} addresses={addresses} displayAddress={this.displayAddress} onCloseForm={this.closeForm} coords={coords} fullscreen={fullscreen} />
         <Locator accuracy={coords.accuracy} fullscreen={fullscreen} />
         {fullscreen ?

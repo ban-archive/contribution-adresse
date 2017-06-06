@@ -79,7 +79,66 @@ html, body, .container, #map {
   position: absolute;
   top:0;
   left:0;
-  z-index: 0;
+  z-index: -1;
+}
+
+/* BadgesMenu */
+.badges-menu-minimize {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 20px 10px;
+}
+
+.badges-menu-minimize > div {
+  height: 50px;
+  color: #fff;
+  width: 62px;
+  text-align: center;
+  z-index: 1;
+  font-size: xx-large;
+}
+
+.badges-menu-minimize img {
+  position: absolute;
+}
+
+.BadgesMenu {
+  z-index: 1;
+  position: absolute;
+  height: 100%;
+  background-color: rgba(256,256,256, 0.8);
+}
+
+.BadgesMenu h2 {
+  text-align: center;
+  text-decoration: underline;
+}
+
+.close {
+  right: 0;
+  top: 0;
+  position: absolute;
+  margin: 1em;
+}
+
+.badges-list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px;
+  text-align: center;
+}
+
+.badge img {
+  width: 70px;
 }
 
 /* NewBadge */
