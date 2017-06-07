@@ -170,20 +170,21 @@ html, body, .container, #map {
 
 .address-form {
   display: flex;
+  height: 40px;
   justify-content: space-around;
+  margin: 10px;
 }
 
 .address-form input {
-  border-bottom: 3px solid whitesmoke;
-  height: 36px;
+  border-bottom: 3px solid #3F4DAB;
   border-top: none;
   border-left: none;
   border-right: none;
   font-size: larger;
 }
 
-.number-input {
-  width: 16%;
+.houseNumber-input {
+  width: 20%;
 }
 
 .street-input {
