@@ -1,5 +1,5 @@
 # contribution-adresse
-Outil de contribution citoyenne aux référentiels d'adresses
+Outil de contribution citoyenne au référentiel des adresses
 
 ## Installation et utilisation
 
