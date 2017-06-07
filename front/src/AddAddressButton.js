@@ -1,17 +1,11 @@
 const { h } = preact
 
 class AddAddressButton extends Component {
-  @bind
-  action() {
-    const { openMenu, tutoNextStep } = this.props
-
-    tutoNextStep(2)
-    openMenu()
-  }
-
   render() {
+    const { openMenu } = this.props
+
     return (
-      <div class="circle" onClick={this.action}>
+      <div class="circle" onClick={openMenu}>
         <div class="AddAddressButton">
         <img src="addHome.svg"/>
         </div>

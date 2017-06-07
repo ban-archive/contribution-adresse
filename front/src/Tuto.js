@@ -9,7 +9,7 @@ class Tuto extends Component {
         </div>
       </div>,
       <div class="Tuto tuto1">
-        <div class="arrow-box">Appuyez sur le bouton pour ajouter une nouvelle adresse</div>,
+        <div class="arrow-box">Appuyez sur le bouton pour ajouter une nouvelle adresse</div>
       </div>,
       <div class="tuto2">
         <div class="panel">Saisissez le numéro ainsi que le nom de la voie de l'adresse</div>

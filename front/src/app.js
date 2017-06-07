@@ -87,6 +87,8 @@ class App extends Component {
 
   @bind
   openMenu() {
+    const { tuto } = this.state
+    if (tuto === 1) this.tutoNextStep()
     this.setStateAndUpdateMap({fullscreen: false})
   }
 
@@ -112,7 +114,7 @@ class App extends Component {
 
   @bind
   addAddress() {
-    const { addresses, coords, houseNumber, street } = this.state
+    const { addresses, coords, houseNumber, street, tuto } = this.state
     const newAddresses = [...addresses]
     const coordinates = {
       accuracy: coords.accuracy,
@@ -124,6 +126,7 @@ class App extends Component {
       speed: coords.speed,
     }
     newAddresses.push({coords: coordinates, address: {houseNumber, street}, id: `${houseNumber}_${street}`})
+    if (tuto === 2 ) this.tutoNextStep()
     this.closeForm()
     this.saveAddresses(newAddresses)
   }
@@ -181,9 +184,9 @@ class App extends Component {
   }
 
   @bind
-  tutoNextStep(nextTuto) {
+  tutoNextStep() {
     const { tuto } = this.state
-    this.setState({tuto: nextTuto})
+    this.setState({tuto: tuto + 1})
   }
 
   render() {
@@ -201,7 +204,7 @@ class App extends Component {
         <LeafletMap ref={ref => this.leafletMap = ref} addresses={addresses} displayAddress={this.displayAddress} onCloseForm={this.closeForm} coords={coords} fullscreen={fullscreen} />
         <Locator accuracy={coords.accuracy} fullscreen={fullscreen} />
         {fullscreen ?
-          <Dashboard speed={speed} accuracy={accuracy} openForm={this.openForm} tutoNextStep={this.tutoNextStep}/> :
+          <Dashboard speed={speed} accuracy={accuracy} openMenu={this.openMenu} /> :
           <Menu>
             { selectedAddress ?
               <Address houseNumber={houseNumber} street={street} handleHouseNumberChange={this.handleHouseNumberChange} handleStreetChange={this.handleStreetChange} editAddress={this.editAddress} removeAddress={this.removeAddress} /> :
