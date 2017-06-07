@@ -4,7 +4,7 @@ class Suggestions extends Component {
     return (
       <div class="Suggestions">
         {suggestions[activeInput].map(suggestion =>
-          <div class="suggestion" onClick={activeInput === 'houseNumbers' ? () => selectHouseNumber(suggestion) : () => selectStreet(suggestion)}>{suggestion}</div>)}
+          <div class="suggestion" onClick={activeInput === 'houseNumbers' ? selectHouseNumber : selectStreet}>{suggestion}</div>)}
       </div>
     )
   }

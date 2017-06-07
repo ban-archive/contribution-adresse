@@ -74,14 +74,6 @@ class App extends Component {
     })
   }
 
-  farEnough(newMarker) {
-    const { markers } = this.state
-    for (let i = 0; i < markers.getLayers().length; i++) {
-      if (markers.getLayers()[i].getLatLng().distanceTo(newMarker.getLatLng()) < 2) return false
-    }
-    return true
-  }
-
   @bind
   setStateAndUpdateMap(state) {
     this.setState(state, () => this.leafletMap.forceUpdate())
@@ -99,42 +91,57 @@ class App extends Component {
 
   @bind
   closeForm() {
+    this.clearForm()
     this.setStateAndUpdateMap({fullscreen: true, selectedAddress: null})
   }
 
   @bind
-  addAddress(coordinates, address) {
-    const { addresses } = this.state
+  handleHouseNumberChange(e) {
+    this.setState({houseNumber: e.target.value || e.target.textContent})
+  }
+
+  @bind
+  handleStreetChange(e) {
+    this.setState({street: e.target.value || e.target.textContent})
+  }
+
+  clearForm() {
+    this.setState({houseNumber: '', street: ''})
+  }
+
+  @bind
+  addAddress() {
+    const { addresses, coords, houseNumber, street } = this.state
     const newAddresses = [...addresses]
-    const coords = {
-      accuracy: coordinates.accuracy,
-      altitude: coordinates.altitude,
-      altitudeAccuracy: coordinates.altitudeAccuracy,
-      heading: coordinates.heading,
-      latitude: coordinates.latitude,
-      longitude: coordinates.longitude,
-      speed: coordinates.speed,
+    const coordinates = {
+      accuracy: coords.accuracy,
+      altitude: coords.altitude,
+      altitudeAccuracy: coords.altitudeAccuracy,
+      heading: coords.heading,
+      latitude: coords.latitude,
+      longitude: coords.longitude,
+      speed: coords.speed,
     }
-    newAddresses.push({coords, address, id: `${address.houseNumber}_${address.street}`})
+    newAddresses.push({coords: coordinates, address: {houseNumber, street}, id: `${houseNumber}_${street}`})
     this.closeForm()
     this.saveAddresses(newAddresses)
   }
 
   @bind
-  removeAddress(address) {
-    const { addresses } = this.state
+  removeAddress() {
+    const { addresses, selectedAddress } = this.state
     const newAddresses = [...addresses]
-    newAddresses.pop(address)
+    newAddresses.pop(selectedAddress)
     this.closeForm()
     this.saveAddresses(newAddresses)
   }
 
   @bind
-  editAddress(address, newAddress) {
-    const { addresses } = this.state
+  editAddress() {
+    const { addresses, selectedAddress, houseNumber, street } = this.state
     const newAddresses = [...addresses]
-    const addressToEdit = newAddresses.find(addr => addr.id === address.id)
-    addressToEdit.address = newAddress
+    const addressToEdit = newAddresses.find(addr => addr.id === selectedAddress.id)
+    addressToEdit.address = {houseNumber, street}
     this.saveAddresses(newAddresses)
   }
 
@@ -142,6 +149,7 @@ class App extends Component {
   displayAddress(e) {
     const { addresses } = this.state
     const address = addresses.find(address => address.id === e.target.options.id)
+    this.setState({houseNumber: address.address.houseNumber, street: address.address.street})
     this.setStateAndUpdateMap({fullscreen: false, selectedAddress: address})
   }
 
@@ -172,7 +180,7 @@ class App extends Component {
   }
 
   render() {
-    const { user, coords, addresses, selectedAddress, fullscreen, error } = this.state
+    const { user, coords, houseNumber, street, addresses, selectedAddress, fullscreen, error } = this.state
     if (!user.token) return <Welcome skip={this.setToken}/>
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
@@ -186,7 +194,12 @@ class App extends Component {
         <Locator accuracy={coords.accuracy} fullscreen={fullscreen} />
         {fullscreen ?
           <Dashboard speed={speed} accuracy={accuracy} openForm={this.openForm}/> :
-          <Menu selectedAddress={selectedAddress} coords={coords} createAddress={this.addAddress} editAddress={this.editAddress} removeAddress={this.removeAddress} />
+          <Menu>
+            { selectedAddress ?
+              <Address houseNumber={houseNumber} street={street} handleHouseNumberChange={this.handleHouseNumberChange} handleStreetChange={this.handleStreetChange} editAddress={this.editAddress} removeAddress={this.removeAddress} /> :
+              <AddressForm houseNumber={houseNumber} street={street} onHouseNumberChange={this.handleHouseNumberChange} onStreetChange={this.handleStreetChange} onSubmit={this.addAddress} />
+            }
+          </Menu>
         }
       </div>
     )
