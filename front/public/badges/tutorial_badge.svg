@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="249px" height="281px" viewBox="0 0 249 281" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>Badge tutorial</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="55.7123621%" y1="43.0989159%" x2="9.03764626%" y2="-25.327639%" id="linearGradient-1">
+            <stop stop-color="#3F4DAB" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+        <polygon id="path-2" points="93.7472226 0 188.073571 56.7837012 188.149772 150.058512 93.7472226 207 0.322583106 150.548581 0 57.2308261"></polygon>
+        <path d="M77.5580944,106.251078 L55,98.5763939 L123.456949,75 L192,98.5763939 L123.456949,121.866724 L85.7662256,109.043637 C84.2547522,110.9937 83.0886114,112.929556 82.2678034,114.851207 C81.314557,117.082919 80.8231184,120.448601 80.7934876,124.948253 C83.60956,126.380905 85.5546379,129.438461 85.5546379,132.979004 C85.5546379,136.41418 83.7236097,139.394687 81.042567,140.877559 L84.4724194,167 L68.7174014,167 L72.006948,139.969512 C70.0636371,138.340129 68.8161377,135.814451 68.8161377,132.979004 C68.8161377,129.571683 70.6175919,126.611687 73.2631577,125.116816 C72.9992797,123.955101 72.8673406,121.614212 72.8673406,118.094149 C72.8673406,113.506818 74.4309265,109.559128 77.5580981,106.251079 Z M87.9378322,117.499489 L123.417485,128.156305 L158.163472,117.499489 L158.897138,138.517523 C159.064491,140.80901 157.818395,142.955121 155.15885,144.955857 C152.499304,146.956593 148.700625,148.605589 143.762812,149.902847 C133.677114,151.535962 126.895339,152.335668 123.417485,152.301965 C119.939631,152.268263 113.667894,151.468557 104.602273,149.902847 C98.0665245,148.292619 93.5634781,146.643622 91.0931338,144.955857 C88.6227895,143.268091 87.5710223,141.12198 87.9378322,138.517523 L87.9378322,117.499489 Z" id="path-3"></path>
+        <filter x="-12.8%" y="-16.8%" width="125.5%" height="138.0%" filterUnits="objectBoundingBox" id="filter-4">
+            <feMorphology radius="1" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="4.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Badge-tutorial">
+            <g id="Badge" transform="translate(-1.000000, 1.000000)">
+                <g id="badge" transform="translate(31.000000, 20.000000)">
+                    <g id="hexagone">
+                        <use fill="#3F4DAB" fill-rule="evenodd" xlink:href="#path-2"></use>
+                        <path stroke="url(#linearGradient-1)" stroke-width="10" d="M93.7653691,5.84700636 L5.00970814,60.0305827 L5.31284206,147.722021 L93.7495085,201.15948 L183.147465,147.236649 L183.075879,59.6112134 L93.7653691,5.84700636 Z"></path>
+                        <use stroke="#000000" stroke-width="3" xlink:href="#path-2"></use>
+                    </g>
+                </g>
+            </g>
+            <g id="Combined-Shape">
+                <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+            </g>
+        </g>
+    </g>
+</svg>
