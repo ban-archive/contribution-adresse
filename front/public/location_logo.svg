@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="104px" height="116px" viewBox="0 0 104 116" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>geo_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M11.0676479,61.5770112 C4.25584564,55.0817403 0,45.8463932 0,35.6 C0,15.9386629 15.6700338,0 35,0 C54.3299662,0 70,15.9386629 70,35.6 C70,45.9480789 65.6592648,55.2649448 58.7287966,61.7695782 L59.1399589,63.5353433 L34.8758025,88.1343383 L10.6116461,63.5353433 L11.0676519,61.5770151 Z" id="path-1"></path>
+        <filter x="-35.7%" y="-15.9%" width="171.4%" height="156.7%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="11" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="6.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="geo_icon">
+            <g id="geo-icon" transform="translate(16.000000, 6.000000)">
+                <g id="Combined-Shape">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <ellipse id="Oval-3" fill="#3F4DAB" fill-rule="evenodd" cx="35" cy="35.6" rx="17.5" ry="17.8"></ellipse>
+            </g>
+        </g>
+    </g>
+</svg>

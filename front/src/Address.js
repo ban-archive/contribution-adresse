@@ -26,7 +26,7 @@ class Address extends Component {
     return (
       <div class="Address">
         <div>
-          <img class="location_logo" src="location_logo.png" alt="location_logo" />
+          <img class="location_logo" src="location_logo.svg" alt="location_logo" />
           <div class="address">
             <div>{houseNumber}</div>
             <div>{street}</div>

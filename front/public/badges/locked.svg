@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="249px" height="281px" viewBox="0 0 249 281" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>Badge locked</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="55.7123621%" y1="43.0989159%" x2="9.03764626%" y2="-25.327639%" id="linearGradient-1">
+            <stop stop-color="#9B9B9B" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+        <polygon id="path-2" points="94.7472226 0 189.073571 56.7837012 189.149772 150.058512 94.7472226 207 1.32258311 150.548581 1 57.2308261"></polygon>
+        <path d="M95.0326171,118.832014 C94.7661092,100.841042 96.1327881,89.5274453 99.1326537,84.8912234 C103.632452,77.9368905 119.569703,77.0069474 123.010518,77.0065677 C126.614355,77.00617 140.124186,76.4817276 145.128221,84.8912234 C148.464244,90.4975539 149.974516,101.809141 149.659036,118.825986" id="path-3"></path>
+        <filter x="-28.3%" y="-32.3%" width="156.7%" height="174.1%" filterUnits="objectBoundingBox" id="filter-4">
+            <feMorphology radius="8.5" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feMorphology radius="8.5" operator="erode" in="SourceAlpha" result="shadowInner"></feMorphology>
+            <feOffset dx="0" dy="2" in="shadowInner" result="shadowInner"></feOffset>
+            <feComposite in="shadowOffsetOuter1" in2="shadowInner" operator="out" result="shadowOffsetOuter1"></feComposite>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <rect id="path-5" x="78" y="117" width="87.3787594" height="60.956891" rx="8"></rect>
+        <filter x="-8.0%" y="-8.2%" width="116.0%" height="123.0%" filterUnits="objectBoundingBox" id="filter-6">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Badge-locked">
+            <g id="locked-badge" transform="translate(27.000000, 24.000000)">
+                <g id="hexagone-copy">
+                    <use fill="#9B9B9B" fill-rule="evenodd" xlink:href="#path-2"></use>
+                    <path stroke="url(#linearGradient-1)" stroke-width="10" d="M94.7653691,5.84700636 L6.00970814,60.0305827 L6.31284206,147.722021 L94.7495085,201.15948 L184.147465,147.236649 L184.075879,59.6112134 L94.7653691,5.84700636 Z"></path>
+                    <use stroke="#000000" stroke-width="3" xlink:href="#path-2"></use>
+                </g>
+            </g>
+            <g id="Path-15">
+                <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                <use stroke="#FFFFFF" stroke-width="17" xlink:href="#path-3"></use>
+            </g>
+            <g id="Rectangle-4">
+                <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-5"></use>
+                <rect stroke="#979797" stroke-width="1" x="78.5" y="117.5" width="86.3787594" height="59.956891" rx="8"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

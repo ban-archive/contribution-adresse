@@ -1,7 +1,7 @@
 const { h, Component } = preact
 
 const homeIcon = L.icon({
-  iconUrl: 'home_icon.png',
+  iconUrl: 'home_icon.svg',
   iconSize:     [43, 42],
   iconAnchor:   [22, 21],
 })
