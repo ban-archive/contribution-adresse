@@ -25,10 +25,10 @@ const stringArray = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e'
 function generateToken() {
   let rndString = ''
 
-  for (var i = 0; i <= 15; i++) {
-			var rndNum = Math.ceil(Math.random() * stringArray.length) - 1
-			rndString = rndString + stringArray[rndNum];
-		}
+  for (let i = 0; i <= 15; i++) {
+    const rndNum = Math.ceil(Math.random() * stringArray.length) - 1
+    rndString = rndString + stringArray[rndNum]
+  }
 
   return rndString
 }
@@ -77,7 +77,7 @@ class App extends Component {
 
     this.setState({
       user: user || {token: null, badges: []},
-      addresses: addresses || []
+      addresses: addresses || [],
     })
   }
 

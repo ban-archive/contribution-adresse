@@ -12,6 +12,60 @@ html, body, .container, #map {
   width: 100%;
 }
 
+button {
+  color: #3F4DBF;
+  background-color: #fff;
+  border: none;
+  margin: 10px;
+  padding: 10px 15px;
+  font-size: small;
+  font-weight: 800;
+}
+
+button.reverse {
+  color: #fff;
+  background-color: #3F4DBF;
+}
+
+.overlay {
+  margin: auto;
+  position: absolute;
+  z-index: 5;
+  width: auto;
+  top: 100px;
+  left: 10px;
+  bottom: 81px;
+  right: 10px;
+}
+
+.overlay.top {
+  height: auto;
+  left: 10px;
+  top: 10px;
+  right: 10px;
+  bottom: 50%;
+}
+
+.overlay.bottom {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  bottom: 78px;
+}
+
+.overlay.resizable {
+  min-width: 20%;
+  max-width: 80%;
+  min-height: 20%;
+  max-height: 80%;
+  resize: both;
+  overflow: auto;
+}
+
+.overlay.center {
+  height: 60%;
+}
+
 .Welcome {
   color: #fff;
   display: flex;
@@ -139,16 +193,12 @@ html, body, .container, #map {
 }
 
 /* NewBadge */
-.NewBadge {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  display: flex;
+
+.new-badge {
+  position: relative;
 }
 
-.NewBadge img {
+.new-badge img {
   z-index: 1;
   position: absolute;
   width: 125px;
@@ -157,12 +207,13 @@ html, body, .container, #map {
   margin: -70px 0 0 -62px;
 }
 
-.NewBadge .background {
+.background-spinner {
   background-image: url('badges/background.svg');
   background-size: contain;
   background-repeat: no-repeat;
-  width: 300px;
-  height: 320px;
+  min-width: 200px;
+  min-height: 210px;
+  resize: both;
   -webkit-animation:spin 4s linear infinite;
   -moz-animation:spin 4s linear infinite;
   animation:spin 4s linear infinite;
@@ -171,54 +222,19 @@ html, body, .container, #map {
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
-/* Tuto */
-.Tuto {
-  z-index: 1;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-.tuto0 {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .panel {
-  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   background-color: #3f4dab;
   color: #fff;
-  margin: 10px;
-  padding: 10px;
-}
-
-.panel button {
-  width: 50%;
-  border: none;
-  background-color: #fff;
-  margin: 10px;
-  color: #3f4dab;
-  font-size: small;
-  font-weight: 800;
-  padding: 0.5em 1em;
+  padding: 15px;
 }
 
 .panel .buttons {
   display: flex;
   justify-content: space-between;
-}
-
-.tuto1 {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  bottom: 78px;
 }
 
 .arrow-box {
