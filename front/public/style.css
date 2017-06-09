@@ -517,6 +517,12 @@ button.edit {
   background: rgba(256, 256, 256, 1);
 }
 
+/* EmailForm */
+.EmailForm {
+  display: flex;
+  flex-direction: column;
+}
+
 /* Error */
 
 .Error {

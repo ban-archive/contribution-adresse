@@ -44,6 +44,7 @@ class App extends Component {
       tuto: 0,
       newBadge: null,
       showBadges: false,
+      showEmailForm: false,
       selectedAddress: null,
       userCoords: null,
       addresses: [],
@@ -184,6 +185,14 @@ class App extends Component {
   }
 
   @bind
+  setEmail(email) {
+    const { user } = this.state
+    user.email = email
+    this.setState({user}, localStorage.setItem('user', JSON.stringify(user)))
+    this.displayEmailForm()
+  }
+
+  @bind
   setToken() {
     const { user } = this.state
     user.token = generateToken()
@@ -229,8 +238,15 @@ class App extends Component {
     this.setState({showBadges: !this.state.showBadges})
   }
 
+  @bind
+  displayEmailForm() {
+    const { tuto } = this.state
+    this.setState({showEmailForm: !this.state.showEmailForm})
+    if (tuto === 3) this.tutoNextStep()
+  }
+
   render() {
-    const { user, tuto, coords, newBadge, showBadges, houseNumber, street, addresses, selectedAddress, fullscreen, error } = this.state
+    const { user, tuto, coords, newBadge, showBadges, showEmailForm, houseNumber, street, addresses, selectedAddress, fullscreen, error } = this.state
     if (!user.token) return <Welcome skip={this.setToken}/>
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
