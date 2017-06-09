@@ -187,6 +187,79 @@ button.reverse {
   text-decoration: underline;
 }
 
+.close {
+  right: 0;
+  top: 0;
+  position: absolute;
+  margin: 1em;
+}
+
+.badges-list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px;
+  text-align: center;
+}
+
+.badge img {
+  width: 70px;
+}
+
+/* NewBadge */
+.NewBadge {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.NewBadge img {
+  z-index: 1;
+  position: absolute;
+  width: 125px;
+  top: 50%;
+  left: 50%;
+  margin: -70px 0 0 -62px;
+}
+
+.NewBadge .background {
+  background-image: url('badges/background.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 300px;
+  height: 320px;
+  -webkit-animation:spin 4s linear infinite;
+  -moz-animation:spin 4s linear infinite;
+  animation:spin 4s linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+/* Tuto */
+.Tuto {
+  z-index: 1;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(256,256,256, 0.8);
+}
+
+.BadgesMenu h2 {
+  text-align: center;
+  text-decoration: underline;
+}
+
 .badges-list {
   display: flex;
   justify-content: space-around;
@@ -237,6 +310,7 @@ button.reverse {
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 .panel {
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -247,11 +321,23 @@ button.reverse {
 }
 
 .panel.reverse {
+  margin: 10px;
+  padding: 10px;
+}
+
+.panel button {
+  width: 50%;
+  border: none;
   background-color: #fff;
   color: #3f4dab;
 }
 
 .panel .buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tuto1 {
   display: flex;
   justify-content: space-between;
 }
