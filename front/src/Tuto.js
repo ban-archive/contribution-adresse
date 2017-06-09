@@ -5,7 +5,7 @@ class Tuto extends Component {
       <div class="Tuto tuto0">
         <div class="panel">
           <p>Placez vous à l'adresse que vous souhaitez ajouter</p>
-          <button onClick={() => props.nextStep(1)}>Ok</button>
+          <button onClick={props.nextStep}>Ok</button>
         </div>
       </div>,
       <div class="Tuto tuto1">
@@ -18,7 +18,10 @@ class Tuto extends Component {
         <div class="panel">
           <p>Félicitations vous venez de créer votre première adresse !</p>
           <p>Grâce à votre contribution, la base adresse national s'est enrichie</p>
-          <button onClick={() => props.nextStep(4)}>Ok</button>
+          <div class="buttons">
+            <button onClick={props.nextStep}>Fermer</button>
+            <button onClick={props.nextStep}>Sauvegarder ma progression</button>
+          </div>
         </div>
       </div>,
     ]
