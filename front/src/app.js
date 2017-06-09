@@ -37,6 +37,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      tuto: 0,
       selectedAddress: null,
       userCoords: null,
       addresses: [],
@@ -85,7 +86,9 @@ class App extends Component {
   }
 
   @bind
-  openForm() {
+  openMenu() {
+    const { tuto } = this.state
+    if (tuto === 1) this.tutoNextStep()
     this.setStateAndUpdateMap({fullscreen: false})
   }
 
@@ -111,7 +114,7 @@ class App extends Component {
 
   @bind
   addAddress() {
-    const { addresses, coords, houseNumber, street } = this.state
+    const { addresses, coords, houseNumber, street, tuto } = this.state
     const newAddresses = [...addresses]
     const coordinates = {
       accuracy: coords.accuracy,
@@ -123,6 +126,7 @@ class App extends Component {
       speed: coords.speed,
     }
     newAddresses.push({coords: coordinates, address: {houseNumber, street}, id: `${houseNumber}_${street}`})
+    if (tuto === 2 ) this.tutoNextStep()
     this.closeForm()
     this.saveAddresses(newAddresses)
   }
@@ -179,8 +183,14 @@ class App extends Component {
     this.setState({user}, localStorage.setItem('user', JSON.stringify(user)))
   }
 
+  @bind
+  tutoNextStep() {
+    const { tuto } = this.state
+    this.setState({tuto: tuto + 1})
+  }
+
   render() {
-    const { user, coords, houseNumber, street, addresses, selectedAddress, fullscreen, error } = this.state
+    const { user, tuto, coords, houseNumber, street, addresses, selectedAddress, fullscreen, error } = this.state
     if (!user.token) return <Welcome skip={this.setToken}/>
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
@@ -190,10 +200,11 @@ class App extends Component {
 
     return (
       <div class="container">
+        {tuto <= 3 ? <Tuto nextStep={this.tutoNextStep} stepIndex={tuto} /> : null}
         <LeafletMap ref={ref => this.leafletMap = ref} addresses={addresses} displayAddress={this.displayAddress} onCloseForm={this.closeForm} coords={coords} fullscreen={fullscreen} />
         <Locator accuracy={coords.accuracy} fullscreen={fullscreen} />
         {fullscreen ?
-          <Dashboard speed={speed} accuracy={accuracy} openForm={this.openForm}/> :
+          <Dashboard speed={speed} accuracy={accuracy} openMenu={this.openMenu} /> :
           <Menu>
             { selectedAddress ?
               <Address houseNumber={houseNumber} street={street} handleHouseNumberChange={this.handleHouseNumberChange} handleStreetChange={this.handleStreetChange} editAddress={this.editAddress} removeAddress={this.removeAddress} /> :

@@ -82,6 +82,83 @@ html, body, .container, #map {
   z-index: 0;
 }
 
+/* Tuto */
+.Tuto {
+  z-index: 3;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.tuto0 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.panel {
+  background-color: #3f4dab;
+  color: #fff;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+}
+
+.panel button {
+  border: none;
+  background-color: #fff;
+  margin: 10px;
+  color: #3f4dab;
+  font-size: small;
+  font-weight: 800;
+  padding: 0.5em 1em;
+}
+
+.tuto1 {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  bottom: 78px;
+}
+
+.arrow-box {
+  position: relative;
+  text-align: center;
+  color: #fff;
+  padding: 1em;
+  font-size: large;
+  width: 60%;
+  background-color: #3f4dab;
+  margin: 0 7px 30px 0;
+}
+
+.arrow-box:after {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(63, 77, 171, 0);
+	border-top-color: #3f4dab;
+	border-width: 30px;
+	margin-left: -30px;
+}
+
+.tuto2 {
+  z-index: 3;
+  position: absolute;
+}
+
+.tuto3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Locator */
 
 #radar {

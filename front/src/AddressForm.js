@@ -26,16 +26,6 @@ class AddressForm extends Component {
   }
 
   @bind
-  handleStreetChange(e) {
-    this.setStreet(e.target.value)
-  }
-
-  @bind
-  handleNumberChange(e) {
-    this.setHouseNumber(e.target.value)
-  }
-
-  @bind
   selectInput(input) {
     this.setState({activeInput: input})
   }
