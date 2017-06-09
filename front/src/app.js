@@ -256,8 +256,12 @@ class App extends Component {
 
     return (
       <div class="container">
-        {!this.unlockedBadge('tutorial') && !newBadge ? <Tuto nextStep={this.tutoNextStep} stepIndex={tuto} /> : null}
-        {newBadge ? <NewBadge badge={newBadge} closeWindow={this.resetNewBadge} /> : null}
+        {!this.unlockedBadge('tutorial') && !newBadge ? <Tuto nextStep={this.tutoNextStep} stepIndex={tuto} saveProgression={this.displayEmailForm} /> : null}
+        {newBadge && !showEmailForm ? <NewBadge badge={newBadge} closeWindow={this.resetNewBadge} /> : null}
+        {showEmailForm ?
+          <Panel close={this.displayEmailForm} reverse={true} position="center">
+            <EmailForm onSubmit={this.setEmail} />
+          </Panel> : null}
         <BadgesMenu minimize={!showBadges} unlockedBadges={user.badges} displayMenu={this.displayBadgesMenu}/>
         <LeafletMap ref={ref => this.leafletMap = ref} addresses={addresses} displayAddress={this.displayAddress} onCloseForm={this.closeForm} coords={coords} fullscreen={fullscreen} />
         <Locator accuracy={coords.accuracy} fullscreen={fullscreen} />

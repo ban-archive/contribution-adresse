@@ -12,6 +12,23 @@ html, body, .container, #map {
   width: 100%;
 }
 
+input {
+  border-bottom: 3px solid #3F4DAB;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-size: larger;
+}
+
+input.error {
+  border-bottom: 3px solid #FD3A3F;
+}
+
+input.valid {
+  border-bottom: 3px solid #2FCF4B;
+}
+
+
 button {
   color: #3F4DBF;
   background-color: #fff;
@@ -20,6 +37,10 @@ button {
   padding: 10px 15px;
   font-size: small;
   font-weight: 800;
+}
+
+ .reverse button:disabled {
+  background-color: rgba(63, 77, 191, 0.4);
 }
 
 button.reverse {
@@ -166,13 +187,6 @@ button.reverse {
   text-decoration: underline;
 }
 
-.close {
-  right: 0;
-  top: 0;
-  position: absolute;
-  margin: 1em;
-}
-
 .badges-list {
   display: flex;
   justify-content: space-around;
@@ -232,9 +246,28 @@ button.reverse {
   padding: 15px;
 }
 
+.panel.reverse {
+  background-color: #fff;
+  color: #3f4dab;
+}
+
 .panel .buttons {
   display: flex;
   justify-content: space-between;
+}
+
+.panel .close {
+  position: inherit;
+  align-self: flex-end;
+  margin: 0;
+  width: 15px;
+}
+
+.close {
+  right: 0;
+  top: 0;
+  position: absolute;
+  margin: 1em;
 }
 
 .arrow-box {
@@ -364,14 +397,6 @@ button.reverse {
   height: 40px;
   justify-content: space-around;
   margin: 10px;
-}
-
-.address-form input {
-  border-bottom: 3px solid #3F4DAB;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  font-size: larger;
 }
 
 .houseNumber-input {
