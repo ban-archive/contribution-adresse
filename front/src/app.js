@@ -43,7 +43,7 @@ class App extends Component {
     this.state = {
       tuto: 0,
       newBadge: null,
-      showBadges: false,
+      showProfile: false,
       showEmailForm: false,
       selectedAddress: null,
       userCoords: null,
@@ -234,19 +234,19 @@ class App extends Component {
   }
 
   @bind
-  displayBadgesMenu() {
-    this.setState({showBadges: !this.state.showBadges})
-  }
-
-  @bind
   displayEmailForm() {
     const { tuto } = this.state
     this.setState({showEmailForm: !this.state.showEmailForm})
     if (tuto === 3) this.tutoNextStep()
   }
 
+  @bind
+  displayProfile() {
+    this.setState({showProfile: !this.state.showProfile})
+  }
+
   render() {
-    const { user, tuto, coords, newBadge, showBadges, showEmailForm, houseNumber, street, addresses, selectedAddress, fullscreen, error } = this.state
+    const { user, tuto, coords, newBadge, showProfile, showEmailForm, houseNumber, street, addresses, selectedAddress, fullscreen, error } = this.state
     if (!user.token) return <Welcome skip={this.setToken}/>
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
@@ -262,7 +262,7 @@ class App extends Component {
           <Panel close={this.displayEmailForm} reverse={true} position="center">
             <EmailForm onSubmit={this.setEmail} />
           </Panel> : null}
-        <BadgesMenu minimize={!showBadges} unlockedBadges={user.badges} displayMenu={this.displayBadgesMenu}/>
+        <Profile user={user} minimize={!showProfile} close={this.displayProfile} inscription={this.setEmail}/>
         <LeafletMap ref={ref => this.leafletMap = ref} addresses={addresses} displayAddress={this.displayAddress} onCloseForm={this.closeForm} coords={coords} fullscreen={fullscreen} />
         <Locator accuracy={coords.accuracy} fullscreen={fullscreen} />
         {fullscreen ?

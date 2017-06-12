@@ -5,19 +5,15 @@ const badges = [
 
 class BadgesMenu extends Component {
   render() {
-    const { minimize, unlockedBadges, displayMenu } = this.props
-
-    if (minimize) return (
-      <div class="badges-menu-minimize" onClick={displayMenu}>{unlockedBadges.length}</div>
-    )
+    const { unlockedBadges, close } = this.props
 
     return (
-      <div class="BadgesMenu">
+      <div class="menu">
         <div>
           <h2>Badges</h2>
-          <img class="close" onClick={displayMenu} src="close_icon.svg"/>
+          <img class="close" onClick={close} src="close_icon.svg"/>
         </div>
-        <div class="badges-list">
+        <div class="list">
           {badges.map(badge => {
             const unlock = unlockedBadges.find(unlockedBadge => unlockedBadge.id === badge.id)
             return (

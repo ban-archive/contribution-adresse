@@ -32,7 +32,7 @@ class EmailForm extends Component {
 
     return (
       <div class="EmailForm">
-        <input class={`email-input ${!email.length ? '' : formState}`} type="email" placeholder="Email" value={email || userEmail} onInput={this.handleEmailChange} />
+        <input class={`${!email.length ? '' : formState}`} type="email" placeholder="Email" value={email || userEmail} onInput={this.handleEmailChange} />
         {valid ?
           <button class="reverse" onClick={this.submit}>Enregister</button> :
           <button class="reverse" disabled="true">Enregister</button>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="195px" height="179px" viewBox="0 0 195 179" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>profil_icon menu</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="72" cy="70" r="64"></circle>
+        <path d="M34,113.864753 C43.6404595,109.053151 49.9758025,105.731154 53.0060288,103.898761 C56.0362551,102.066368 57.4147835,100.752681 57.1416139,99.9576983 L57.9212693,87.980579 C55.4328004,85.7304636 53.7943869,83.8329509 53.0060288,82.2880411 C52.2176706,80.7431313 51.3334062,77.6970657 50.3532354,73.1498443 L47.4608735,67.4975064 L46.3570217,56.183699 L50.3532354,52.5773129 L50.0555838,37.2703355 C51.1670773,32.695605 53.7889725,29.2561957 57.9212693,26.9521077 C64.1197145,23.4959757 68.5113864,23.0178481 72.4207464,23.00061 C76.3301065,22.9833719 79.8487758,23.3167775 85.2860199,25.8908094 C88.9108493,27.6068306 91.7401405,31.400006 93.7738934,37.2703355 L93.7738934,52.5773129 L97.4935791,56.183699 L96.4013521,69.3322871 L92.8253597,73.1498443 C91.7810168,77.4780714 90.7847521,80.524137 89.8365656,82.2880411 C88.8883791,84.0519452 87.3715305,85.9494578 85.2860199,87.980579 L85.2860199,99.6811702 C86.8568271,101.658348 88.3736757,103.064212 89.8365656,103.898761 C91.2994555,104.73331 98.0701257,108.055307 110.148576,113.864753 C106.032158,117.977342 100.573931,121.245265 93.7738934,123.668523 C86.973856,126.09178 79.7406542,127.634607 72.074288,128.297006 C65.2714474,127.540267 58.3417624,125.99744 51.285233,123.668523 C44.2287035,121.339606 38.4669592,118.071682 34,113.864753 Z" id="path-2"></path>
+        <filter x="-14.4%" y="-12.3%" width="131.5%" height="122.8%" filterUnits="objectBoundingBox" id="filter-3">
+            <feMorphology radius="3" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="1" dy="-1" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="55.7123621%" y1="43.0989159%" x2="9.03764626%" y2="-25.327639%" id="linearGradient-4">
+            <stop stop-color="#3F4DAB" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+        <polygon id="path-5" points="20.4285984 0 40.983395 11.7956481 41 31.1715749 20.4285984 43 0.0702945703 31.2733767 0 11.8885291"></polygon>
+    </defs>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="profil_icon-menu">
+            <g id="profil_icon-reverse" transform="translate(25.000000, 7.000000)">
+                <g id="Oval-8">
+                    <use fill="#3F4DAB" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <circle stroke="#FFFFFF" stroke-width="5" cx="72" cy="70" r="61.5"></circle>
+                </g>
+                <g id="Path-17">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                    <use stroke="#FFFFFF" stroke-width="5" fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-2"></use>
+                </g>
+                <circle id="Oval-8" stroke="#FFFFFF" stroke-width="5" cx="72" cy="70" r="61.5"></circle>
+            </g>
+            <g id="Badge-Mini" transform="translate(76.000000, 118.000000)">
+                <g id="hexagone">
+                    <use fill="#3F4DAB" fill-rule="evenodd" xlink:href="#path-5"></use>
+                    <path stroke="url(#linearGradient-4)" stroke-width="2" d="M20.4321014,1.15497133 L1.00208747,12.462369 L1.06820072,30.6941506 L20.4290397,41.8462223 L39.9995041,30.5933297 L39.9838911,12.3750304 L20.4321014,1.15497133 Z"></path>
+                    <use stroke="#000000" stroke-width="0.5" xlink:href="#path-5"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
