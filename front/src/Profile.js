@@ -1,7 +1,7 @@
 class Profile extends Component {
   constructor(props) {
     super(props)
-    this.state = {showBadges: false}
+    this.state = {showBadges: false, editMail: false}
   }
 
   @bind
@@ -9,9 +9,21 @@ class Profile extends Component {
     this.setState({showBadges: !this.state.showBadges})
   }
 
+  @bind
+  changeEmail() {
+    this.setState({editMail: !this.state.editMail})
+  }
+
+  @bind
+  modifyEmail(e) {
+    const { inscription } = this.props
+    this.changeEmail()
+    inscription(e)
+  }
+
   render() {
-    const { showBadges } = this.state
-    const { user, minimize, inscription, close } = this.props
+    const { showBadges, editMail } = this.state
+    const { user, minimize, close } = this.props
     const badges = user.badges || []
     const contributions = user.contributions || []
 
@@ -19,7 +31,17 @@ class Profile extends Component {
       <div class="profile-menu-minimize" onClick={close}>{badges.length}</div>
     )
 
-    if (!user.email) return <Inscription close={close} inscription={inscription}/>
+    if (!user.email || editMail) return (
+      <div class="menu column">
+        <img class="close" onClick={close} src="close_icon.svg"/>
+        <div class="column center profile">
+          <img alt="profile_icon" src="profile_icon.svg"/>
+          <div class="badges-number">{badges.length}</div>
+          <EmailForm userEmail={user.email} onSubmit={this.modifyEmail}/>
+        </div>
+      </div>
+    )
+
     if (showBadges) return <BadgesMenu unlockedBadges={badges} close={this.displayBadgesMenu}/>
 
     return (
@@ -28,7 +50,10 @@ class Profile extends Component {
         <div class="column center profile">
           <img alt="profile_icon" src="profile_icon.svg"/>
           <div class="badges-number">{badges.length}</div>
-          <div>{user.email}</div>
+          <div class="profile-email">
+            <div>{user.email}</div>
+            <img class="edit-icon" onClick={this.changeEmail} alt="modifier" src="edit_icon.svg"/>
+          </div>
         </div>
         <div class="divider"/>
         <div class="section">

@@ -186,10 +186,10 @@ class App extends Component {
 
   @bind
   setEmail(email) {
-    const { user } = this.state
+    const { user, showEmailForm } = this.state
     user.email = email
     this.setState({user}, localStorage.setItem('user', JSON.stringify(user)))
-    this.displayEmailForm()
+    if (showEmailForm) this.displayEmailForm()
   }
 
   @bind
@@ -260,9 +260,9 @@ class App extends Component {
         {newBadge && !showEmailForm ? <NewBadge badge={newBadge} closeWindow={this.resetNewBadge} /> : null}
         {showEmailForm ?
           <Panel close={this.displayEmailForm} reverse={true} position="center">
-            <EmailForm onSubmit={this.setEmail} />
+            <EmailForm userEmail={user.email} onSubmit={this.setEmail} />
           </Panel> : null}
-        <Profile user={user} minimize={!showProfile} close={this.displayProfile} inscription={this.setEmail}/>
+        <Profile user={user} minimize={!showProfile} close={this.displayProfile} displayEmailForm={this.displayEmailForm} inscription={this.setEmail}/>
         <LeafletMap ref={ref => this.leafletMap = ref} addresses={addresses} displayAddress={this.displayAddress} onCloseForm={this.closeForm} coords={coords} fullscreen={fullscreen} />
         <Locator accuracy={coords.accuracy} fullscreen={fullscreen} />
         {fullscreen ?
