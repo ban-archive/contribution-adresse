@@ -33,6 +33,29 @@ function generateToken() {
   return rndString
 }
 
+function isLocalStorageNameSupported() {
+  const testKey = 'test'
+  const storage = window.sessionStorage
+  try {
+    storage.setItem(testKey, '1')
+    storage.removeItem(testKey)
+    return true
+  } catch (error) {
+    return false
+  }
+}
+
+function useLocalStorage(fn, name, data) {
+  if (!isLocalStorageNameSupported()) return
+  if (fn === 'getItem') {
+    return JSON.parse(localStorage.getItem(name))
+  } else if (fn === 'setItem') {
+    return localStorage.setItem(name, JSON.stringify(data))
+  } else {
+    throw new Error(`localStorage function ${fn} unknow.`)
+  }
+}
+
 function getBadge(badgeName) {
   return badges.find(badge => badge.name === badgeName)
 }
@@ -47,7 +70,6 @@ class App extends Component {
       showEmailForm: false,
       selectedAddress: null,
       userCoords: null,
-      addresses: [],
       geoOptions: {
         enableHighAccuracy: true,
         maximumAge: 3000,
@@ -67,19 +89,17 @@ class App extends Component {
   }
 
   saveToLocalStorage() {
+    if (!isLocalStorageNameSupported()) return
     const { addresses, user } = this.state
-    localStorage.setItem('addresses', JSON.stringify(addresses))
-    localStorage.setItem('user', JSON.stringify(user))
+    useLocalStorage('setItem', 'addresses', addresses)
+    useLocalStorage('setItem', 'user', user)
   }
 
   loadLocalStorage() {
-    const addresses = JSON.parse(localStorage.getItem('addresses') || null)
-    const user = JSON.parse(localStorage.getItem('user') || null)
+    const addresses = useLocalStorage('getItem', 'addresses') || []
+    const user = useLocalStorage('getItem', 'user') || {token: null, badges: []}
 
-    this.setState({
-      user: user || {token: null, badges: []},
-      addresses: addresses || [],
-    })
+    this.setState({user, addresses})
   }
 
   @bind
@@ -188,7 +208,7 @@ class App extends Component {
   setEmail(email) {
     const { user, showEmailForm } = this.state
     user.email = email
-    this.setState({user}, localStorage.setItem('user', JSON.stringify(user)))
+    this.setState({user}, useLocalStorage('setItem', 'user', user))
     if (showEmailForm) this.displayEmailForm()
   }
 
@@ -196,7 +216,7 @@ class App extends Component {
   setToken() {
     const { user } = this.state
     user.token = generateToken()
-    this.setState({user}, localStorage.setItem('user', JSON.stringify(user)))
+    this.setState({user}, useLocalStorage('setItem', 'user', user))
   }
 
   @bind
