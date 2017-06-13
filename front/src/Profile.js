@@ -48,7 +48,7 @@ class Profile extends Component {
       <div class="menu column">
         <img class="close" onClick={close} src="close_icon.svg"/>
         <div class="column center profile">
-          <img alt="profile_icon" src="profile_icon.svg"/>
+          <img class="avatar" alt="profile_icon" src="profile_icon.svg"/>
           <div class="badges-number">{badges.length}</div>
           <div class="profile-email">
             <div>{user.email}</div>
