@@ -10,14 +10,14 @@ class Profile extends Component {
   }
 
   @bind
-  changeEmail() {
+  toggleEditEmail() {
     this.setState({editMail: !this.state.editMail})
   }
 
   @bind
-  modifyEmail(e) {
+  updateEmail(e) {
     const { inscription } = this.props
-    this.changeEmail()
+    this.toggleEditEmail()
     inscription(e)
   }
 
@@ -37,7 +37,7 @@ class Profile extends Component {
         <div class="column center profile">
           <img alt="profile_icon" src="profile_icon.svg"/>
           <div class="badges-number">{badges.length}</div>
-          <EmailForm userEmail={user.email} onSubmit={this.modifyEmail}/>
+          <EmailForm userEmail={user.email} onSubmit={this.updateEmail}/>
         </div>
       </div>
     )
@@ -52,7 +52,7 @@ class Profile extends Component {
           <div class="badges-number">{badges.length}</div>
           <div class="profile-email">
             <div>{user.email}</div>
-            <img class="edit-icon" onClick={this.changeEmail} alt="modifier" src="edit_icon.svg"/>
+            <img class="edit-icon" onClick={this.toggleEditEmail} alt="modifier" src="edit_icon.svg"/>
           </div>
         </div>
         <div class="divider"/>
@@ -81,7 +81,7 @@ class Profile extends Component {
                   <div>{contribution.street}</div>
                 </div>
               </div>) :
-                'Vous n\'avez pas encore contribuer.'
+                'Vous n\'avez pas encore contribué.'
             }
           </div>
         </div>
