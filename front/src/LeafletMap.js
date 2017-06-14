@@ -60,16 +60,13 @@ class LeafletMap extends Component {
     const { addresses } = this.props
     const markersToRemove = this.getMarkersToRemove()
     markersToRemove.forEach(marker => this.markers.removeLayer(marker))
-    console.log('markersToRemove: ', markersToRemove);
 
     addresses.forEach(address => {
       const marker = this.getMarker(address)
       if (!marker) {
-        console.log('!marker');
         const newMarker = this.createMarker(address)
         this.markers.addLayer(newMarker)
       } else if (!isSameLatLng(marker, address)) {
-        console.log('!isSameLatLng');
         const latLng = new L.latLng(address.coords.latitude, address.coords.longitude)
         marker.setLatLng(latLng)
         marker.options.address = address.address
