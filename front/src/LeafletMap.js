@@ -6,6 +6,11 @@ const homeIcon = L.icon({
   iconAnchor:   [22, 21],
 })
 
+function isSameLatLng(marker, address) {
+  const { lat, lng } = marker.getLatLng()
+  return lat === address.coords.latitude && lng === address.coords.longitude
+}
+
 class LeafletMap extends Component {
   componentDidMount() {
     const { coords, onCloseForm, fullscreen } = this.props
@@ -53,15 +58,18 @@ class LeafletMap extends Component {
 
   updateMarkers() {
     const { addresses } = this.props
-    const markerToRemove = this.getMarkerToRemove()
-    markerToRemove.map(marker => this.markers.removeLayer(marker))
+    const markersToRemove = this.getMarkersToRemove()
+    markersToRemove.forEach(marker => this.markers.removeLayer(marker))
+    console.log('markersToRemove: ', markersToRemove);
 
-    addresses.map(address => {
+    addresses.forEach(address => {
       const marker = this.getMarker(address)
       if (!marker) {
+        console.log('!marker');
         const newMarker = this.createMarker(address)
         this.markers.addLayer(newMarker)
-      } else if (!this.isSameLatLng(marker, address)) {
+      } else if (!isSameLatLng(marker, address)) {
+        console.log('!isSameLatLng');
         const latLng = new L.latLng(address.coords.latitude, address.coords.longitude)
         marker.setLatLng(latLng)
         marker.options.address = address.address
@@ -69,30 +77,16 @@ class LeafletMap extends Component {
     })
   }
 
-  isSameLatLng(marker, address) {
-    const { lat, lng } = marker.getLatLng()
-    return lat === address.latitude && lng === address.longitude
-  }
-
-  getMarkerToRemove() {
+  getMarkersToRemove() {
     const { addresses } = this.props
-    const toRemove = []
     const markers = this.markers.getLayers()
-    for (let i = 0; i < markers.length; i++) {
-      let find = false
-      for (let y = 0; y < addresses.length; y++) {
-        if (addresses[y].address === markers[i].options.address) find = true
-      }
-      if (!find) toRemove.push(markers[i])
-    }
-    return toRemove
+
+    return markers.filter(marker => !addresses.find(address => address.address === marker.options.address))
   }
 
   getMarker(address) {
     const markers = this.markers.getLayers()
-    for (let i = 0; i < markers.length; i++) {
-      if (markers[i].options.id === address.id) return markers[i]
-    }
+    return markers.find(marker => marker.options.id === address.id)
   }
 
   componentWillUnmount() {
