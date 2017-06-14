@@ -53,7 +53,7 @@ class LeafletMap extends Component {
 
   updateMarkers() {
     const { addresses } = this.props
-    const markerToRemove = this.markers.getLayers().filter(marker => !addresses.find(address => address === marker))
+    const markerToRemove = this.getMarkerToRemove()
     markerToRemove.map(marker => this.markers.removeLayer(marker))
 
     addresses.map(address => {
@@ -61,7 +61,7 @@ class LeafletMap extends Component {
       if (!marker) {
         const newMarker = this.createMarker(address)
         this.markers.addLayer(newMarker)
-      } else {
+      } else if (!this.isSameLatLng(marker, address)) {
         const latLng = new L.latLng(address.coords.latitude, address.coords.longitude)
         marker.setLatLng(latLng)
         marker.options.address = address.address
@@ -69,8 +69,30 @@ class LeafletMap extends Component {
     })
   }
 
+  isSameLatLng(marker, address) {
+    const { lat, lng } = marker.getLatLng()
+    return lat === address.latitude && lng === address.longitude
+  }
+
+  getMarkerToRemove() {
+    const { addresses } = this.props
+    const toRemove = []
+    const markers = this.markers.getLayers()
+    for (let i = 0; i < markers.length; i++) {
+      let find = false
+      for (let y = 0; y < addresses.length; y++) {
+        if (addresses[y].address === markers[i].options.address) find = true
+      }
+      if (!find) toRemove.push(markers[i])
+    }
+    return toRemove
+  }
+
   getMarker(address) {
-    this.markers.getLayers().find(marker => marker.options.id === address.id)
+    const markers = this.markers.getLayers()
+    for (let i = 0; i < markers.length; i++) {
+      if (markers[i].options.id === address.id) return markers[i]
+    }
   }
 
   componentWillUnmount() {
