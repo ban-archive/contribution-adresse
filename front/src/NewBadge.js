@@ -3,12 +3,12 @@ class NewBadge extends Component {
     const { badge, closeWindow } = this.props
 
     return (
-      <div class="NewBadge">
+      <div class="overlay resizable center">
         <div class="panel">
           <div>Vous avez gagné un nouveau badge !</div>
-          <div>
+          <div class="new-badge">
             <img alt={badge.name} src={badge.img} />
-            <div class="background"></div>
+            <div class="background-spinner"></div>
           </div>
           <div>{badge.condition}</div>
           <button onClick={closeWindow}>Ok</button>

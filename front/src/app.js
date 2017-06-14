@@ -25,10 +25,10 @@ const stringArray = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e'
 function generateToken() {
   let rndString = ''
 
-  for (var i = 0; i <= 15; i++) {
-			var rndNum = Math.ceil(Math.random() * stringArray.length) - 1
-			rndString = rndString + stringArray[rndNum];
-		}
+  for (let i = 0; i <= 15; i++) {
+    const rndNum = Math.ceil(Math.random() * stringArray.length) - 1
+    rndString = rndString + stringArray[rndNum]
+  }
 
   return rndString
 }
@@ -44,6 +44,7 @@ class App extends Component {
       tuto: 0,
       newBadge: null,
       showBadges: false,
+      showEmailForm: false,
       selectedAddress: null,
       userCoords: null,
       addresses: [],
@@ -77,7 +78,7 @@ class App extends Component {
 
     this.setState({
       user: user || {token: null, badges: []},
-      addresses: addresses || []
+      addresses: addresses || [],
     })
   }
 
@@ -184,6 +185,14 @@ class App extends Component {
   }
 
   @bind
+  setEmail(email) {
+    const { user } = this.state
+    user.email = email
+    this.setState({user}, localStorage.setItem('user', JSON.stringify(user)))
+    this.displayEmailForm()
+  }
+
+  @bind
   setToken() {
     const { user } = this.state
     user.token = generateToken()
@@ -229,8 +238,15 @@ class App extends Component {
     this.setState({showBadges: !this.state.showBadges})
   }
 
+  @bind
+  displayEmailForm() {
+    const { tuto } = this.state
+    this.setState({showEmailForm: !this.state.showEmailForm})
+    if (tuto === 3) this.tutoNextStep()
+  }
+
   render() {
-    const { user, tuto, coords, newBadge, showBadges, houseNumber, street, addresses, selectedAddress, fullscreen, error } = this.state
+    const { user, tuto, coords, newBadge, showBadges, showEmailForm, houseNumber, street, addresses, selectedAddress, fullscreen, error } = this.state
     if (!user.token) return <Welcome skip={this.setToken}/>
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
@@ -240,8 +256,12 @@ class App extends Component {
 
     return (
       <div class="container">
-        {!this.unlockedBadge('tutorial') && !newBadge ? <Tuto nextStep={this.tutoNextStep} stepIndex={tuto} /> : null}
-        {newBadge ? <NewBadge badge={newBadge} closeWindow={this.resetNewBadge} /> : null}
+        {!this.unlockedBadge('tutorial') && !newBadge ? <Tuto nextStep={this.tutoNextStep} stepIndex={tuto} saveProgression={this.displayEmailForm} /> : null}
+        {newBadge && !showEmailForm ? <NewBadge badge={newBadge} closeWindow={this.resetNewBadge} /> : null}
+        {showEmailForm ?
+          <Panel close={this.displayEmailForm} reverse={true} position="center">
+            <EmailForm onSubmit={this.setEmail} />
+          </Panel> : null}
         <BadgesMenu minimize={!showBadges} unlockedBadges={user.badges} displayMenu={this.displayBadgesMenu}/>
         <LeafletMap ref={ref => this.leafletMap = ref} addresses={addresses} displayAddress={this.displayAddress} onCloseForm={this.closeForm} coords={coords} fullscreen={fullscreen} />
         <Locator accuracy={coords.accuracy} fullscreen={fullscreen} />
