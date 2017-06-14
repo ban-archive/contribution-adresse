@@ -1,7 +1,7 @@
 class EmailForm extends Component {
   constructor(props) {
     super(props)
-    this.state = {email: '', valid: false}
+    this.state = {email: '', valid: props.userEmail ? true : false}
   }
 
   @bind
@@ -13,16 +13,17 @@ class EmailForm extends Component {
 
   validateEmail() {
     const { email } = this.state
+    const { userEmail } = this.props
     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    this.setState({valid: re.test(email)})
+    this.setState({valid: re.test(email) || (!email.length && userEmail)})
   }
 
   @bind
   submit() {
     const { email } = this.state
-    const { onSubmit } = this.props
+    const { userEmail, onSubmit } = this.props
 
-    onSubmit(email)
+    onSubmit(email || userEmail)
   }
 
   render() {
@@ -32,10 +33,10 @@ class EmailForm extends Component {
 
     return (
       <div class="EmailForm">
-        <input class={`email-input ${!email.length ? '' : formState}`} type="email" placeholder="Email" value={email || userEmail} onInput={this.handleEmailChange} />
+        <input class={`${!email.length ? '' : formState}`} type="email" placeholder={userEmail || 'Email'} value={email} onInput={this.handleEmailChange} />
         {valid ?
           <button class="reverse" onClick={this.submit}>Enregister</button> :
-          <button class="reverse" disabled="true">Enregister</button>
+          <button class="reverse" disabled>Enregister</button>
         }
       </div>
     )

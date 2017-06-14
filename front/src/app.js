@@ -33,6 +33,29 @@ function generateToken() {
   return rndString
 }
 
+function isLocalStorageNameSupported() {
+  const testKey = 'test'
+  const storage = window.sessionStorage
+  try {
+    storage.setItem(testKey, '1')
+    storage.removeItem(testKey)
+    return true
+  } catch (error) {
+    return false
+  }
+}
+
+function useLocalStorage(fn, name, data) {
+  if (!isLocalStorageNameSupported()) return
+  if (fn === 'getItem') {
+    return JSON.parse(localStorage.getItem(name))
+  } else if (fn === 'setItem') {
+    return localStorage.setItem(name, JSON.stringify(data))
+  } else {
+    throw new Error(`localStorage function ${fn} unknow.`)
+  }
+}
+
 function getBadge(badgeName) {
   return badges.find(badge => badge.name === badgeName)
 }
@@ -43,11 +66,10 @@ class App extends Component {
     this.state = {
       tuto: 0,
       newBadge: null,
-      showBadges: false,
+      showProfile: false,
       showEmailForm: false,
       selectedAddress: null,
       userCoords: null,
-      addresses: [],
       geoOptions: {
         enableHighAccuracy: true,
         maximumAge: 3000,
@@ -67,19 +89,17 @@ class App extends Component {
   }
 
   saveToLocalStorage() {
+    if (!isLocalStorageNameSupported()) return
     const { addresses, user } = this.state
-    localStorage.setItem('addresses', JSON.stringify(addresses))
-    localStorage.setItem('user', JSON.stringify(user))
+    useLocalStorage('setItem', 'addresses', addresses)
+    useLocalStorage('setItem', 'user', user)
   }
 
   loadLocalStorage() {
-    const addresses = JSON.parse(localStorage.getItem('addresses') || null)
-    const user = JSON.parse(localStorage.getItem('user') || null)
+    const addresses = useLocalStorage('getItem', 'addresses') || []
+    const user = useLocalStorage('getItem', 'user') || {token: null, badges: []}
 
-    this.setState({
-      user: user || {token: null, badges: []},
-      addresses: addresses || [],
-    })
+    this.setState({user, addresses})
   }
 
   @bind
@@ -186,17 +206,17 @@ class App extends Component {
 
   @bind
   setEmail(email) {
-    const { user } = this.state
+    const { user, showEmailForm } = this.state
     user.email = email
-    this.setState({user}, localStorage.setItem('user', JSON.stringify(user)))
-    this.displayEmailForm()
+    this.setState({user}, useLocalStorage('setItem', 'user', user))
+    if (showEmailForm) this.displayEmailForm()
   }
 
   @bind
   setToken() {
     const { user } = this.state
     user.token = generateToken()
-    this.setState({user}, localStorage.setItem('user', JSON.stringify(user)))
+    this.setState({user}, useLocalStorage('setItem', 'user', user))
   }
 
   @bind
@@ -234,19 +254,19 @@ class App extends Component {
   }
 
   @bind
-  displayBadgesMenu() {
-    this.setState({showBadges: !this.state.showBadges})
-  }
-
-  @bind
   displayEmailForm() {
     const { tuto } = this.state
     this.setState({showEmailForm: !this.state.showEmailForm})
     if (tuto === 3) this.tutoNextStep()
   }
 
+  @bind
+  displayProfile() {
+    this.setState({showProfile: !this.state.showProfile})
+  }
+
   render() {
-    const { user, tuto, coords, newBadge, showBadges, showEmailForm, houseNumber, street, addresses, selectedAddress, fullscreen, error } = this.state
+    const { user, tuto, coords, newBadge, showProfile, showEmailForm, houseNumber, street, addresses, selectedAddress, fullscreen, error } = this.state
     if (!user.token) return <Welcome skip={this.setToken}/>
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
@@ -260,9 +280,9 @@ class App extends Component {
         {newBadge && !showEmailForm ? <NewBadge badge={newBadge} closeWindow={this.resetNewBadge} /> : null}
         {showEmailForm ?
           <Panel close={this.displayEmailForm} reverse={true} position="center">
-            <EmailForm onSubmit={this.setEmail} />
+            <EmailForm userEmail={user.email} onSubmit={this.setEmail} />
           </Panel> : null}
-        <BadgesMenu minimize={!showBadges} unlockedBadges={user.badges} displayMenu={this.displayBadgesMenu}/>
+        <Profile user={user} minimize={!showProfile} close={this.displayProfile} displayEmailForm={this.displayEmailForm} inscription={this.setEmail}/>
         <LeafletMap ref={ref => this.leafletMap = ref} addresses={addresses} displayAddress={this.displayAddress} onCloseForm={this.closeForm} coords={coords} fullscreen={fullscreen} />
         <Locator accuracy={coords.accuracy} fullscreen={fullscreen} />
         {fullscreen ?

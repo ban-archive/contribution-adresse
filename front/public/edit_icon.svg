@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="73px" height="72px" viewBox="0 0 73 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>edit_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="edit_icon" fill="#3F4DAB">
+            <rect id="Rectangle-5" transform="translate(52.858954, 19.558350) rotate(45.000000) translate(-52.858954, -19.558350) " x="39.3589542" y="16.55835" width="27" height="6"></rect>
+            <rect id="Rectangle-6" transform="translate(24.427670, 32.677670) rotate(45.000000) translate(-24.427670, -32.677670) " x="21.1776695" y="10.1776695" width="6.5" height="45"></rect>
+            <rect id="Rectangle-6" transform="translate(33.059048, 37.964048) rotate(45.000000) translate(-33.059048, -37.964048) " x="29.5590478" y="17.9640478" width="7" height="40"></rect>
+            <rect id="Rectangle-6" transform="translate(39.177670, 47.677670) rotate(45.000000) translate(-39.177670, -47.677670) " x="36.1776695" y="25.1776695" width="6" height="45"></rect>
+            <path d="M8,50 L3.5,67" id="Line" stroke="#3F4DAB" stroke-width="6" stroke-linecap="square"></path>
+            <path d="M16.1604411,58.2573481 L11.2898284,73.5166694" id="Line" stroke="#3F4DAB" stroke-width="6" stroke-linecap="square" transform="translate(13.725135, 65.887009) rotate(57.000000) translate(-13.725135, -65.887009) "></path>
+            <circle id="Oval-9" cx="2.5" cy="69.5" r="2.5"></circle>
+            <path d="M7.5,60.5 L11.5,64.5" id="Line" stroke="#3F4DAB" stroke-width="6" stroke-linecap="square"></path>
+            <path d="M48.1279169,5.38732223 L66.6253239,23.7201672 L70.3711023,19.8155518 C71.0185649,18.87201 71.3422963,17.7026461 71.3422963,16.30746 C71.3422963,14.9122738 71.0185649,13.7194453 70.3711023,12.7289743 L60.1294198,2.47918868 C58.7128378,1.27479899 57.3927199,0.672604147 56.1690661,0.672604147 C54.9454123,0.672604147 53.564344,1.00327889 52.025861,1.66462837 L48.1279169,5.38732223 Z" id="Path-18"></path>
+        </g>
+    </g>
+</svg>
