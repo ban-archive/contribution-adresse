@@ -2,27 +2,53 @@ const { bind } = decko
 
 class AddressForm extends Component {
   constructor(props) {
+    const inputs = {
+      'houseNumbers': {
+        handle: props.onHouseNumberChange,
+        suggestions: [],
+      },
+      'additionals': {
+        handle: props.onAdditionalChange,
+        suggestions: [],
+      },
+      'streets': {
+        handle: props.onStreetChange,
+        suggestions: [],
+      },
+    }
     super(props)
     this.state = {
-      activeInput: 'houseNumbers',
-      houseNumbers: [],
-      streets: [],
+      inputs,
+      activeInput: inputs.houseNumbers,
     }
   }
 
   componentDidMount() {
-      this.getNumbersSuggestions(),
-      this.getStreetsSuggestions()
+    const { inputs } = this.state
+    this.getHouseNumbersSuggestions(),
+    this.getAdditionalsSuggestions()
+    this.getStreetsSuggestions()
   }
 
   @bind
-  getNumbersSuggestions() {
-    this.setState({houseNumbers: [8, 10, 12, 14, 16, 1, 5, 7, 9, 11]})
+  getHouseNumbersSuggestions() {
+    const { inputs } = this.state
+    inputs.houseNumbers.suggestions = [8, 10, 12, 14, 16, 1, 5, 7, 9, 11]
+    this.setState({inputs})
+  }
+
+  @bind
+  getAdditionalsSuggestions() {
+    const { inputs } = this.state
+    inputs.additionals.suggestions = ['bis', 'ter', 'quater', 'A', 'B', 'C', 'D', 'E']
+    this.setState({inputs})
   }
 
   @bind
   getStreetsSuggestions() {
-    this.setState({streets: ['rue de Javel', 'avenue Émile Zola', 'Quai André Citroën', 'port de Javel Haut']})
+    const { inputs } = this.state
+    inputs.streets.suggestions = ['rue de Javel', 'avenue Émile Zola', 'Quai André Citroën', 'port de Javel Haut']
+    this.setState({inputs})
   }
 
   @bind
@@ -30,19 +56,28 @@ class AddressForm extends Component {
     this.setState({activeInput: input})
   }
 
+  @bind
+  handleInput(e) {
+    const { activeInput, inputs } = this.state
+    activeInput.handle(e)
+    if (activeInput === inputs.houseNumbers) this.setState({activeInput: inputs.additionals})
+    if (activeInput === inputs.additionals) this.setState({activeInput: inputs.streets})
+  }
+
   render() {
-    const { activeInput,  houseNumbers, streets, error } = this.state
-    const { houseNumber, street, onHouseNumberChange, onStreetChange, onSubmit } = this.props
+    const { activeInput, inputs, error } = this.state
+    const { houseNumber, street, additional, onHouseNumberChange, onAdditionalChange, onStreetChange, onSubmit } = this.props
     if (error) return <Error error={error}/>
 
     return (
       <div>
         <div class="address-form">
-          <input class="houseNumber-input" type="text" placeholder="N°" value={houseNumber} onInput={onHouseNumberChange} onClick={() => this.selectInput('houseNumbers')} />
-          <input class="street-input" type="text" placeholder="Nom de la voie" value={street} onInput={onStreetChange} onClick={() => this.selectInput('streets')} />
+          <input class="houseNumber-input" type="text" placeholder="N°" value={houseNumber} onInput={onHouseNumberChange} onClick={() => this.selectInput(inputs.houseNumbers)} />
+          <input class="additionals-input" type="text" placeholder=" " value={additional} onInput={onAdditionalChange} onClick={() => this.selectInput(inputs.additionals)} />
+          <input class="street-input" type="text" placeholder="Nom de la voie" value={street} onInput={onStreetChange} onClick={() => this.selectInput(inputs.streets)} />
         </div>
-        {houseNumber && street ? <div onClick={onSubmit} class="create-button">Créer le {houseNumber} {street}</div> : null}
-        <Suggestions suggestions={{houseNumbers, streets}} selectHouseNumber={onHouseNumberChange} selectStreet={onStreetChange} activeInput={activeInput} />
+        {houseNumber && street ? <div onClick={onSubmit} class="create-button">Créer le {houseNumber} {additional} {street}</div> : null}
+        <Suggestions suggestions={activeInput.suggestions} selectSuggestion={this.handleInput} />
       </div>
     )
   }

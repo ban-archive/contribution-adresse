@@ -131,17 +131,22 @@ class App extends Component {
   }
 
   @bind
+  handleAdditionalChange(e) {
+    this.setState({additional: e.target.value || e.target.textContent})
+  }
+
+  @bind
   handleStreetChange(e) {
     this.setState({street: e.target.value || e.target.textContent})
   }
 
   clearForm() {
-    this.setState({houseNumber: '', street: ''})
+    this.setState({houseNumber: '', additional: '', street: ''})
   }
 
   @bind
   addAddress() {
-    const { addresses, coords, houseNumber, street, tuto } = this.state
+    const { addresses, coords, houseNumber, additional, street, tuto } = this.state
     if (!addresses.length) this.winBadge(getBadge('first address'))
     const newAddresses = [...addresses]
     const coordinates = {
@@ -153,7 +158,7 @@ class App extends Component {
       longitude: coords.longitude,
       speed: coords.speed,
     }
-    newAddresses.push({coords: coordinates, address: {houseNumber, street}, id: `${houseNumber}_${street}`})
+    newAddresses.push({coords: coordinates, address: {houseNumber, additional, street}, id: `${houseNumber}_${street}`})
     if (tuto === 2 ) this.tutoNextStep()
     this.closeForm()
     this.saveAddresses(newAddresses)
@@ -170,10 +175,10 @@ class App extends Component {
 
   @bind
   editAddress() {
-    const { addresses, selectedAddress, houseNumber, street } = this.state
+    const { addresses, selectedAddress, houseNumber, additional, street } = this.state
     const newAddresses = [...addresses]
     const addressToEdit = newAddresses.find(addr => addr.id === selectedAddress.id)
-    addressToEdit.address = {houseNumber, street}
+    addressToEdit.address = {houseNumber, additional, street}
     this.saveAddresses(newAddresses)
   }
 
@@ -181,7 +186,7 @@ class App extends Component {
   displayAddress(e) {
     const { addresses } = this.state
     const address = addresses.find(address => address.id === e.target.options.id)
-    this.setState({houseNumber: address.address.houseNumber, street: address.address.street})
+    this.setState({houseNumber: address.address.houseNumber, additional: address.address.additional, street: address.address.street})
     this.setStateAndUpdateMap({fullscreen: false, selectedAddress: address})
   }
 
@@ -266,7 +271,7 @@ class App extends Component {
   }
 
   render() {
-    const { user, tuto, coords, newBadge, showProfile, showEmailForm, houseNumber, street, addresses, selectedAddress, fullscreen, error } = this.state
+    const { user, tuto, coords, newBadge, showProfile, showEmailForm, houseNumber, additional, street, addresses, selectedAddress, fullscreen, error } = this.state
     if (!user.token) return <Welcome skip={this.setToken}/>
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
@@ -289,8 +294,8 @@ class App extends Component {
           <Dashboard speed={speed} accuracy={accuracy} openMenu={this.openMenu} /> :
           <Menu>
             { selectedAddress ?
-              <Address houseNumber={houseNumber} street={street} handleHouseNumberChange={this.handleHouseNumberChange} handleStreetChange={this.handleStreetChange} editAddress={this.editAddress} removeAddress={this.removeAddress} /> :
-              <AddressForm houseNumber={houseNumber} street={street} onHouseNumberChange={this.handleHouseNumberChange} onStreetChange={this.handleStreetChange} onSubmit={this.addAddress} />
+              <Address houseNumber={houseNumber} additional={additional} street={street} handleHouseNumberChange={this.handleHouseNumberChange} handleAdditionalChange={this.handleAdditionalChange} handleStreetChange={this.handleStreetChange} editAddress={this.editAddress} removeAddress={this.removeAddress} /> :
+              <AddressForm houseNumber={houseNumber} additional={additional} street={street} onHouseNumberChange={this.handleHouseNumberChange} onAdditionalChange={this.handleAdditionalChange} onStreetChange={this.handleStreetChange} onSubmit={this.addAddress} />
             }
           </Menu>
         }

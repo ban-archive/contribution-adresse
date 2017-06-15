@@ -446,7 +446,7 @@ button.reverse {
 
 .Menu {
   width: 100%;
-  height: 100%;
+  height: calc(50% - 70px);
   position: absolute;
   top: 50%;
   margin-top: 10px;
@@ -461,6 +461,10 @@ button.reverse {
 }
 
 .houseNumber-input {
+  width: 10%;
+}
+
+.additionals-input {
   width: 20%;
 }
 
@@ -530,14 +534,6 @@ button.edit {
 
 .divider {
   border-top: 3px solid whitesmoke;
-}
-
-/* Suggestions */
-
-.Suggestions {
-  display: flex;
-  justify-content: flex-end;
-  flex-direction: column;
 }
 
 /* Dashboard */
