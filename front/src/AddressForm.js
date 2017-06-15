@@ -24,7 +24,6 @@ class AddressForm extends Component {
   }
 
   componentDidMount() {
-    const { inputs } = this.state
     this.getHouseNumbersSuggestions(),
     this.getAdditionalsSuggestions()
     this.getStreetsSuggestions()
@@ -66,7 +65,8 @@ class AddressForm extends Component {
 
   render() {
     const { activeInput, inputs, error } = this.state
-    const { houseNumber, street, additional, onHouseNumberChange, onAdditionalChange, onStreetChange, onSubmit } = this.props
+    const { houseNumber, additional, street, onHouseNumberChange, onAdditionalChange, onStreetChange, onSubmit } = this.props
+
     if (error) return <Error error={error}/>
 
     return (
