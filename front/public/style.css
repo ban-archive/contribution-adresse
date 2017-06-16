@@ -446,7 +446,7 @@ button.reverse {
 
 .Menu {
   width: 100%;
-  height: 100%;
+  height: calc(50% - 70px);
   position: absolute;
   top: 50%;
   margin-top: 10px;
@@ -461,6 +461,10 @@ button.reverse {
 }
 
 .houseNumber-input {
+  width: 10%;
+}
+
+.additionals-input {
   width: 20%;
 }
 
@@ -492,23 +496,18 @@ button.reverse {
   flex-direction: column;
 }
 
-.Address > div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 2em;
-}
-
-.Address img {
-  width: 60px;
-  height: 66px;
-}
-
-.Address address {
+.Address .address {
   color: grey;
   display: flex;
-  font-size: larger;
-  flex-direction: column;
+  font-size: x-large;
+  align-items: center;
+  padding: 1em;
+}
+
+.address img {
+  width: 60px;
+  height: 66px;
+  margin-right: 1em;
 }
 
 .Address button {
@@ -516,6 +515,12 @@ button.reverse {
   background-color: #fff;
   padding: 1em 2em;
   font-weight: 500;
+}
+
+.Address .actions {
+  display: flex;
+  justify-content: space-around;
+  margin: 1em;
 }
 
 button.remove {
@@ -530,14 +535,6 @@ button.edit {
 
 .divider {
   border-top: 3px solid whitesmoke;
-}
-
-/* Suggestions */
-
-.Suggestions {
-  display: flex;
-  justify-content: flex-end;
-  flex-direction: column;
 }
 
 /* Dashboard */

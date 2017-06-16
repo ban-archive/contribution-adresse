@@ -18,22 +18,21 @@ class Address extends Component {
   }
 
   render() {
-    const { street, houseNumber, handleHouseNumberChange, handleStreetChange, removeAddress } = this.props
+    const { houseNumber, additional, street, handleHouseNumberChange, handleAdditionalChange, handleStreetChange, removeAddress } = this.props
     const { editInput } = this.state
 
-    if (editInput) return <AddressForm houseNumber={houseNumber} street={street} onHouseNumberChange={handleHouseNumberChange} onStreetChange={handleStreetChange} onSubmit={this.edit} />
+    if (editInput) return <AddressForm houseNumber={houseNumber} additional={additional} street={street} onHouseNumberChange={handleHouseNumberChange} onAdditionalChange={handleAdditionalChange} onStreetChange={handleStreetChange} onSubmit={this.edit} />
 
     return (
       <div class="Address">
-        <div>
+        <div class="address">
           <img class="location_logo" src="location_logo.svg" alt="location_logo" />
           <div class="address">
-            <div>{houseNumber}</div>
-            <div>{street}</div>
+            {houseNumber} {additional} {street}
           </div>
         </div>
         <div class="divider" />
-        <div>
+        <div class="actions">
           <button onClick={removeAddress} class="remove">Supprimer</button>
           <button onClick={this.editing} class="edit">Modifier</button>
         </div>
