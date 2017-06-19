@@ -2,14 +2,8 @@ const { h, Component } = preact
 
 const homeIcon = L.icon({
   iconUrl: 'home_icon.svg',
-  iconSize:     [43, 42],
-  iconAnchor:   [22, 21],
-})
-
-const selectedHomeIcon = L.icon({
-  iconUrl: 'home_icon_selected.svg',
-  iconSize:     [43, 42],
-  iconAnchor:   [22, 21],
+  iconSize:     [21, 21],
+  iconAnchor:   [11, 12],
 })
 
 function isSameLatLng(marker, address) {
@@ -27,9 +21,9 @@ function updateMarkerPosition(marker, address) {
 
 function updateMarkerIcon(marker, address, selectedAddress) {
   if (selectedAddress && selectedAddress === address) {
-    marker.setIcon(selectedHomeIcon)
+    marker._icon.className = 'selected-address'
   } else {
-    marker.setIcon(homeIcon)
+    marker._icon.className = ''
   }
 }
 
