@@ -185,6 +185,15 @@ button.reverse {
   z-index: 0;
 }
 
+.selected-address {
+  border: 2px solid #3F4DAB;
+  border-radius: 100%;
+  box-shadow: 0 2px 20px 0 rgba(0,0,0,0.50), inset 0 1px 3px 0 rgba(0,0,0,0.50);
+  padding: 5px;
+  margin-top: -20px !important;
+  margin-left: -20px !important;
+}
+
 .menu {
   z-index: 1;
   position: absolute;

@@ -2,13 +2,29 @@ const { h, Component } = preact
 
 const homeIcon = L.icon({
   iconUrl: 'home_icon.svg',
-  iconSize:     [43, 42],
-  iconAnchor:   [22, 21],
+  iconSize:     [21, 21],
+  iconAnchor:   [11, 12],
 })
 
 function isSameLatLng(marker, address) {
   const { lat, lng } = marker.getLatLng()
   return lat === address.coords.latitude && lng === address.coords.longitude
+}
+
+function updateMarkerPosition(marker, address) {
+  if (!isSameLatLng(marker, address)) {
+    const latLng = new L.latLng(address.coords.latitude, address.coords.longitude)
+    marker.setLatLng(latLng)
+    marker.options.address = address.address
+  }
+}
+
+function updateMarkerIcon(marker, address, selectedAddress) {
+  if (selectedAddress && selectedAddress === address) {
+    marker._icon.className = 'selected-address'
+  } else {
+    marker._icon.className = ''
+  }
 }
 
 class LeafletMap extends Component {
@@ -57,19 +73,19 @@ class LeafletMap extends Component {
   }
 
   updateMarkers() {
-    const { addresses } = this.props
+    const { addresses, selectedAddress } = this.props
     const markersToRemove = this.getMarkersToRemove()
     markersToRemove.forEach(marker => this.markers.removeLayer(marker))
 
     addresses.forEach(address => {
       const marker = this.getMarker(address)
+
       if (!marker) {
         const newMarker = this.createMarker(address)
         this.markers.addLayer(newMarker)
-      } else if (!isSameLatLng(marker, address)) {
-        const latLng = new L.latLng(address.coords.latitude, address.coords.longitude)
-        marker.setLatLng(latLng)
-        marker.options.address = address.address
+      } else {
+        updateMarkerPosition(marker, address)
+        updateMarkerIcon(marker, address, selectedAddress)
       }
     })
   }

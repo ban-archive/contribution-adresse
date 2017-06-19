@@ -288,7 +288,7 @@ class App extends Component {
             <EmailForm userEmail={user.email} onSubmit={this.setEmail} />
           </Panel> : null}
         <Profile user={user} minimize={!showProfile} close={this.displayProfile} displayEmailForm={this.displayEmailForm} inscription={this.setEmail}/>
-        <LeafletMap ref={ref => this.leafletMap = ref} addresses={addresses} displayAddress={this.displayAddress} onCloseForm={this.closeForm} coords={coords} fullscreen={fullscreen} />
+        <LeafletMap ref={ref => this.leafletMap = ref} addresses={addresses} selectedAddress={selectedAddress} displayAddress={this.displayAddress} onCloseForm={this.closeForm} coords={coords} fullscreen={fullscreen} />
         <Locator accuracy={coords.accuracy} fullscreen={fullscreen} />
         {fullscreen ?
           <Dashboard speed={speed} accuracy={accuracy} openMenu={this.openMenu} /> :
