@@ -12,6 +12,12 @@ html, body, .container, #map {
   width: 100%;
 }
 
+img.upside-down {
+  -ms-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
 input {
   border-bottom: 3px solid #3F4DAB;
   border-top: none;
@@ -520,6 +526,12 @@ button.reverse {
   flex-direction: column;
 }
 
+.Address p {
+  color: grey;
+  font-size: large;
+  text-align: center;
+}
+
 .Address .address {
   color: grey;
   display: flex;
@@ -547,6 +559,12 @@ button.reverse {
   margin: 1em;
 }
 
+.thanks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 button.remove {
   color: red;
   border-color: red;
@@ -559,6 +577,11 @@ button.edit {
 
 .divider {
   border-top: 3px solid whitesmoke;
+}
+
+.divider.vertical {
+  border-top: none;
+  border-left: 3px solid whitesmoke;
 }
 
 /* Dashboard */

@@ -36,7 +36,7 @@ import badges from './badges.json'
 // ]
 
 const fakeUser = {
-  token: 'UDrdQOVxqx4T96!U',
+  token: '123456789',
   email: 'michel@ail.fr',
   badges: [],
 }
@@ -52,8 +52,8 @@ const fakeAddress = {
     altitude: null,
     altitudeAccuracy: null,
     heading: null,
-    latitude: 48.75815370000001,
-    longitude: 1.0885555,
+    latitude: 48.75815371,
+    longitude: 1.088557,
     speed: null,
   },
   id: '8_rue de Javel',
@@ -143,7 +143,7 @@ class App extends Component {
   loadLocalStorage() {
     const addresses = useLocalStorage('getItem', 'addresses') || []
     const user = useLocalStorage('getItem', 'user') || {token: null, badges: []}
-
+    addresses.push(fakeAddress)
     this.setState({user, addresses})
   }
 
@@ -231,6 +231,25 @@ class App extends Component {
     const newAddresses = [...addresses]
     const addressToEdit = newAddresses.find(addr => addr.id === selectedAddress.id)
     addressToEdit.address = {houseNumber, additional, street}
+    this.saveAddresses(newAddresses)
+  }
+
+  @bind
+  addProposal(proposal) {
+    const { selectedAddress, addresses } = this.state
+    const newAddresses = [...addresses]
+    const addressToEdit = newAddresses.find(addr => addr.id === selectedAddress.id)
+    addressToEdit.proposals.push(proposal)
+    this.saveAddresses(newAddresses)
+  }
+
+  @bind
+  removeProposal() {
+    const { user, selectedAddress, addresses } = this.state
+    const newAddresses = [...addresses]
+    const addressToEdit = newAddresses.find(addr => addr.id === selectedAddress.id)
+    const proposal = addressToEdit.proposals.find(proposal => proposal.user.token === user.token)
+    addressToEdit.proposals.pop(proposal)
     this.saveAddresses(newAddresses)
   }
 
@@ -327,7 +346,6 @@ class App extends Component {
     if (!user.token) return <Welcome skip={this.setToken}/>
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
-    console.log(addresses);
     const speed = Number((coords.speed || 0).toFixed())
     const accuracy = Number((coords.accuracy || 0).toFixed())
 
@@ -340,13 +358,16 @@ class App extends Component {
             <EmailForm userEmail={user.email} onSubmit={this.setEmail} />
           </Panel> : null}
         <Profile user={user} minimize={!showProfile} close={this.displayProfile} displayEmailForm={this.displayEmailForm} inscription={this.setEmail}/>
-        <LeafletMap ref={ref => this.leafletMap = ref} addresses={addresses} selectedAddress={selectedAddress} displayAddress={this.displayAddress} onCloseForm={this.closeForm} coords={coords} fullscreen={fullscreen} />
+        <LeafletMap ref={ref => this.leafletMap = ref} user={user} addresses={addresses} selectedAddress={selectedAddress} displayAddress={this.displayAddress} onCloseForm={this.closeForm} coords={coords} fullscreen={fullscreen} />
         <Locator accuracy={coords.accuracy} fullscreen={fullscreen} />
         {fullscreen ?
           <Dashboard speed={speed} accuracy={accuracy} openMenu={this.openMenu} /> :
           <Menu>
-            { selectedAddress ?
-              <Address houseNumber={houseNumber} additional={additional} street={street} handleHouseNumberChange={this.handleHouseNumberChange} handleAdditionalChange={this.handleAdditionalChange} handleStreetChange={this.handleStreetChange} editAddress={this.editAddress} removeAddress={this.removeAddress} /> :
+            {selectedAddress ?
+              (selectedAddress.createBy.token === user.token ?
+                <Address houseNumber={houseNumber} additional={additional} street={street} handleHouseNumberChange={this.handleHouseNumberChange} handleAdditionalChange={this.handleAdditionalChange} handleStreetChange={this.handleStreetChange} editAddress={this.editAddress} removeAddress={this.removeAddress} /> :
+                <AddressContribution user={user} address={selectedAddress} handleContribution={this.addProposal} cancelContribution={this.removeProposal}/>
+              ) :
               <AddressForm houseNumber={houseNumber} additional={additional} street={street} onHouseNumberChange={this.handleHouseNumberChange} onAdditionalChange={this.handleAdditionalChange} onStreetChange={this.handleStreetChange} onSubmit={this.addAddress} />
             }
           </Menu>
