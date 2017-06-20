@@ -1,9 +1,8 @@
 const { h, Component } = preact
 
-const homeIcon = L.icon({
-  iconUrl: 'home_icon.svg',
-  iconSize:     [21, 21],
-  iconAnchor:   [11, 12],
+const homeIcon = L.divIcon({
+  className: 'marker-icon',
+  html: '<svg viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="home_icon"><circle id="Oval-4" fill="#D8D8D8" cx="11" cy="11" r="10"></circle><path d="M11,2 L19,9.5542522 L3,9.5542522 L11,2 Z M5.10752688,9.5542522 L16.9354839,9.5542522 L16.9354839,18 L5.10752688,18 L5.10752688,9.5542522 Z" id="Combined-Shape" fill="#FFFFFF"></path></g></g></svg>',
 })
 
 function isSameLatLng(marker, address) {
@@ -21,9 +20,9 @@ function updateMarkerPosition(marker, address) {
 
 function updateMarkerIcon(marker, address, selectedAddress) {
   if (selectedAddress && selectedAddress === address) {
-    marker._icon.className = 'selected-address'
+    marker._icon.className += ' selected-address'
   } else {
-    marker._icon.className = ''
+    marker._icon.className = 'marker-icon'
   }
 }
 
@@ -79,7 +78,6 @@ export default class LeafletMap extends Component {
 
     addresses.forEach(address => {
       const marker = this.getMarker(address)
-
       if (!marker) {
         const newMarker = this.createMarker(address)
         this.markers.addLayer(newMarker)

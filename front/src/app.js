@@ -35,6 +35,37 @@ import badges from './badges.json'
 //   }
 // ]
 
+const fakeUser = {
+  token: 'UDrdQOVxqx4T96!U',
+  email: 'michel@ail.fr',
+  badges: [],
+}
+
+const fakeAddress = {
+  address: {
+    additional: 'bis',
+    houseNumber: '8',
+    street: 'rue de Javel',
+  },
+  coords: {
+    accuracy: 20,
+    altitude: null,
+    altitudeAccuracy: null,
+    heading: null,
+    latitude: 48.75815370000001,
+    longitude: 1.0885555,
+    speed: null,
+  },
+  id: '8_rue de Javel',
+  createAt: 1497862616057,
+  createBy: fakeUser,
+  proposals: [],
+}
+
+const fakeAddresses = [
+  fakeAddress,
+]
+
 const stringArray = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','!','?']
 
 function generateToken() {
@@ -160,7 +191,7 @@ class App extends Component {
 
   @bind
   addAddress() {
-    const { addresses, coords, houseNumber, additional, street, tuto } = this.state
+    const { user, addresses, coords, houseNumber, additional, street, tuto } = this.state
     if (!addresses.length) this.winBadge(getBadge('first address'))
     const newAddresses = [...addresses]
     const coordinates = {
@@ -172,7 +203,14 @@ class App extends Component {
       longitude: coords.longitude,
       speed: coords.speed,
     }
-    newAddresses.push({coords: coordinates, address: {houseNumber, additional, street}, id: `${houseNumber}_${street}`})
+    newAddresses.push({
+      coords: coordinates,
+      address: {houseNumber, additional, street},
+      id: `${houseNumber}_${street}`,
+      createAt: Date.now(),
+      createBy: user,
+      proposals: [],
+    })
     if (tuto === 2 ) this.tutoNextStep()
     this.closeForm()
     this.saveAddresses(newAddresses)
@@ -289,7 +327,7 @@ class App extends Component {
     if (!user.token) return <Welcome skip={this.setToken}/>
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
-
+    console.log(addresses);
     const speed = Number((coords.speed || 0).toFixed())
     const accuracy = Number((coords.accuracy || 0).toFixed())
 
