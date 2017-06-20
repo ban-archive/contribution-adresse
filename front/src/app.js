@@ -35,37 +35,6 @@ import badges from './badges.json'
 //   }
 // ]
 
-const fakeUser = {
-  token: '123456789',
-  email: 'michel@ail.fr',
-  badges: [],
-}
-
-const fakeAddress = {
-  address: {
-    additional: 'bis',
-    houseNumber: '8',
-    street: 'rue de Javel',
-  },
-  coords: {
-    accuracy: 20,
-    altitude: null,
-    altitudeAccuracy: null,
-    heading: null,
-    latitude: 48.75815371,
-    longitude: 1.088557,
-    speed: null,
-  },
-  id: '8_rue de Javel',
-  createAt: 1497862616057,
-  createBy: fakeUser,
-  proposals: [],
-}
-
-const fakeAddresses = [
-  fakeAddress,
-]
-
 const stringArray = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','!','?']
 
 function generateToken() {
@@ -143,7 +112,6 @@ class App extends Component {
   loadLocalStorage() {
     const addresses = useLocalStorage('getItem', 'addresses') || []
     const user = useLocalStorage('getItem', 'user') || {token: null, badges: []}
-    addresses.push(fakeAddress)
     this.setState({user, addresses})
   }
 
