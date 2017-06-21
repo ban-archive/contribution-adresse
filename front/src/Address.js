@@ -1,6 +1,8 @@
 const { bind } = decko
+const { h, Component } = preact
+import AddressForm from './AddressForm'
 
-class Address extends Component {
+export default class Address extends Component {
   constructor(props) {
     super(props)
     this.state = {editInput: false}

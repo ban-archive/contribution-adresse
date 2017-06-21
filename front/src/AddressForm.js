@@ -1,6 +1,9 @@
 const { bind } = decko
+const { h, Component } = preact
+import Error from './Error'
+import Suggestions from './Suggestions'
 
-class AddressForm extends Component {
+export default class AddressForm extends Component {
   constructor(props) {
     const inputs = {
       'houseNumbers': {

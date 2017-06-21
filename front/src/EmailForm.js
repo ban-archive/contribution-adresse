@@ -1,4 +1,7 @@
-class EmailForm extends Component {
+const { h, Component } = preact
+const { bind } = decko
+
+export default class EmailForm extends Component {
   constructor(props) {
     super(props)
     this.state = {email: '', valid: props.userEmail ? true : false}

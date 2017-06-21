@@ -1,9 +1,7 @@
-const badges = [
-  {id: 1, name: 'tutorial', condition: 'Terminer le tutoriel', img: 'badges/tutorial_badge.svg'},
-  {id: 2, name: 'first address', condition: 'Ajouter votre première adresse', img: 'badges/first_address_badge.svg'},
-]
+import badges from './badges.json'
+const { h, Component } = preact
 
-class BadgesMenu extends Component {
+export default class BadgesMenu extends Component {
   render() {
     const { unlockedBadges, close } = this.props
 

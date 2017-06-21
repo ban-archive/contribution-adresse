@@ -22,3 +22,5 @@ const Locator = ({ accuracy, fullscreen }) => {
     </div>
   )
 }
+
+export default Locator

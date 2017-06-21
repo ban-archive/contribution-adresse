@@ -1,3 +1,5 @@
+const { h } = preact
+
 const Error = ({ error }) => {
   return (
     <div class="Error">
@@ -7,3 +9,5 @@ const Error = ({ error }) => {
     </div>
   )
 }
+
+export default Error

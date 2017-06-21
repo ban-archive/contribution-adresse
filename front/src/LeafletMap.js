@@ -27,7 +27,7 @@ function updateMarkerIcon(marker, address, selectedAddress) {
   }
 }
 
-class LeafletMap extends Component {
+export default class LeafletMap extends Component {
   componentDidMount() {
     const { coords, onCloseForm, fullscreen } = this.props
     const { latitude, longitude } = coords

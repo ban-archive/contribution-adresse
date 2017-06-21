@@ -1,6 +1,21 @@
 const { h, render, Component } = preact
 const { bind } = decko
 
+import Welcome from './Welcome'
+import Loading from './Loading'
+import NewBadge from './NewBadge'
+import Panel from './Panel'
+import Profile from './Profile'
+import LeafletMap from './LeafletMap'
+import Locator from './Locator'
+import Dashboard from './Dashboard'
+import Menu from './Menu'
+import Address from './Address'
+import AddressForm from './AddressForm'
+import Tuto from './Tuto'
+import EmailForm from './EmailForm'
+import badges from './badges.json'
+
 // [
 //   {
 //     id: '76517531867311',
@@ -51,9 +66,8 @@ function useLocalStorage(fn, name, data) {
     return JSON.parse(localStorage.getItem(name))
   } else if (fn === 'setItem') {
     return localStorage.setItem(name, JSON.stringify(data))
-  } else {
-    throw new Error(`localStorage function ${fn} unknow.`)
   }
+  throw new Error(`localStorage function ${fn} unknown.`)
 }
 
 function getBadge(badgeName) {

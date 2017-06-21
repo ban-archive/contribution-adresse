@@ -1,4 +1,9 @@
-class Profile extends Component {
+const { h, Component } = preact
+const { bind } = decko
+import EmailForm from './EmailForm'
+import BadgesMenu from './BadgesMenu'
+
+export default class Profile extends Component {
   constructor(props) {
     super(props)
     this.state = {showBadges: false, editMail: false}

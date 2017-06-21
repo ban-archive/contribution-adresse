@@ -14,16 +14,10 @@ Outil de contribution citoyenne au référentiel des adresses
 yarn
 ```
 
-### Préparation du code front
+### Lancement du serveur de développement
 
 ```bash
-yarn transpile
-```
-
-### Lancement du serveur
-
-```bash
-yarn start
+yarn dev
 ```
 
 Puis lancez votre navigateur via : http://localhost:5000/

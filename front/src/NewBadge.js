@@ -1,4 +1,6 @@
-class NewBadge extends Component {
+const { h, Component } = preact
+
+export default class NewBadge extends Component {
   render() {
     const { badge, closeWindow } = this.props
 
