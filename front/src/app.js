@@ -15,6 +15,7 @@ import AddressForm from './AddressForm'
 import Tuto from './Tuto'
 import EmailForm from './EmailForm'
 import badges from './badges.json'
+import AddressContribution from './AddressContribution'
 
 // [
 //   {

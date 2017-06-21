@@ -1,6 +1,7 @@
 const { bind } = decko
+const { Component, h } = preact
 
-class AddressContribution extends Component {
+export default class AddressContribution extends Component {
 
   @bind
   valid() {
