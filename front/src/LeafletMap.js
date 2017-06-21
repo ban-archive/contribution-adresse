@@ -1,9 +1,13 @@
 const { h, Component } = preact
 
-const homeIcon = L.icon({
-  iconUrl: 'home_icon.svg',
-  iconSize:     [21, 21],
-  iconAnchor:   [11, 12],
+const homeIcon = L.divIcon({
+  className: 'marker-icon',
+  html: '<svg viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="home_icon"><circle id="Oval-4" fill="#D8D8D8" cx="11" cy="11" r="10"></circle><path d="M11,2 L19,9.5542522 L3,9.5542522 L11,2 Z M5.10752688,9.5542522 L16.9354839,9.5542522 L16.9354839,18 L5.10752688,18 L5.10752688,9.5542522 Z" id="Combined-Shape" fill="#FFFFFF"></path></g></g></svg>',
+})
+
+const checkedHomeIcon = L.divIcon({
+  className: 'marker-icon',
+  html: '<svg viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="check_home_icon"><circle id="Oval-4" fill="#D8D8D8" cx="11" cy="11" r="10"></circle><path d="M11,2 L19,9.5542522 L3,9.5542522 L11,2 Z M5.10752688,9.5542522 L16.9354839,9.5542522 L16.9354839,18 L5.10752688,18 L5.10752688,9.5542522 Z" id="Combined-Shape" fill="#FFFFFF"></path><g id="valid_icon" transform="translate(7.000000, 8.000000)" stroke="#3F4DAB" stroke-linecap="square"><path d="M0.285714286,4.03846154 L3.14285714,6.73076923" id="Line"></path><path d="M3.14285714,6.73076923 L7.71428571,0.269230769" id="Line"></path></g></g></g></svg>',
 })
 
 function isSameLatLng(marker, address) {
@@ -19,12 +23,16 @@ function updateMarkerPosition(marker, address) {
   }
 }
 
-function updateMarkerIcon(marker, address, selectedAddress) {
-  if (selectedAddress && selectedAddress === address) {
-    marker._icon.className = 'selected-address'
+function updateMarkerIcon(user, marker, address, selectedAddress) {
+  let style = 'leaflet-marker-icon marker-icon leaflet-zoom-animated leaflet-interactive'
+  if (address.proposals.find(proposal => proposal.user.token === user.token)) {
+    marker.setIcon(checkedHomeIcon)
   } else {
-    marker._icon.className = ''
+    marker.setIcon(homeIcon)
   }
+  if (selectedAddress && selectedAddress.id === address.id) style += ' selected-address'
+  if (address.createBy.token === user.token) style += ' user'
+  marker._icon.className = style
 }
 
 export default class LeafletMap extends Component {
@@ -73,19 +81,18 @@ export default class LeafletMap extends Component {
   }
 
   updateMarkers() {
-    const { addresses, selectedAddress } = this.props
+    const { user, addresses, selectedAddress } = this.props
     const markersToRemove = this.getMarkersToRemove()
     markersToRemove.forEach(marker => this.markers.removeLayer(marker))
 
     addresses.forEach(address => {
       const marker = this.getMarker(address)
-
       if (!marker) {
         const newMarker = this.createMarker(address)
         this.markers.addLayer(newMarker)
       } else {
         updateMarkerPosition(marker, address)
-        updateMarkerIcon(marker, address, selectedAddress)
+        updateMarkerIcon(user, marker, address, selectedAddress)
       }
     })
   }

@@ -12,6 +12,12 @@ html, body, .container, #map {
   width: 100%;
 }
 
+img.upside-down {
+  -ms-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
 input {
   border-bottom: 3px solid #3F4DAB;
   border-top: none;
@@ -185,13 +191,28 @@ button.reverse {
   z-index: 0;
 }
 
+.marker-icon {
+  margin-left: -10px !important;
+  margin-top: -10px !important;
+  width: 20px !important;
+  height: 20px !important;
+}
+
+.marker-icon.valid circle {
+  fill: green;
+}
+
+.marker-icon.user circle {
+  fill: #3F4DBF;
+}
+
 .selected-address {
   border: 2px solid #3F4DAB;
   border-radius: 100%;
   box-shadow: 0 2px 20px 0 rgba(0,0,0,0.50), inset 0 1px 3px 0 rgba(0,0,0,0.50);
   padding: 5px;
-  margin-top: -20px !important;
-  margin-left: -20px !important;
+  margin-top: -17px !important;
+  margin-left: -17px !important;
 }
 
 .menu {
@@ -505,6 +526,12 @@ button.reverse {
   flex-direction: column;
 }
 
+.Address p {
+  color: grey;
+  font-size: large;
+  text-align: center;
+}
+
 .Address .address {
   color: grey;
   display: flex;
@@ -532,6 +559,12 @@ button.reverse {
   margin: 1em;
 }
 
+.thanks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 button.remove {
   color: red;
   border-color: red;
@@ -544,6 +577,11 @@ button.edit {
 
 .divider {
   border-top: 3px solid whitesmoke;
+}
+
+.divider.vertical {
+  border-top: none;
+  border-left: 3px solid whitesmoke;
 }
 
 /* Dashboard */
