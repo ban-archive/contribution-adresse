@@ -10,7 +10,8 @@
     "build": "webpack -p",
     "lint": "eslint front/**/*.js",
     "dev": "webpack && node server",
-    "postinstall": "yarn transpile"
+    "start": "node server",
+    "postinstall": "yarn build"
   },
   "dependencies": {
     "babel-cli": "^6.24.1",
