@@ -1,4 +1,6 @@
-class Suggestions extends Component {
+const { h, Component } = preact
+
+export default class Suggestions extends Component {
   render() {
     const { suggestions, selectSuggestion } = this.props
 

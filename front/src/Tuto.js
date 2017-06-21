@@ -1,4 +1,7 @@
-class Tuto extends Component {
+const { h, Component } = preact
+import Panel from './Panel'
+
+export default class Tuto extends Component {
   constructor(props) {
     super(props)
     this.step = [

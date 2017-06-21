@@ -1,4 +1,6 @@
-class Panel extends Component {
+const { h, Component } = preact
+
+export default class Panel extends Component {
   render() {
     const { close, children, position='', reverse=false } = this.props
 

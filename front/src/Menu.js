@@ -1,4 +1,6 @@
-class Menu extends Component {
+const { h, Component } = preact
+
+export default class Menu extends Component {
   render() {
     const { children } = this.props
 

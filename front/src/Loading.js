@@ -6,3 +6,5 @@ const Loading = () => (
     <p>Chargement...</p>
   </div>
 )
+
+export default Loading

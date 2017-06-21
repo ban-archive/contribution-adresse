@@ -1,6 +1,6 @@
-const { h } = preact
+const { h, Component } = preact
 
-class AddAddressButton extends Component {
+export default class AddAddressButton extends Component {
   render() {
     const { openMenu } = this.props
 

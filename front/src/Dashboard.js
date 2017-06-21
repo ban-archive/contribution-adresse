@@ -1,4 +1,7 @@
-class Dashboard extends Component {
+const { h, Component } = preact
+import AddAddressButton from './AddAddressButton'
+
+export default class Dashboard extends Component {
   render() {
     const { speed, accuracy, openMenu } = this.props
 
