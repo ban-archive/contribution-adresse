@@ -17,8 +17,8 @@ const Locator = ({ accuracy, fullscreen }) => {
   }
   return (
     <div class="Locators" style={locatorStyle}>
-      <div id="radar" style={radarStyle}></div>
-      <div id="user"></div>
+      <div id="radar" style={radarStyle} />
+      <div id="user" />
     </div>
   )
 }
