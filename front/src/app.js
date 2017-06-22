@@ -224,10 +224,9 @@ class App extends Component {
 
   @bind
   setEmail(email) {
-    const { user, showEmailForm } = this.state
+    const { user } = this.state
     user.email = email
     this.setState({user}, useLocalStorage('setItem', 'user', user))
-    if (showEmailForm) this.displayEmailForm()
   }
 
   @bind
@@ -272,13 +271,6 @@ class App extends Component {
   }
 
   @bind
-  displayEmailForm() {
-    const { tuto } = this.state
-    this.setState({showEmailForm: !this.state.showEmailForm})
-    if (tuto === 3) this.tutoNextStep()
-  }
-
-  @bind
   displayProfile() {
     this.setState({showProfile: !this.state.showProfile})
   }
@@ -293,8 +285,8 @@ class App extends Component {
 
     return (
       <div class="container">
-        <PopUpManager userEmail={user.email} showEmailForm={showEmailForm} newBadge={newBadge} tuto={tuto} setEmail={this.setEmail} tutoNextStep={this.tutoNextStep} displayEmailForm={this.displayEmailForm} resetNewBadge={this.resetNewBadge} />
-        <TopNavigation user={user} minimize={!showProfile} close={this.displayProfile} displayEmailForm={this.displayEmailForm} inscription={this.setEmail} />
+        <PopUpManager userEmail={user.email} showEmailForm={showEmailForm} newBadge={newBadge} tuto={tuto} setEmail={this.setEmail} tutoNextStep={this.tutoNextStep} resetNewBadge={this.resetNewBadge} />
+        <TopNavigation user={user} minimize={!showProfile} close={this.displayProfile} inscription={this.setEmail} />
         <Map user={user} addresses={addresses} selectedAddress={selectedAddress} coords={selectedAddress ? selectedAddress.coords : coords} fullscreen={fullscreen} displayAddress={this.displayAddress} closeForm={this.closeForm} />
         <BottomNavigation user={user} selectedAddress={selectedAddress} houseNumber={houseNumber} additional={additional} street={street} speed={speed} accuracy={accuracy} displayDashboard={fullscreen} openMenu={this.openMenu} handleHouseNumberChange={this.handleHouseNumberChange} handleAdditionalChange={this.handleAdditionalChange} handleStreetChange={this.handleStreetChange} editAddress={this.editAddress} removeAddress={this.removeAddress} addProposal={this.addProposal} removeProposal={this.removeProposal} addAddress={this.addAddress} />
       </div>

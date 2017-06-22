@@ -1,20 +1,12 @@
 const { h } = preact
 
 import Tuto from './Tuto'
-import PopUp from './PopUp'
 import NewBadge from './NewBadge'
-import EmailForm from './EmailForm'
 
-const PopUpManager = ({ userEmail, showEmailForm, newBadge, tuto, setEmail, tutoNextStep, displayEmailForm, resetNewBadge }) => {
-  let popUp = <Tuto nextStep={tutoNextStep} stepIndex={tuto} saveProgression={displayEmailForm} />
+const PopUpManager = ({ userEmail, newBadge, tuto, setEmail, tutoNextStep, resetNewBadge }) => {
+  let popUp = <Tuto userEmail={userEmail} nextStep={tutoNextStep} stepIndex={tuto} saveProgression={setEmail} />
 
-  if (showEmailForm) {
-    popUp = (
-      <PopUp close={displayEmailForm} reverse={true} position="center">
-        <EmailForm userEmail={userEmail} onSubmit={setEmail} />
-      </PopUp>
-    )
-  } else if (newBadge) {
+  if (newBadge) {
     popUp = <NewBadge badge={newBadge} closeWindow={resetNewBadge} />
   }
 
