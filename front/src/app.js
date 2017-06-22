@@ -293,7 +293,7 @@ class App extends Component {
 
     return (
       <div class="container">
-        <PopUpManager user={user} showEmailForm={showEmailForm} tutorialBadgeUnlocked={this.unlockedBadge('tutorial')} newBadge={newBadge} tuto={tuto} setEmail={this.setEmail} tutoNextStep={this.tutoNextStep} displayEmailForm={this.displayEmailForm} resetNewBadge={this.resetNewBadge} />
+        <PopUpManager userEmail={user.email} showEmailForm={showEmailForm} newBadge={newBadge} tuto={tuto} setEmail={this.setEmail} tutoNextStep={this.tutoNextStep} displayEmailForm={this.displayEmailForm} resetNewBadge={this.resetNewBadge} />
         <TopNavigation user={user} minimize={!showProfile} close={this.displayProfile} displayEmailForm={this.displayEmailForm} inscription={this.setEmail} />
         <Map user={user} addresses={addresses} selectedAddress={selectedAddress} coords={selectedAddress ? selectedAddress.coords : coords} fullscreen={fullscreen} displayAddress={this.displayAddress} closeForm={this.closeForm} />
         <BottomNavigation user={user} selectedAddress={selectedAddress} houseNumber={houseNumber} additional={additional} street={street} speed={speed} accuracy={accuracy} displayDashboard={fullscreen} openMenu={this.openMenu} handleHouseNumberChange={this.handleHouseNumberChange} handleAdditionalChange={this.handleAdditionalChange} handleStreetChange={this.handleStreetChange} editAddress={this.editAddress} removeAddress={this.removeAddress} addProposal={this.addProposal} removeProposal={this.removeProposal} addAddress={this.addAddress} />
