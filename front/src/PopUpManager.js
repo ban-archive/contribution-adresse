@@ -5,17 +5,20 @@ import PopUp from './PopUp'
 import NewBadge from './NewBadge'
 import EmailForm from './EmailForm'
 
-const PopUpManager = ({ user, showEmailForm, tutorialBadgeUnlocked, newBadge, tuto, setEmail, tutoNextStep, displayEmailForm, resetNewBadge }) => {
-  return (
-    <div>
-      {!tutorialBadgeUnlocked && !newBadge ? <Tuto nextStep={tutoNextStep} stepIndex={tuto} saveProgression={displayEmailForm} /> : null}
-      {newBadge && !showEmailForm ? <NewBadge badge={newBadge} closeWindow={resetNewBadge} /> : null}
-      {showEmailForm ?
-        <PopUp close={displayEmailForm} reverse={true} position="center">
-          <EmailForm userEmail={user.email} onSubmit={setEmail} />
-        </PopUp> : null}
-    </div>
-  )
+const PopUpManager = ({ userEmail, showEmailForm, newBadge, tuto, setEmail, tutoNextStep, displayEmailForm, resetNewBadge }) => {
+  let popUp = <Tuto nextStep={tutoNextStep} stepIndex={tuto} saveProgression={displayEmailForm} />
+
+  if (showEmailForm) {
+    popUp = (
+      <PopUp close={displayEmailForm} reverse={true} position="center">
+        <EmailForm userEmail={userEmail} onSubmit={setEmail} />
+      </PopUp>
+    )
+  } else if (newBadge) {
+    popUp = <NewBadge badge={newBadge} closeWindow={resetNewBadge} />
+  }
+
+  return popUp
 }
 
 export default PopUpManager
