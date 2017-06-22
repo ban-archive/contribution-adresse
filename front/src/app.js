@@ -3,38 +3,11 @@ const { bind } = decko
 
 import Welcome from './Welcome'
 import Loading from './Loading'
-import NewBadge from './NewBadge'
-import Panel from './Panel'
-import Profile from './Profile'
-import LeafletMap from './LeafletMap'
-import Locator from './Locator'
-import Dashboard from './Dashboard'
-import Menu from './Menu'
-import Address from './Address'
-import AddressForm from './AddressForm'
-import Tuto from './Tuto'
-import EmailForm from './EmailForm'
+import TopNavigation from './TopNavigation'
+import BottomNavigation from './BottomNavigation'
+import PopUpManager from './PopUpManager'
+import Map from './Map'
 import badges from './badges.json'
-import AddressContribution from './AddressContribution'
-
-// [
-//   {
-//     id: '76517531867311',
-//     address: {
-//       houseNumber: '9c',
-//       street: 'rue du moulin'
-//     },
-//     coords: {
-//       accuracy : 30
-//       altitude : 100
-//       altitudeAccuracy
-//       heading
-//       latitude
-//       longitude
-//       speed
-//    }
-//   }
-// ]
 
 const stringArray = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','!','?']
 
@@ -118,7 +91,7 @@ class App extends Component {
 
   @bind
   setStateAndUpdateMap(state) {
-    this.setState(state, () => this.leafletMap.forceUpdate())
+    this.setState(state)
   }
 
   @bind
@@ -320,27 +293,10 @@ class App extends Component {
 
     return (
       <div class="container">
-        {!this.unlockedBadge('tutorial') && !newBadge ? <Tuto nextStep={this.tutoNextStep} stepIndex={tuto} saveProgression={this.displayEmailForm} /> : null}
-        {newBadge && !showEmailForm ? <NewBadge badge={newBadge} closeWindow={this.resetNewBadge} /> : null}
-        {showEmailForm ?
-          <Panel close={this.displayEmailForm} reverse={true} position="center">
-            <EmailForm userEmail={user.email} onSubmit={this.setEmail} />
-          </Panel> : null}
-        <Profile user={user} minimize={!showProfile} close={this.displayProfile} displayEmailForm={this.displayEmailForm} inscription={this.setEmail}/>
-        <LeafletMap ref={ref => this.leafletMap = ref} user={user} addresses={addresses} selectedAddress={selectedAddress} displayAddress={this.displayAddress} onCloseForm={this.closeForm} coords={selectedAddress ? selectedAddress.coords : coords} fullscreen={fullscreen} />
-        {!selectedAddress ? <Locator accuracy={coords.accuracy} fullscreen={fullscreen} /> : null}
-        {fullscreen ?
-          <Dashboard speed={speed} accuracy={accuracy} openMenu={this.openMenu} /> :
-          <Menu>
-            {selectedAddress ?
-              (selectedAddress.createBy.token === user.token ?
-                <Address houseNumber={houseNumber} additional={additional} street={street} handleHouseNumberChange={this.handleHouseNumberChange} handleAdditionalChange={this.handleAdditionalChange} handleStreetChange={this.handleStreetChange} editAddress={this.editAddress} removeAddress={this.removeAddress} /> :
-                <AddressContribution user={user} address={selectedAddress} handleContribution={this.addProposal} cancelContribution={this.removeProposal}/>
-              ) :
-              <AddressForm houseNumber={houseNumber} additional={additional} street={street} onHouseNumberChange={this.handleHouseNumberChange} onAdditionalChange={this.handleAdditionalChange} onStreetChange={this.handleStreetChange} onSubmit={this.addAddress} />
-            }
-          </Menu>
-        }
+        <PopUpManager user={user} showEmailForm={showEmailForm} tutorialBadgeUnlocked={this.unlockedBadge('tutorial')} newBadge={newBadge} tuto={tuto} setEmail={this.setEmail} tutoNextStep={this.tutoNextStep} displayEmailForm={this.displayEmailForm} resetNewBadge={this.resetNewBadge} />
+        <TopNavigation user={user} minimize={!showProfile} close={this.displayProfile} displayEmailForm={this.displayEmailForm} inscription={this.setEmail} />
+        <Map user={user} addresses={addresses} selectedAddress={selectedAddress} coords={selectedAddress ? selectedAddress.coords : coords} fullscreen={fullscreen} displayAddress={this.displayAddress} closeForm={this.closeForm} />
+        <BottomNavigation user={user} selectedAddress={selectedAddress} houseNumber={houseNumber} additional={additional} street={street} speed={speed} accuracy={accuracy} displayDashboard={fullscreen} openMenu={this.openMenu} handleHouseNumberChange={this.handleHouseNumberChange} handleAdditionalChange={this.handleAdditionalChange} handleStreetChange={this.handleStreetChange} editAddress={this.editAddress} removeAddress={this.removeAddress} addProposal={this.addProposal} removeProposal={this.removeProposal} addAddress={this.addAddress} />
       </div>
     )
   }

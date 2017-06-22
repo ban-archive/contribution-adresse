@@ -1,14 +1,10 @@
-const { h, Component } = preact
+const { h } = preact
 
-export default class Suggestions extends Component {
-  render() {
-    const { suggestions, selectSuggestion } = this.props
+const Suggestions = ({ suggestions, selectSuggestion }) => (
+  <div class="menu">
+    {suggestions.map(suggestion =>
+      <div class="suggestion" onClick={selectSuggestion}>{suggestion}</div>)}
+  </div>
+)
 
-    return (
-      <div class="menu">
-        {suggestions.map(suggestion =>
-          <div class="suggestion" onClick={selectSuggestion}>{suggestion}</div>)}
-      </div>
-    )
-  }
-}
+export default Suggestions
