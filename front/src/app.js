@@ -117,8 +117,8 @@ class App extends Component {
       cpyAddresses.pop(selectedAddress)
       this.closeMenu()
     } else if (address && selectedAddress) {
-      const addressToEdit = cpyAddresses.find(addr => addr.id === selectedAddress.id)
-      addressToEdit.address = address
+      const addressIndex = cpyAddresses.findIndex(addr => addr.id === address.id)
+      cpyAddresses[addressIndex] = address
     } else if (address && !selectedAddress) {
       cpyAddresses = this.addAddress(address)
       this.closeMenu()
@@ -152,25 +152,6 @@ class App extends Component {
     if (tuto === 2 ) this.tutoNextStep()
     this.closeMenu()
     return cpyAddresses
-  }
-
-  @bind
-  addProposal(proposal) {
-    const { selectedAddress, addresses } = this.state
-    const newAddresses = [...addresses]
-    const addressToEdit = newAddresses.find(addr => addr.id === selectedAddress.id)
-    addressToEdit.proposals.push(proposal)
-    this.saveAddresses(newAddresses)
-  }
-
-  @bind
-  removeProposal() {
-    const { user, selectedAddress, addresses } = this.state
-    const newAddresses = [...addresses]
-    const addressToEdit = newAddresses.find(addr => addr.id === selectedAddress.id)
-    const proposal = addressToEdit.proposals.find(proposal => proposal.user.token === user.token)
-    addressToEdit.proposals.pop(proposal)
-    this.saveAddresses(newAddresses)
   }
 
   @bind
@@ -268,7 +249,7 @@ class App extends Component {
         <PopUpManager userEmail={user.email} showEmailForm={showEmailForm} newBadge={newBadge} tuto={tuto} tutoDone={this.unlockedBadge('tutorial')} setEmail={this.setEmail} tutoNextStep={this.tutoNextStep} resetNewBadge={this.resetNewBadge} />
         <TopNavigation user={user} minimize={!showProfile} close={this.displayProfile} inscription={this.setEmail} />
         <Map ref={ref => this.map = ref} userToken={user.token} addresses={addresses} selectedAddress={selectedAddress} coords={selectedAddress ? selectedAddress.coords : coords} fullscreen={fullscreen} displayAddress={this.displayAddress} closeMenu={this.closeMenu} />
-        <BottomNavigation user={user} coords={coords} selectedAddress={selectedAddress} displayDashboard={fullscreen} openForm={this.openMenu} updateAddress={this.updateAddress} addProposal={this.addProposal} removeProposal={this.removeProposal}/>
+        <BottomNavigation user={user} coords={coords} selectedAddress={selectedAddress} displayDashboard={fullscreen} openForm={this.openMenu} updateAddress={this.updateAddress} />
       </div>
     )
   }

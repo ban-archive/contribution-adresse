@@ -33,6 +33,26 @@ export default class BottomNavigation extends Component {
   }
 
   @bind
+  addProposal(proposal) {
+    const { updateAddress, selectedAddress } = this.props
+    const address = Object.assign({}, selectedAddress)
+    console.log(selectedAddress)
+
+    address.proposals.push(proposal)
+    updateAddress(address)
+  }
+
+  @bind
+  removeProposal() {
+    const { user, updateAddress, selectedAddress } = this.props
+    const address = Object.assign({}, selectedAddress)
+    const proposal = address.proposals.find(proposal => proposal.user.token === user.token)
+
+    address.proposals.pop(proposal)
+    updateAddress(address)
+  }
+
+  @bind
   editAddress() {
     const { houseNumber, additional, street } = this.props.selectedAddress.address
     this.setState({editing: true, houseNumber, additional, street})
@@ -45,10 +65,10 @@ export default class BottomNavigation extends Component {
     const newAddress = { houseNumber, additional, street }
 
     if (selectedAddress) {
-      const address = Object.assign({}, selectedAddress)
-      address.address = newAddress
+      selectedAddress.address = newAddress
     }
-    updateAddress(newAddress)
+
+    updateAddress(selectedAddress || newAddress)
     this.clearForm()
   }
 
@@ -60,7 +80,7 @@ export default class BottomNavigation extends Component {
 
   render() {
     const { houseNumber, additional, street, editing } = this.state
-    const { user, coords, selectedAddress, displayDashboard, openForm, addProposal, removeProposal } = this.props
+    const { user, coords, selectedAddress, displayDashboard, openForm } = this.props
     const speed = Number((coords.speed || 0).toFixed())
     const accuracy = Number((coords.accuracy || 0).toFixed())
 
@@ -69,7 +89,7 @@ export default class BottomNavigation extends Component {
     return (
         <Menu>
           {selectedAddress && !editing ?
-            <Address user={user} address={selectedAddress} editAddress={this.editAddress} removeAddress={this.removeAddress} handleContribution={addProposal} cancelContribution={removeProposal} /> :
+            <Address user={user} address={selectedAddress} editAddress={this.editAddress} removeAddress={this.removeAddress} handleContribution={this.addProposal} cancelContribution={this.removeProposal} /> :
             <AddressForm
               address={{ houseNumber, additional, street }}
               onHouseNumberChange={this.handleHouseNumberChange}
