@@ -90,11 +90,6 @@ class App extends Component {
   }
 
   @bind
-  setStateAndUpdateMap(state) {
-    this.setState(state)
-  }
-
-  @bind
   saveAddresses(addresses) {
     this.setState({addresses}, () => this.saveToLocalStorage(addresses))
   }
@@ -103,39 +98,40 @@ class App extends Component {
   openMenu() {
     const { tuto } = this.state
     if (tuto === 1) this.tutoNextStep()
-    this.setStateAndUpdateMap({fullscreen: false})
+    this.setState({fullscreen: false})
   }
 
   @bind
-  closeForm() {
-    this.clearForm()
-    this.setStateAndUpdateMap({fullscreen: true, selectedAddress: null})
+  closeMenu() {
+    this.setState({fullscreen: true, selectedAddress: null})
+  }
+
+  /* ADDRESS */
+
+  @bind
+  updateAddress(address) {
+    const { addresses, selectedAddress } = this.state
+    let cpyAddresses = [...addresses]
+
+    if (!address) {
+      cpyAddresses.pop(selectedAddress)
+      this.closeMenu()
+    } else if (address && selectedAddress) {
+      const addressToEdit = cpyAddresses.find(addr => addr.id === selectedAddress.id)
+      addressToEdit.address = address
+    } else if (address && !selectedAddress) {
+      cpyAddresses = this.addAddress(address)
+      this.closeMenu()
+    }
+
+    this.saveAddresses(cpyAddresses)
   }
 
   @bind
-  handleHouseNumberChange(e) {
-    this.setState({houseNumber: e.target.value || e.target.textContent})
-  }
-
-  @bind
-  handleAdditionalChange(e) {
-    this.setState({additional: e.target.value || e.target.textContent})
-  }
-
-  @bind
-  handleStreetChange(e) {
-    this.setState({street: e.target.value || e.target.textContent})
-  }
-
-  clearForm() {
-    this.setState({houseNumber: '', additional: '', street: ''})
-  }
-
-  @bind
-  addAddress() {
-    const { user, addresses, coords, houseNumber, additional, street, tuto } = this.state
+  addAddress(address) {
+    const { user, addresses, coords, tuto } = this.state
     if (!addresses.length) this.winBadge(getBadge('first address'))
-    const newAddresses = [...addresses]
+    const cpyAddresses = [...addresses]
     const coordinates = {
       accuracy: coords.accuracy,
       altitude: coords.altitude,
@@ -145,35 +141,17 @@ class App extends Component {
       longitude: coords.longitude,
       speed: coords.speed,
     }
-    newAddresses.push({
+    cpyAddresses.push({
+      address,
       coords: coordinates,
-      address: {houseNumber, additional, street},
-      id: `${houseNumber}_${street}`,
+      id: `${address.houseNumber}_${address.street}_${user.id}`,
       createAt: Date.now(),
       createBy: user,
       proposals: [],
     })
     if (tuto === 2 ) this.tutoNextStep()
-    this.closeForm()
-    this.saveAddresses(newAddresses)
-  }
-
-  @bind
-  removeAddress() {
-    const { addresses, selectedAddress } = this.state
-    const newAddresses = [...addresses]
-    newAddresses.pop(selectedAddress)
-    this.closeForm()
-    this.saveAddresses(newAddresses)
-  }
-
-  @bind
-  editAddress() {
-    const { addresses, selectedAddress, houseNumber, additional, street } = this.state
-    const newAddresses = [...addresses]
-    const addressToEdit = newAddresses.find(addr => addr.id === selectedAddress.id)
-    addressToEdit.address = {houseNumber, additional, street}
-    this.saveAddresses(newAddresses)
+    this.closeMenu()
+    return cpyAddresses
   }
 
   @bind
@@ -199,8 +177,7 @@ class App extends Component {
   displayAddress(e) {
     const { addresses } = this.state
     const address = addresses.find(address => address.id === e.target.options.id)
-    this.setState({houseNumber: address.address.houseNumber, additional: address.address.additional, street: address.address.street})
-    this.setStateAndUpdateMap({fullscreen: false, selectedAddress: address})
+    this.setState({fullscreen: false, selectedAddress: address})
   }
 
   @bind
@@ -276,12 +253,10 @@ class App extends Component {
   }
 
   render() {
-    const { user, tuto, coords, newBadge, showProfile, houseNumber, additional, street, addresses, selectedAddress, fullscreen, error } = this.state
+    const { user, tuto, coords, newBadge, showProfile, addresses, selectedAddress, fullscreen, error } = this.state
     if (!user.token) return <Welcome skip={this.setToken}/>
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
-    const speed = Number((coords.speed || 0).toFixed())
-    const accuracy = Number((coords.accuracy || 0).toFixed())
 
     return (
       <div class="container">
@@ -290,8 +265,8 @@ class App extends Component {
           <Tuto close={this.tutoNextStep} stepIndex={tuto} saveProgression={this.setEmail} done={this.unlockedBadge('tutorial')} />
         }
         <TopNavigation user={user} minimize={!showProfile} close={this.displayProfile} inscription={this.setEmail} />
-        <Map user={user} addresses={addresses} selectedAddress={selectedAddress} coords={selectedAddress ? selectedAddress.coords : coords} fullscreen={fullscreen} displayAddress={this.displayAddress} closeForm={this.closeForm} />
-        <BottomNavigation user={user} selectedAddress={selectedAddress} houseNumber={houseNumber} additional={additional} street={street} speed={speed} accuracy={accuracy} displayDashboard={fullscreen} openMenu={this.openMenu} handleHouseNumberChange={this.handleHouseNumberChange} handleAdditionalChange={this.handleAdditionalChange} handleStreetChange={this.handleStreetChange} editAddress={this.editAddress} removeAddress={this.removeAddress} addProposal={this.addProposal} removeProposal={this.removeProposal} addAddress={this.addAddress} />
+        <Map user={user} addresses={addresses} selectedAddress={selectedAddress} coords={selectedAddress ? selectedAddress.coords : coords} fullscreen={fullscreen} displayAddress={this.displayAddress} closeMenu={this.closeMenu} />
+        <BottomNavigation user={user} coords={coords} selectedAddress={selectedAddress} displayDashboard={fullscreen} openForm={this.openMenu} updateAddress={this.updateAddress} addProposal={this.addProposal} removeProposal={this.removeProposal}/>
       </div>
     )
   }

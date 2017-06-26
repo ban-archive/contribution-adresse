@@ -68,7 +68,8 @@ export default class AddressForm extends Component {
 
   render() {
     const { activeInput, inputs, error } = this.state
-    const { houseNumber, additional, street, onHouseNumberChange, onAdditionalChange, onStreetChange, onSubmit } = this.props
+    const { address, onHouseNumberChange, onAdditionalChange, onStreetChange, onSubmit } = this.props
+    const {houseNumber, additional, street} = address
 
     if (error) return <Error error={error}/>
 

@@ -2,10 +2,10 @@ const { h, Component } = preact
 
 export default class AddAddressButton extends Component {
   render() {
-    const { openMenu } = this.props
+    const { openForm } = this.props
 
     return (
-      <div class="circle" onClick={openMenu}>
+      <div class="circle" onClick={openForm}>
         <div class="AddAddressButton">
           <img src="addHome.svg"/>
         </div>
