@@ -4,6 +4,11 @@ import LeafletMap from './LeafletMap'
 import Locator from './Locator'
 
 export default class Map extends Component {
+
+  componentDidUpdate() {
+    if (this.leafletMap) this.leafletMap.forceUpdate()
+  }
+
   render() {
     const { user, addresses, selectedAddress, coords, fullscreen, displayAddress, closeMenu } = this.props
 
