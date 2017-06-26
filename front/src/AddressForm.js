@@ -54,8 +54,9 @@ export default class AddressForm extends Component {
   }
 
   @bind
-  selectInput(input) {
-    this.setState({activeInput: input})
+  selectInput(e) {
+    const { inputs } = this.state
+    this.setState({activeInput: inputs[e.srcElement.className]})
   }
 
   @bind
@@ -67,7 +68,7 @@ export default class AddressForm extends Component {
   }
 
   render() {
-    const { activeInput, inputs, error } = this.state
+    const { activeInput, error } = this.state
     const { address, onHouseNumberChange, onAdditionalChange, onStreetChange, onSubmit } = this.props
     const {houseNumber, additional, street} = address
 
@@ -75,10 +76,10 @@ export default class AddressForm extends Component {
 
     return (
       <div>
-        <div className="address-form">
-          <input className="houseNumber-input" type="text" placeholder="N°" value={houseNumber} onInput={onHouseNumberChange} onClick={() => this.selectInput(inputs.houseNumbers)} />
-          <input className="additionals-input" type="text" placeholder=" " value={additional} onInput={onAdditionalChange} onClick={() => this.selectInput(inputs.additionals)} />
-          <input className="street-input" type="text" placeholder="Nom de la voie" value={street} onInput={onStreetChange} onClick={() => this.selectInput(inputs.streets)} />
+        <div class="address-form">
+          <input class="houseNumbers" type="text" placeholder="N°" value={houseNumber} onInput={onHouseNumberChange} onClick={this.selectInput} />
+          <input class="additionals" type="text" placeholder=" " value={additional} onInput={onAdditionalChange} onClick={this.selectInput} />
+          <input class="streets" type="text" placeholder="Nom de la voie" value={street} onInput={onStreetChange} onClick={this.selectInput} />
         </div>
         {houseNumber && street ? <div onClick={onSubmit} className="create-button">Créer le {houseNumber} {additional} {street}</div> : null}
         <Suggestions suggestions={activeInput.suggestions} selectSuggestion={this.handleInput} />
