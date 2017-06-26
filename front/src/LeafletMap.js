@@ -24,15 +24,17 @@ function updateMarkerPosition(marker, address) {
 }
 
 function updateMarkerIcon(user, marker, address, selectedAddress) {
-  let style = 'leaflet-marker-icon marker-icon leaflet-zoom-animated leaflet-interactive'
+  const style = ['leaflet-marker-icon marker-icon', 'leaflet-zoom-animated', 'leaflet-interactive']
+
   if (address.proposals.find(proposal => proposal.user.token === user.token)) {
     marker.setIcon(checkedHomeIcon)
   } else {
     marker.setIcon(homeIcon)
   }
-  if (selectedAddress && selectedAddress.id === address.id) style += ' selected-address'
-  if (address.createBy.token === user.token) style += ' user'
-  marker._icon.className = style
+  if (selectedAddress && selectedAddress.id === address.id) style.push('selected-address')
+  if (address.createBy.token === user.token) style.push('user')
+
+  marker._icon.className = style.join(' ')
 }
 
 export default class LeafletMap extends Component {
