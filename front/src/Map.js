@@ -10,11 +10,11 @@ export default class Map extends Component {
   }
 
   render() {
-    const { user, addresses, selectedAddress, coords, fullscreen, displayAddress, closeMenu } = this.props
+    const { userToken, addresses, selectedAddress, coords, fullscreen, displayAddress, closeMenu } = this.props
 
     return (
       <div>
-        <LeafletMap ref={ref => this.leafletMap = ref} user={user} addresses={addresses} selectedAddress={selectedAddress} displayAddress={displayAddress} onCloseMenu={closeMenu} coords={coords} fullscreen={fullscreen} />
+        <LeafletMap ref={ref => this.leafletMap = ref} userToken={userToken} addresses={addresses} selectedAddress={selectedAddress} displayAddress={displayAddress} onCloseMenu={closeMenu} coords={coords} fullscreen={fullscreen} />
         <Locator accuracy={coords.accuracy} fullscreen={fullscreen} display={!selectedAddress} />
       </div>
     )

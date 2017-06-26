@@ -23,16 +23,16 @@ function updateMarkerPosition(marker, address) {
   }
 }
 
-function updateMarkerIcon(user, marker, address, selectedAddress) {
+function updateMarkerIcon(userToken, marker, address, selectedAddress) {
   const style = ['leaflet-marker-icon marker-icon', 'leaflet-zoom-animated', 'leaflet-interactive']
 
-  if (address.proposals.find(proposal => proposal.user.token === user.token)) {
+  if (address.proposals.find(proposal => proposal.user.token === userToken)) {
     marker.setIcon(checkedHomeIcon)
   } else {
     marker.setIcon(homeIcon)
   }
   if (selectedAddress && selectedAddress.id === address.id) style.push('selected-address')
-  if (address.createBy.token === user.token) style.push('user')
+  if (address.createBy.token === userToken) style.push('user')
 
   marker._icon.className = style.join(' ')
 }
@@ -83,7 +83,7 @@ export default class LeafletMap extends Component {
   }
 
   updateMarkers() {
-    const { user, addresses, selectedAddress } = this.props
+    const { userToken, addresses, selectedAddress } = this.props
     const markersToRemove = this.getMarkersToRemove()
     markersToRemove.forEach(marker => this.markers.removeLayer(marker))
 
@@ -95,7 +95,7 @@ export default class LeafletMap extends Component {
       } else {
         updateMarkerPosition(marker, address)
       }
-      updateMarkerIcon(user, marker, address, selectedAddress)
+      updateMarkerIcon(userToken, marker, address, selectedAddress)
     })
   }
 
