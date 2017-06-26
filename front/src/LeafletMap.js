@@ -37,7 +37,7 @@ function updateMarkerIcon(user, marker, address, selectedAddress) {
 
 export default class LeafletMap extends Component {
   componentDidMount() {
-    const { coords, onCloseForm, fullscreen } = this.props
+    const { coords, onCloseMenu, fullscreen } = this.props
     const { latitude, longitude } = coords
     this.map = L.map(this.container, {
       zoomControl: false,
@@ -47,7 +47,7 @@ export default class LeafletMap extends Component {
       preferCanvas: true,
     })
 
-    if (fullscreen) this.map.on('click', onCloseForm)
+    if (fullscreen) this.map.on('click', onCloseMenu)
 
     L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
       maxZoom: 20,
@@ -86,14 +86,14 @@ export default class LeafletMap extends Component {
     markersToRemove.forEach(marker => this.markers.removeLayer(marker))
 
     addresses.forEach(address => {
-      const marker = this.getMarker(address)
+      let marker = this.getMarker(address)
       if (!marker) {
-        const newMarker = this.createMarker(address)
-        this.markers.addLayer(newMarker)
+        marker = this.createMarker(address)
+        this.markers.addLayer(marker)
       } else {
         updateMarkerPosition(marker, address)
-        updateMarkerIcon(user, marker, address, selectedAddress)
       }
+      updateMarkerIcon(user, marker, address, selectedAddress)
     })
   }
 
