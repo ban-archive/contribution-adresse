@@ -10,7 +10,7 @@ export default class Map extends Component {
     return (
       <div>
         <LeafletMap ref={ref => this.leafletMap = ref} user={user} addresses={addresses} selectedAddress={selectedAddress} displayAddress={displayAddress} onCloseMenu={closeMenu} coords={coords} fullscreen={fullscreen} />
-        <Locator accuracy={coords.accuracy} display={fullscreen} />
+        <Locator accuracy={coords.accuracy} fullscreen={fullscreen} display={!selectedAddress} />
       </div>
     )
   }
