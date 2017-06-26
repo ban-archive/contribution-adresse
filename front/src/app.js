@@ -267,7 +267,7 @@ class App extends Component {
       <div class="container">
         <PopUpManager userEmail={user.email} showEmailForm={showEmailForm} newBadge={newBadge} tuto={tuto} tutoDone={this.unlockedBadge('tutorial')} setEmail={this.setEmail} tutoNextStep={this.tutoNextStep} resetNewBadge={this.resetNewBadge} />
         <TopNavigation user={user} minimize={!showProfile} close={this.displayProfile} inscription={this.setEmail} />
-        <Map ref={ref => this.map = ref} user={user} addresses={addresses} selectedAddress={selectedAddress} coords={selectedAddress ? selectedAddress.coords : coords} fullscreen={fullscreen} displayAddress={this.displayAddress} closeMenu={this.closeMenu} />
+        <Map ref={ref => this.map = ref} userToken={user.token} addresses={addresses} selectedAddress={selectedAddress} coords={selectedAddress ? selectedAddress.coords : coords} fullscreen={fullscreen} displayAddress={this.displayAddress} closeMenu={this.closeMenu} />
         <BottomNavigation user={user} coords={coords} selectedAddress={selectedAddress} displayDashboard={fullscreen} openForm={this.openMenu} updateAddress={this.updateAddress} addProposal={this.addProposal} removeProposal={this.removeProposal}/>
       </div>
     )
