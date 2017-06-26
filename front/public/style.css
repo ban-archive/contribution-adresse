@@ -490,15 +490,15 @@ button.reverse {
   margin: 10px;
 }
 
-.houseNumber-input {
+input.houseNumbers {
   width: 10%;
 }
 
-.additionals-input {
+input.additionals {
   width: 20%;
 }
 
-.street-input {
+input.streets {
   width: 60%;
 }
 
