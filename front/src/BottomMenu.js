@@ -1,11 +1,11 @@
 const { h, Component } = preact
 
-export default class Menu extends Component {
+export default class BottomMenu extends Component {
   render() {
     const { children } = this.props
 
     return (
-      <div class="Menu">
+      <div class="BottomMenu">
         {children}
       </div>
     )

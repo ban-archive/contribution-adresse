@@ -472,9 +472,9 @@ button.reverse {
   }
 }
 
-/* Menu */
+/* BottomMenu */
 
-.Menu {
+.BottomMenu {
   width: 100%;
   height: calc(50% - 70px);
   position: absolute;

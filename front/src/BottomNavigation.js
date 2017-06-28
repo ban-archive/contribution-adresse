@@ -2,7 +2,7 @@ const { h, Component } = preact
 const { bind } = decko
 
 import Dashboard from './Dashboard'
-import Menu from './Menu'
+import BottomMenu from './BottomMenu'
 import Address from './Address'
 import AddressForm from './AddressForm'
 
@@ -87,7 +87,7 @@ export default class BottomNavigation extends Component {
     if (displayDashboard) return <Dashboard speed={speed} accuracy={accuracy} openForm={openForm} />
 
     return (
-        <Menu>
+        <BottomMenu>
           {selectedAddress && !editing ?
             <Address user={user} address={selectedAddress} editAddress={this.editAddress} removeAddress={this.removeAddress} handleContribution={this.addProposal} cancelContribution={this.removeProposal} /> :
             <AddressForm
@@ -97,7 +97,7 @@ export default class BottomNavigation extends Component {
               onStreetChange={this.handleStreetChange}
               onSubmit={this.saveAddress} />
           }
-        </Menu>
+        </BottomMenu>
     )
   }
 }
