@@ -89,7 +89,7 @@ export default class BottomNavigation extends Component {
     return (
         <BottomMenu>
           {selectedAddress && !editing ?
-            <Address user={user} address={selectedAddress} editAddress={this.editAddress} removeAddress={this.removeAddress} handleContribution={this.addProposal} cancelContribution={this.removeProposal} /> :
+            <Address userAddress={selectedAddress.createBy.token === user.token} user={user} address={selectedAddress} editAddress={this.editAddress} removeAddress={this.removeAddress} handleContribution={this.addProposal} cancelContribution={this.removeProposal} /> :
             <AddressForm
               address={{ houseNumber, additional, street }}
               onHouseNumberChange={this.handleHouseNumberChange}
