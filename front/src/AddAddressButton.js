@@ -7,7 +7,7 @@ export default class AddAddressButton extends Component {
     return (
       <div class="circle" onClick={openMenu}>
         <div class="AddAddressButton">
-        <img src="addHome.svg"/>
+          <img src="addHome.svg"/>
         </div>
       </div>
     )

@@ -17,10 +17,10 @@ const Profile = ({ user, badges, contributions, close, toggleEditEmail, displayB
         <div class="title">Badges</div>
         <div class="list">
           {badges.length ? badges.map(badge =>
-              <div class="badge">
-                <img alt={badge.name} src={badge.img} />
-                <div>{badge.condition}</div>
-              </div>) :
+            <div class="badge">
+              <img alt={badge.name} src={badge.img} />
+              <div>{badge.condition}</div>
+            </div>) :
             'Vous n\'avez aucun badge.'
           }
         </div>
@@ -38,7 +38,7 @@ const Profile = ({ user, badges, contributions, close, toggleEditEmail, displayB
                 <div>{contribution.street}</div>
               </div>
             </div>) :
-              'Vous n\'avez pas encore contribué.'
+            'Vous n\'avez pas encore contribué.'
           }
         </div>
       </div>

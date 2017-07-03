@@ -10,15 +10,15 @@ const BottomNavigation = ({ user, selectedAddress, houseNumber, additional, stre
   if (displayDashboard) return <Dashboard speed={speed} accuracy={accuracy} openMenu={openMenu} />
 
   return (
-      <Menu>
-        {selectedAddress ?
-          (selectedAddress.createBy.token === user.token ?
-            <Address houseNumber={houseNumber} additional={additional} street={street} handleHouseNumberChange={handleHouseNumberChange} handleAdditionalChange={handleAdditionalChange} handleStreetChange={handleStreetChange} editAddress={editAddress} removeAddress={removeAddress} /> :
-            <AddressContribution user={user} address={selectedAddress} handleContribution={addProposal} cancelContribution={removeProposal}/>
-          ) :
-          <AddressForm houseNumber={houseNumber} additional={additional} street={street} onHouseNumberChange={handleHouseNumberChange} onAdditionalChange={handleAdditionalChange} onStreetChange={handleStreetChange} onSubmit={addAddress} />
-        }
-      </Menu>
+    <Menu>
+      {selectedAddress ?
+        (selectedAddress.createBy.token === user.token ?
+          <Address houseNumber={houseNumber} additional={additional} street={street} handleHouseNumberChange={handleHouseNumberChange} handleAdditionalChange={handleAdditionalChange} handleStreetChange={handleStreetChange} editAddress={editAddress} removeAddress={removeAddress} /> :
+          <AddressContribution user={user} address={selectedAddress} handleContribution={addProposal} cancelContribution={removeProposal}/>
+        ) :
+        <AddressForm houseNumber={houseNumber} additional={additional} street={street} onHouseNumberChange={handleHouseNumberChange} onAdditionalChange={handleAdditionalChange} onStreetChange={handleStreetChange} onSubmit={addAddress} />
+      }
+    </Menu>
   )
 }
 
