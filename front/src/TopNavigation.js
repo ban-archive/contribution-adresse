@@ -11,6 +11,12 @@ export default class TopNavigation extends Component {
     this.state = {showBadges: false, editMail: false}
   }
 
+  componentWillUpdate() {
+    const { user } = this.props
+
+    this.setState({editMail: !user.email})
+  }
+
   @bind
   displayBadgesMenu() {
     this.setState({showBadges: !this.state.showBadges})
@@ -22,10 +28,10 @@ export default class TopNavigation extends Component {
   }
 
   @bind
-  updateEmail(e) {
+  updateEmail(email) {
     const { inscription } = this.props
     this.toggleEditEmail()
-    inscription(e)
+    inscription(email)
   }
 
   render() {
@@ -38,7 +44,7 @@ export default class TopNavigation extends Component {
       <div class="profile-menu-minimize" onClick={close}>{badges.length}</div>
     )
 
-    if (!user.email || editMail) return (
+    if (editMail) return (
       <div class="menu column">
         <img class="close" onClick={close} src="close_icon.svg"/>
         <div class="column center profile">

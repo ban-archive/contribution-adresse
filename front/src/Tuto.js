@@ -30,10 +30,10 @@ export default class Tuto extends Component {
   }
 
   @bind
-  endTutorial() {
+  endTutorial(email) {
     const { nextStep, saveProgression } = this.props
     nextStep()
-    saveProgression()
+    saveProgression(email)
   }
 
   render() {
