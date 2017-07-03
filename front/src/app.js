@@ -121,10 +121,9 @@ class App extends Component {
       const addressIndex = cpyAddresses.findIndex(addr => addr.id === address.id)
       address.proposals.push({
         user,
-        address,
         date: Date.now(),
         type: 'edition',
-        comment: `Le ${addressToString(cpyAddresses[addressIndex].address)} a été modifié en ${addressToString(address.address)}`,
+        comment: `Le ${addressToString(selectedAddress.address)} a été modifié en ${addressToString(address.address)}`,
       })
       cpyAddresses[addressIndex] = address
     } else if (address && !selectedAddress) { // Create Address

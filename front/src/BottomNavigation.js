@@ -62,15 +62,15 @@ export default class BottomNavigation extends Component {
     const { houseNumber, additional, street } = this.state
     const { selectedAddress, updateAddress } = this.props
     const newAddress = { houseNumber, additional, street }
-    let selectedAddressCpy
 
-    if (selectedAddress) {
-      if (isSameAddress(selectedAddress.address, newAddress)) return
-      selectedAddressCpy = Object.assign({}, selectedAddress)
+    if (!selectedAddress) {
+      updateAddress(newAddress)
+    } else if (selectedAddress && !isSameAddress(selectedAddress.address, newAddress)) {
+      const selectedAddressCpy = Object.assign({}, selectedAddress)
       selectedAddressCpy.address = newAddress
+      updateAddress(selectedAddressCpy)
     }
 
-    updateAddress(selectedAddressCpy || newAddress)
     this.clearForm()
   }
 
