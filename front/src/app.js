@@ -8,6 +8,7 @@ import BottomNavigation from './BottomNavigation'
 import PopUpManager from './PopUpManager'
 import Map from './Map'
 import badges from './badges.json'
+import { addressToString } from './helpers/address'
 
 const stringArray = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','!','?']
 
@@ -110,16 +111,23 @@ class App extends Component {
 
   @bind
   updateAddress(address) {
-    const { addresses, selectedAddress } = this.state
+    const { user, addresses, selectedAddress } = this.state
     let cpyAddresses = [...addresses]
 
-    if (!address) {
+    if (!address) { // Remove address
       cpyAddresses.pop(selectedAddress)
       this.closeMenu()
-    } else if (address && selectedAddress) {
+    } else if (address && selectedAddress) { // Modify address
       const addressIndex = cpyAddresses.findIndex(addr => addr.id === address.id)
+      address.proposals.push({
+        user,
+        address,
+        date: Date.now(),
+        type: 'edition',
+        comment: `Le ${addressToString(cpyAddresses[addressIndex].address)} a été modifié en ${addressToString(address.address)}`,
+      })
       cpyAddresses[addressIndex] = address
-    } else if (address && !selectedAddress) {
+    } else if (address && !selectedAddress) { // Create Address
       cpyAddresses = this.addAddress(address)
       this.closeMenu()
     }
@@ -144,10 +152,17 @@ class App extends Component {
     cpyAddresses.push({
       address,
       coords: coordinates,
-      id: `${address.houseNumber}_${address.street}_${user.id}`,
+      id: `${address.houseNumber}_${address.street}_${user.token}`,
       createAt: Date.now(),
       createBy: user,
-      proposals: [],
+      proposals: [
+        {
+          user,
+          date: Date.now(),
+          type: 'creation',
+          comment: '',
+        },
+      ],
     })
     if (tuto === 2 ) this.tutoNextStep()
     this.closeMenu()
@@ -230,7 +245,7 @@ class App extends Component {
 
   @bind
   displayProfile() {
-    this.setState({showProfile: !this.state.showProfile})
+    this.setState({showProfile: !this.state.showProfile, fullscreen: true})
   }
 
   @bind

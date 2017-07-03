@@ -1,6 +1,8 @@
 const { bind } = decko
 const { h, Component } = preact
+
 import Error from './Error'
+import BottomMenu from './BottomMenu'
 import Suggestions from './Suggestions'
 
 export default class AddressForm extends Component {
@@ -75,7 +77,7 @@ export default class AddressForm extends Component {
     if (error) return <Error error={error}/>
 
     return (
-      <div>
+      <BottomMenu>
         <div class="address-form">
           <input class="houseNumbers" type="text" placeholder="N°" value={houseNumber} onInput={onHouseNumberChange} onClick={this.selectInput} />
           <input class="additionals" type="text" placeholder=" " value={additional} onInput={onAdditionalChange} onClick={this.selectInput} />
@@ -83,7 +85,7 @@ export default class AddressForm extends Component {
         </div>
         {houseNumber && street ? <div onClick={onSubmit} class="create-button">Créer le {houseNumber} {additional} {street}</div> : null}
         <Suggestions suggestions={activeInput.suggestions} selectSuggestion={this.handleInput} />
-      </div>
+      </BottomMenu>
     )
   }
 }

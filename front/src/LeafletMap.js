@@ -25,8 +25,9 @@ function updateMarkerPosition(marker, address) {
 
 function updateMarkerIcon(userToken, marker, address, selectedAddress) {
   const style = ['leaflet-marker-icon marker-icon', 'leaflet-zoom-animated', 'leaflet-interactive']
+  const userProposal = address.proposals.find(proposal => proposal.user.token === userToken)
 
-  if (address.proposals.find(proposal => proposal.user.token === userToken)) {
+  if (userProposal && userProposal.type !== 'creation') {
     marker.setIcon(checkedHomeIcon)
   } else {
     marker.setIcon(homeIcon)
@@ -119,7 +120,7 @@ export default class LeafletMap extends Component {
     const { fullscreen } = this.props
 
     return (
-      <div id="map" style={{height: fullscreen ? '100%' : '50%'}} ref={ref => this.container = ref} />
+      <div id="map" style={{height: fullscreen ? '100%' : '52%'}} ref={ref => this.container = ref} />
     )
   }
 }

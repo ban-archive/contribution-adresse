@@ -2,9 +2,9 @@ const { h, Component } = preact
 const { bind } = decko
 
 import Dashboard from './Dashboard'
-import BottomMenu from './BottomMenu'
 import Address from './Address'
 import AddressForm from './AddressForm'
+import { isSameAddress } from './helpers/address'
 
 export default class BottomNavigation extends Component {
   constructor(props) {
@@ -36,7 +36,6 @@ export default class BottomNavigation extends Component {
   addProposal(proposal) {
     const { updateAddress, selectedAddress } = this.props
     const address = Object.assign({}, selectedAddress)
-    console.log(selectedAddress)
 
     address.proposals.push(proposal)
     updateAddress(address)
@@ -63,12 +62,15 @@ export default class BottomNavigation extends Component {
     const { houseNumber, additional, street } = this.state
     const { selectedAddress, updateAddress } = this.props
     const newAddress = { houseNumber, additional, street }
+    let selectedAddressCpy
 
     if (selectedAddress) {
-      selectedAddress.address = newAddress
+      if (isSameAddress(selectedAddress.address, newAddress)) return
+      selectedAddressCpy = Object.assign({}, selectedAddress)
+      selectedAddressCpy.address = newAddress
     }
 
-    updateAddress(selectedAddress || newAddress)
+    updateAddress(selectedAddressCpy || newAddress)
     this.clearForm()
   }
 
@@ -83,21 +85,28 @@ export default class BottomNavigation extends Component {
     const { user, coords, selectedAddress, displayDashboard, openForm } = this.props
     const speed = Number((coords.speed || 0).toFixed())
     const accuracy = Number((coords.accuracy || 0).toFixed())
+    let toRender
 
-    if (displayDashboard) return <Dashboard speed={speed} accuracy={accuracy} openForm={openForm} />
+    if (displayDashboard) {
+      toRender = <Dashboard speed={speed} accuracy={accuracy} openForm={openForm} />
+    } else if (selectedAddress && !editing) {
+      toRender = <Address
+                    userAddress={selectedAddress.createBy.token === user.token}
+                    user={user}
+                    address={selectedAddress}
+                    editAddress={this.editAddress}
+                    removeAddress={this.removeAddress}
+                    handleContribution={this.addProposal}
+                    cancelContribution={this.removeProposal} />
+    } else {
+      toRender = <AddressForm
+                    address={{ houseNumber, additional, street }}
+                    onHouseNumberChange={this.handleHouseNumberChange}
+                    onAdditionalChange={this.handleAdditionalChange}
+                    onStreetChange={this.handleStreetChange}
+                    onSubmit={this.saveAddress} />
+    }
 
-    return (
-        <BottomMenu>
-          {selectedAddress && !editing ?
-            <Address userAddress={selectedAddress.createBy.token === user.token} user={user} address={selectedAddress} editAddress={this.editAddress} removeAddress={this.removeAddress} handleContribution={this.addProposal} cancelContribution={this.removeProposal} /> :
-            <AddressForm
-              address={{ houseNumber, additional, street }}
-              onHouseNumberChange={this.handleHouseNumberChange}
-              onAdditionalChange={this.handleAdditionalChange}
-              onStreetChange={this.handleStreetChange}
-              onSubmit={this.saveAddress} />
-          }
-        </BottomMenu>
-    )
+    return toRender
   }
 }

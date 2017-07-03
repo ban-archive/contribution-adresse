@@ -9,7 +9,8 @@ export default class AddressContribution extends Component {
     handleContribution({
       user,
       date: Date.now(),
-      valid: true,
+      type: 'approve',
+      comment: '',
     })
   }
 
@@ -19,12 +20,13 @@ export default class AddressContribution extends Component {
     handleContribution({
       user,
       date: Date.now(),
-      valid: false,
+      type: 'disapprove',
+      comment: '',
     })
   }
 
   render() {
-    const { user, address, cancelContribution } = this.props
+    const { user, address, cancelContribution, displayHistory } = this.props
     const { houseNumber, additional, street } = address.address
     const userProposal = address.proposals.find(proposal => proposal.user.token === user.token)
 
@@ -42,7 +44,7 @@ export default class AddressContribution extends Component {
         {userProposal ?
           <div class="thanks">
             <p>Merci de votre contribution !</p>
-            <div>{userProposal.valid ? <img alt="valider" src="like.svg" /> : <img class="upside-down" alt="refuser" src="like.svg" />}</div>
+            <div>{userProposal.type === 'approve' ? <img alt="valider" src="like.svg" /> : <img class="upside-down" alt="refuser" src="like.svg" />}</div>
             <div onClick={cancelContribution}>Modifier votre contribution</div>
           </div>:
           <div>
@@ -52,6 +54,7 @@ export default class AddressContribution extends Component {
             <img class="upside-down" onClick={this.decline} alt="refuser" src="like.svg" />
           </div>
         </div>}
+        <button onClick={displayHistory}>Voir l'historique</button>
       </div>
     )
   }

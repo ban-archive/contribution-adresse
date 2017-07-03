@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="88px" height="88px" viewBox="0 0 88 88" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45 (43475) - http://www.bohemiancoding.com/sketch -->
+    <title>edit_icon_reverse</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="edit_icon_reverse" fill="#FFFFFF">
+            <rect id="Rectangle-5" transform="translate(60.667262, 26.667262) rotate(45.000000) translate(-60.667262, -26.667262) " x="47.1672619" y="23.6672619" width="27" height="6"></rect>
+            <rect id="Rectangle-6" transform="translate(32.208000, 39.208000) rotate(45.000000) translate(-32.208000, -39.208000) " x="28.9579996" y="16.7079996" width="6.5" height="45"></rect>
+            <rect id="Rectangle-6" transform="translate(40.617009, 44.617009) rotate(45.000000) translate(-40.617009, -44.617009) " x="37.1170094" y="24.6170094" width="7" height="40"></rect>
+            <rect id="Rectangle-6" transform="translate(47.031223, 55.031223) rotate(45.000000) translate(-47.031223, -55.031223) " x="44.0312229" y="32.5312229" width="6" height="45"></rect>
+            <circle id="Oval-9" cx="10.5" cy="76.5" r="2.5"></circle>
+            <path d="M56,12.7147181 L74.4974071,31.047563 L78.2431854,27.1429476 C78.8906481,26.1994059 79.2143794,25.030042 79.2143794,23.6348558 C79.2143794,22.2396697 78.8906481,21.0468411 78.2431854,20.0563702 L68.0015029,9.80658453 C66.5849209,8.60219484 65.264803,8 64.0411493,8 C62.8174955,8 61.4364271,8.33067474 59.8979442,8.99202422 L56,12.7147181 Z" id="Path-18"></path>
+            <path d="M10.9051309,78.9949087 C24.3167541,75.8965922 31.3332168,74.2141136 31.9545189,73.9474728 C32.5758211,73.6808321 33.0119299,73.3545422 33.2628452,72.9686032 L29.1735967,68.9454431 L18.7182541,70.7906208 L15.6407609,67.5773681 L18.7182541,57.2589904 L13.9310182,52.7177867 L13.2820702,53.7562495 L7.93707185,76.1667454 L10.9051309,78.9949087 Z" id="Path-19"></path>
+        </g>
+    </g>
+</svg>

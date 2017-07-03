@@ -18,6 +18,10 @@ img.upside-down {
   transform: rotate(180deg);
 }
 
+img.inverted {
+	filter: invert(100%);
+}
+
 input {
   border-bottom: 3px solid #3F4DAB;
   border-top: none;
@@ -43,6 +47,7 @@ button {
   padding: 10px 15px;
   font-size: small;
   font-weight: 800;
+  width: 50%;
 }
 
 button:disabled {
@@ -221,12 +226,16 @@ button.reverse {
   overflow: scroll;
   height: 100%;
   width: 100%;
-  background-color: rgba(256,256,256, 0.8);
+  background-color: #fff;
 }
 
-.menu h2 {
+.menu .header {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 200;
   text-align: center;
-  text-decoration: underline;
+  padding: 0.9em 0;
+  background-color: #3F4DAB;
 }
 
 .menu .divider {
@@ -524,6 +533,7 @@ input.streets {
 .Address {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .Address p {
@@ -577,6 +587,7 @@ button.edit {
 
 .divider {
   border-top: 3px solid whitesmoke;
+  width: 80%;
 }
 
 .divider.vertical {
@@ -652,6 +663,73 @@ button.edit {
   display: flex;
   flex-direction: column;
   padding: 20px 10px;
+  align-items: center;
+}
+
+/* History */
+
+.timeline {
+  padding: 0 1em;
+  position: relative;
+}
+
+.timeline:before {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 51px;
+  height: 95%;
+  width: 11px;
+  background: #3f4dab;
+  z-index: -1;
+}
+
+.timeline:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 51px;
+  height: 2%;
+  width: 11px;
+  background: #3f4dab;
+  z-index: -1;
+}
+
+.step {
+  display: flex;
+  margin: 3em 1em;
+  align-items: flex-start;
+}
+
+.step .icon {
+  background-color: #3f4dab;
+  border-radius: 100%;
+  margin-right: 1em;
+  text-align: center;
+}
+
+.step img {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 100%;
+}
+
+.step .proposal {
+  background: rgba(245, 245, 245, 0.6);
+  padding: 1em;
+  border-radius: 10%;
+}
+
+.step .date {
+  font-weight: 200;
+  font-size: large;
+}
+
+.step .comment {
+  font-style: oblique;
+  font-weight: 300;
+  padding: 1em;
 }
 
 /* Error */

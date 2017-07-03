@@ -1,6 +1,6 @@
 const { h } = preact
 
-const UserAddress = ({ address, onEdit, onRemove }) => {
+const UserAddress = ({ address, onEdit, onRemove, displayHistory }) => {
   const { houseNumber, additional, street } = address
 
   return (
@@ -16,6 +16,7 @@ const UserAddress = ({ address, onEdit, onRemove }) => {
         <button onClick={onRemove} class="remove">Supprimer</button>
         <button onClick={onEdit} class="edit">Modifier</button>
       </div>
+      <button onClick={displayHistory}>Voir l'historique</button>
     </div>
   )
 }
