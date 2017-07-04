@@ -10,7 +10,7 @@ export default class NewBadge extends Component {
           <div>Vous avez gagné un nouveau badge !</div>
           <div class="new-badge">
             <img alt={badge.name} src={badge.img} />
-            <div class="background-spinner"></div>
+            <div class="background-spinner" />
           </div>
           <div>{badge.condition}</div>
           <button onClick={closeWindow}>Ok</button>

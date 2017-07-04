@@ -47,11 +47,11 @@ export default class AddressContribution extends Component {
           </div>:
           <div>
             <div class="actions">
-            <img onClick={this.valid} alt="valider" src="like.svg" />
-            <div class="divider vertical" />
-            <img class="upside-down" onClick={this.decline} alt="refuser" src="like.svg" />
-          </div>
-        </div>}
+              <img onClick={this.valid} alt="valider" src="like.svg" />
+              <div class="divider vertical" />
+              <img class="upside-down" onClick={this.decline} alt="refuser" src="like.svg" />
+            </div>
+          </div>}
       </div>
     )
   }

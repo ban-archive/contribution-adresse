@@ -2,7 +2,7 @@ const { h } = preact
 
 const Loading = () => (
   <div class="Loading">
-    <div class="spinner"></div>
+    <div class="spinner" />
     <p>Chargement...</p>
   </div>
 )
