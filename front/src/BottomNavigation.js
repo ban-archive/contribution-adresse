@@ -67,17 +67,17 @@ export default class BottomNavigation extends Component {
     if (displayDashboard) return <Dashboard speed={speed} accuracy={accuracy} openForm={openForm} />
 
     return (
-        <Menu>
-          {selectedAddress && !editing ?
-            <Address user={user} address={selectedAddress} editAddress={this.editAddress} removeAddress={this.removeAddress} handleContribution={addProposal} cancelContribution={removeProposal} /> :
-            <AddressForm
-              address={{ houseNumber, additional, street }}
-              onHouseNumberChange={this.handleHouseNumberChange}
-              onAdditionalChange={this.handleAdditionalChange}
-              onStreetChange={this.handleStreetChange}
-              onSubmit={this.saveAddress} />
-          }
-        </Menu>
+      <Menu>
+        {selectedAddress && !editing ?
+          <Address user={user} address={selectedAddress} editAddress={this.editAddress} removeAddress={this.removeAddress} handleContribution={addProposal} cancelContribution={removeProposal} /> :
+          <AddressForm
+            address={{ houseNumber, additional, street }}
+            onHouseNumberChange={this.handleHouseNumberChange}
+            onAdditionalChange={this.handleAdditionalChange}
+            onStreetChange={this.handleStreetChange}
+            onSubmit={this.saveAddress} />
+        }
+      </Menu>
     )
   }
 }

@@ -1,6 +1,7 @@
 const { h, render, Component } = preact
 const { bind } = decko
 
+import Error from './Error'
 import Welcome from './Welcome'
 import Loading from './Loading'
 import TopNavigation from './TopNavigation'
