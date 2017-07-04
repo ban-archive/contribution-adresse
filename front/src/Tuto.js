@@ -10,7 +10,7 @@ export default class Tuto extends Component {
     this.step = [
       <PopUp position="center">
         <p>Placez vous à l'adresse que vous souhaitez ajouter</p>
-        <button onClick={props.nextStep}>Ok</button>
+        <button onClick={props.close}>Ok</button>
       </PopUp>,
       <PopUp arrowBox={true}>
         Appuyez sur le bouton pour ajouter une nouvelle adresse
@@ -18,7 +18,7 @@ export default class Tuto extends Component {
       <PopUp position="top">
         <div>Saisissez le numéro ainsi que le nom de la voie de l'adresse</div>
       </PopUp>,
-      <PopUp reverse={true} position="center" close={props.nextStep}>
+      <PopUp reverse={true} position="center" close={props.close}>
         <div>
           <p>Félicitations vous venez de créer votre première adresse !</p>
           <p>Grâce à votre contribution, la base adresse national s'est enrichie</p>
@@ -31,14 +31,14 @@ export default class Tuto extends Component {
 
   @bind
   endTutorial(email) {
-    const { nextStep, saveProgression } = this.props
-    nextStep()
+    const { close, saveProgression } = this.props
+    close()
     saveProgression(email)
   }
 
   render() {
-    const { stepIndex } = this.props
-
+    const { stepIndex, done } = this.props
+    if (done) return
     return this.step[stepIndex] || null
   }
 }

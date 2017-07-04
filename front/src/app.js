@@ -5,9 +5,10 @@ import Welcome from './Welcome'
 import Loading from './Loading'
 import TopNavigation from './TopNavigation'
 import BottomNavigation from './BottomNavigation'
-import PopUpManager from './PopUpManager'
 import Map from './Map'
 import badges from './badges.json'
+import Tuto from './Tuto'
+import NewBadge from './NewBadge'
 
 const stringArray = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','!','?']
 
@@ -284,7 +285,10 @@ class App extends Component {
 
     return (
       <div class="container">
-        <PopUpManager newBadge={newBadge} tuto={tuto} tutoDone={this.unlockedBadge('tutorial')} setEmail={this.setEmail} tutoNextStep={this.tutoNextStep} resetNewBadge={this.resetNewBadge} />
+        {newBadge ?
+          <NewBadge badge={newBadge} closeWindow={this.resetNewBadge} /> :
+          <Tuto close={this.tutoNextStep} stepIndex={tuto} saveProgression={this.setEmail} done={this.unlockedBadge('tutorial')} />
+        }
         <TopNavigation user={user} minimize={!showProfile} close={this.displayProfile} inscription={this.setEmail} />
         <Map user={user} addresses={addresses} selectedAddress={selectedAddress} coords={selectedAddress ? selectedAddress.coords : coords} fullscreen={fullscreen} displayAddress={this.displayAddress} closeForm={this.closeForm} />
         <BottomNavigation user={user} selectedAddress={selectedAddress} houseNumber={houseNumber} additional={additional} street={street} speed={speed} accuracy={accuracy} displayDashboard={fullscreen} openMenu={this.openMenu} handleHouseNumberChange={this.handleHouseNumberChange} handleAdditionalChange={this.handleAdditionalChange} handleStreetChange={this.handleStreetChange} editAddress={this.editAddress} removeAddress={this.removeAddress} addProposal={this.addProposal} removeProposal={this.removeProposal} addAddress={this.addAddress} />
