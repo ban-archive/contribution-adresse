@@ -55,7 +55,6 @@ class App extends Component {
       tuto: 0,
       newBadge: null,
       showProfile: false,
-      showEmailForm: false,
       selectedAddress: null,
       userCoords: null,
       geoOptions: {
@@ -276,7 +275,7 @@ class App extends Component {
   }
 
   render() {
-    const { user, tuto, coords, newBadge, showProfile, showEmailForm, houseNumber, additional, street, addresses, selectedAddress, fullscreen, error } = this.state
+    const { user, tuto, coords, newBadge, showProfile, houseNumber, additional, street, addresses, selectedAddress, fullscreen, error } = this.state
     if (!user.token) return <Welcome skip={this.setToken}/>
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
@@ -285,7 +284,7 @@ class App extends Component {
 
     return (
       <div class="container">
-        <PopUpManager userEmail={user.email} showEmailForm={showEmailForm} newBadge={newBadge} tuto={tuto} tutoDone={this.unlockedBadge('tutorial')} setEmail={this.setEmail} tutoNextStep={this.tutoNextStep} resetNewBadge={this.resetNewBadge} />
+        <PopUpManager newBadge={newBadge} tuto={tuto} tutoDone={this.unlockedBadge('tutorial')} setEmail={this.setEmail} tutoNextStep={this.tutoNextStep} resetNewBadge={this.resetNewBadge} />
         <TopNavigation user={user} minimize={!showProfile} close={this.displayProfile} inscription={this.setEmail} />
         <Map user={user} addresses={addresses} selectedAddress={selectedAddress} coords={selectedAddress ? selectedAddress.coords : coords} fullscreen={fullscreen} displayAddress={this.displayAddress} closeForm={this.closeForm} />
         <BottomNavigation user={user} selectedAddress={selectedAddress} houseNumber={houseNumber} additional={additional} street={street} speed={speed} accuracy={accuracy} displayDashboard={fullscreen} openMenu={this.openMenu} handleHouseNumberChange={this.handleHouseNumberChange} handleAdditionalChange={this.handleAdditionalChange} handleStreetChange={this.handleStreetChange} editAddress={this.editAddress} removeAddress={this.removeAddress} addProposal={this.addProposal} removeProposal={this.removeProposal} addAddress={this.addAddress} />

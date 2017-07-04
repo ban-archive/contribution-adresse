@@ -23,17 +23,17 @@ export default class Tuto extends Component {
           <p>Félicitations vous venez de créer votre première adresse !</p>
           <p>Grâce à votre contribution, la base adresse national s'est enrichie</p>
           <b>Sauvegardez votre progression !</b>
-          <EmailForm userEmail={props.userEmail} onSubmit={this.endTutorial} />
+          <EmailForm onSubmit={this.endTutorial} />
         </div>
       </PopUp>,
     ]
   }
 
   @bind
-  endTutorial() {
+  endTutorial(email) {
     const { nextStep, saveProgression } = this.props
     nextStep()
-    saveProgression()
+    saveProgression(email)
   }
 
   render() {
