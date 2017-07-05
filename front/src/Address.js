@@ -1,44 +1,29 @@
-const { bind } = decko
-const { h, Component } = preact
-import AddressForm from './AddressForm'
+const { h } = preact
 
-export default class Address extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {editInput: false}
+import AddressContribution from './AddressContribution'
+
+const Address = ({ user, address, editAddress, removeAddress, handleContribution, cancelContribution }) => {
+  const { houseNumber, additional, street } = address.address
+
+  if (address.createBy.token !== user.token ) {
+    return <AddressContribution user={user} address={address} handleContribution={handleContribution} cancelContribution={cancelContribution}/>
   }
-
-  @bind
-  edit() {
-    const { editAddress } = this.props
-    this.setState({editInput: false}, editAddress())
-  }
-
-  @bind
-  editing() {
-    this.setState({editInput: true})
-  }
-
-  render() {
-    const { houseNumber, additional, street, handleHouseNumberChange, handleAdditionalChange, handleStreetChange, removeAddress } = this.props
-    const { editInput } = this.state
-
-    if (editInput) return <AddressForm houseNumber={houseNumber} additional={additional} street={street} onHouseNumberChange={handleHouseNumberChange} onAdditionalChange={handleAdditionalChange} onStreetChange={handleStreetChange} onSubmit={this.edit} />
-
-    return (
-      <div class="Address">
+  
+  return (
+    <div class="Address">
+      <div class="address">
+        <img class="location_logo" src="location_logo.svg" alt="location_logo" />
         <div class="address">
-          <img class="location_logo" src="location_logo.svg" alt="location_logo" />
-          <div class="address">
-            {houseNumber} {additional} {street}
-          </div>
-        </div>
-        <div class="divider" />
-        <div class="actions">
-          <button onClick={removeAddress} class="remove">Supprimer</button>
-          <button onClick={this.editing} class="edit">Modifier</button>
+          {houseNumber} {additional} {street}
         </div>
       </div>
-    )
-  }
+      <div class="divider" />
+      <div class="actions">
+        <button onClick={removeAddress} class="remove">Supprimer</button>
+        <button onClick={editAddress} class="edit">Modifier</button>
+      </div>
+    </div>
+  )
 }
+
+export default Address
