@@ -1,4 +1,4 @@
-const { h } = preact
+import { h } from 'preact'
 
 const Error = ({ error }) => {
   return (

@@ -1,4 +1,4 @@
-const { h, Component } = preact
+import { h, Component } from 'preact'
 
 import LeafletMap from './LeafletMap'
 import Locator from './Locator'

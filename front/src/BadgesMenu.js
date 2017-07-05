@@ -1,5 +1,5 @@
 import badges from './badges.json'
-const { h, Component } = preact
+import { h, Component } from 'preact'
 
 export default class BadgesMenu extends Component {
   render() {

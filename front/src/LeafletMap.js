@@ -1,4 +1,5 @@
-const { h, Component } = preact
+import { h, Component } from 'preact'
+import L from 'leaflet'
 
 const homeIcon = L.divIcon({
   className: 'marker-icon',

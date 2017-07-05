@@ -1,4 +1,4 @@
-const { h } = preact
+import { h } from 'preact'
 
 const Profile = ({ user, badges, contributions, close, toggleEditEmail, displayBadgesMenu }) => {
   return (

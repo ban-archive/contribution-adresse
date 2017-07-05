@@ -1,4 +1,4 @@
-const { h } = preact
+import { h } from 'preact'
 
 const Locator = ({ accuracy, fullscreen }) => {
   const dimensionMin = screen.width > screen.height ? screen.height - 150 : screen.width

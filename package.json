@@ -11,18 +11,40 @@
     "lint": "eslint front/**/*.js",
     "dev": "webpack && node server",
     "start": "node server",
+    "test": "karma start --browsers PhantomJS",
     "postinstall": "yarn build"
   },
   "dependencies": {
+    "babel": "^6.23.0",
     "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^7.1.0",
+    "babel-plugin-module-resolver": "^2.7.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.4.0",
+    "babel-preset-es2015": "^6.24.1",
+    "decko": "^1.2.0",
     "eslint": "^4.1.1",
     "eslint-plugin-react": "^7.1.0",
     "express": "^4.15.2",
+    "leaflet": "^1.1.0",
+    "preact": "^8.1.0",
+    "preact-compat": "^3.16.0",
     "webpack": "^3.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.0.2",
+    "enzyme": "^2.9.1",
+    "karma": "^1.7.0",
+    "karma-chai": "^0.1.0",
+    "karma-mocha": "^1.3.0",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-webpack": "^2.0.3",
+    "mocha": "^3.4.2",
+    "phantomjs-prebuilt": "^2.1.7",
+    "preact-compat-enzyme": "^0.2.5",
+    "preact-test-utils": "^0.1.3"
   }
 }

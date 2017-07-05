@@ -1,4 +1,4 @@
-const { h, Component } = preact
+import { h, Component } from 'preact'
 import AddAddressButton from './AddAddressButton'
 
 export default class Dashboard extends Component {

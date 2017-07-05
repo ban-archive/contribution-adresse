@@ -1,4 +1,4 @@
-const { h } = preact
+import { h } from 'preact'
 
 const Welcome = ({ skip }) => {
   return (

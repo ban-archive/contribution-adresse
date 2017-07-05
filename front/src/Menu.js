@@ -1,4 +1,4 @@
-const { h, Component } = preact
+import { h, Component } from 'preact'
 
 export default class Menu extends Component {
   render() {

@@ -1,5 +1,5 @@
-const { bind } = decko
-const { h, Component } = preact
+import { bind } from 'decko'
+import { h, Component } from 'preact'
 import Error from './Error'
 import Suggestions from './Suggestions'
 

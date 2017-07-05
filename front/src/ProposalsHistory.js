@@ -1,4 +1,4 @@
-const { h } = preact
+import { h } from 'preact'
 
 const ProposalsHistory = ({ proposals }) => (
   <div class="ProposalsHistory">

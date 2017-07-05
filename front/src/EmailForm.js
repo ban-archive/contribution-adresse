@@ -1,5 +1,5 @@
-const { h, Component } = preact
-const { bind } = decko
+import { h, Component } from 'preact'
+import { bind } from 'decko'
 
 export default class EmailForm extends Component {
   constructor(props) {

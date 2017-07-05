@@ -1,4 +1,4 @@
-const { h } = preact
+import { h } from 'preact'
 
 import AddressContribution from './AddressContribution'
 
@@ -8,7 +8,7 @@ const Address = ({ user, address, editAddress, removeAddress, handleContribution
   if (address.createBy.token !== user.token ) {
     return <AddressContribution user={user} address={address} handleContribution={handleContribution} cancelContribution={cancelContribution}/>
   }
-  
+
   return (
     <div class="Address">
       <div class="address">

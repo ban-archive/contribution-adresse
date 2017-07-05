@@ -1,5 +1,5 @@
-const { bind } = decko
-const { Component, h } = preact
+import { bind } from 'decko'
+import { h, Component } from 'preact'
 
 export default class AddressContribution extends Component {
 

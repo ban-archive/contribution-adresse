@@ -1,4 +1,4 @@
-const { h } = preact
+import { h } from 'preact'
 
 const PopUp = ({ close, arrowBox, children, position='', reverse=false }) => {
   if (arrowBox) return (
