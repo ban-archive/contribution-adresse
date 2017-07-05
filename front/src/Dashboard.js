@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { h, Component } from 'preact'
 import AddAddressButton from './AddAddressButton'
 
 export default class Dashboard extends Component {

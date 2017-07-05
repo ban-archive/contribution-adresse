@@ -1,4 +1,4 @@
-import React from 'react'
+import { h } from 'preact'
 
 const Profile = ({ user, badges, contributions, close, toggleEditEmail, displayBadgesMenu }) => {
   return (

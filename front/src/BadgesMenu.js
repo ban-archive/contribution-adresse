@@ -1,5 +1,5 @@
 import badges from './badges.json'
-import React, { Component } from 'react'
+import { h, Component } from 'preact'
 
 export default class BadgesMenu extends Component {
   render() {

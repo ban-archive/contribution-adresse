@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { h, render, Component } from 'preact'
 import { bind } from 'decko'
 
 import Error from './Error'

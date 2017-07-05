@@ -1,5 +1,5 @@
 module.exports = {
-  entry: './front/src/index.js',
+  entry: './front/src/app.js',
 
   output: {
     filename: 'dist/bundle.js'
@@ -20,7 +20,7 @@ module.exports = {
   resolve: {
     alias: {
       'react': 'preact-compat',
-      'react-dom': 'preact-compat'
+      'react-dom': 'preact-compat',
     }
   }
 }

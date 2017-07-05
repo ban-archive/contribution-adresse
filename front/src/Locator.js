@@ -1,4 +1,4 @@
-import React from 'react'
+import { h } from 'preact'
 
 const Locator = ({ accuracy, fullscreen, display }) => {
   const dimensionMin = screen.width > screen.height ? screen.height - 150 : screen.width

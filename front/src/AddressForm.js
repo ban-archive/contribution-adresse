@@ -1,5 +1,5 @@
 import { bind } from 'decko'
-import React, { Component } from 'react'
+import { h, Component } from 'preact'
 import Error from './Error'
 import Suggestions from './Suggestions'
 

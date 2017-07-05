@@ -1,5 +1,5 @@
 import { bind } from 'decko'
-import React, { Component } from 'react'
+import { h, Component } from 'preact'
 
 export default class AddressContribution extends Component {
 

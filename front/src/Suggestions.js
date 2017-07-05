@@ -1,4 +1,4 @@
-import React from 'react'
+import { h } from 'preact'
 
 const Suggestions = ({ suggestions, selectSuggestion }) => (
   <div className="menu">

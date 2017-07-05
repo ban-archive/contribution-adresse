@@ -11,12 +11,15 @@
     "lint": "eslint front/**/*.js",
     "dev": "webpack && node server",
     "start": "node server",
-    "test": "mocha --compilers js:babel-core/register --require scripts/test.js --recursive front/src/*.test.js",
+    "test": "karma start --browsers PhantomJS",
     "postinstall": "yarn build"
   },
   "dependencies": {
     "babel": "^6.23.0",
     "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^7.1.0",
     "babel-plugin-module-resolver": "^2.7.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-react-jsx": "^6.24.1",
@@ -32,23 +35,16 @@
     "webpack": "^3.0.0"
   },
   "devDependencies": {
-    "babel-core": "^6.14.0",
-    "babel-eslint": "^7.0.0",
-    "babel-loader": "^6.2.5",
-    "babel-plugin-lodash": "^3.2.11",
-    "babel-preset-airbnb": "^2.4.0",
-    "babel-preset-react-app": "^2.0.1",
-    "babel-register": "^6.24.1",
-    "chai": "^3.5.0",
-    "chai-enzyme": "^0.8.0",
+    "chai": "^4.0.2",
     "enzyme": "^2.9.1",
-    "jsdom": "^9.6.0",
-    "mocha": "^3.1.2",
+    "karma": "^1.7.0",
+    "karma-chai": "^0.1.0",
+    "karma-mocha": "^1.3.0",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-webpack": "^2.0.3",
+    "mocha": "^3.4.2",
+    "phantomjs-prebuilt": "^2.1.7",
     "preact-compat-enzyme": "^0.2.5",
-    "preact-test-utils": "^0.1.3",
-    "react": "^15.6.1",
-    "react-addons-test-utils": "^15.6.0",
-    "react-dom": "^15.6.1",
-    "react-test-renderer": "^15.6.1"
+    "preact-test-utils": "^0.1.3"
   }
 }

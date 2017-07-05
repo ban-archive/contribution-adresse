@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { h, Component } from 'preact'
 import { bind } from 'decko'
 
 export default class EmailForm extends Component {
