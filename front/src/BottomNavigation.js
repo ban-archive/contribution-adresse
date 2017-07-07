@@ -36,7 +36,6 @@ export default class BottomNavigation extends Component {
   addProposal(proposal) {
     const { updateAddress, selectedAddress } = this.props
     const address = Object.assign({}, selectedAddress)
-    console.log(selectedAddress)
 
     address.proposals.push(proposal)
     updateAddress(address)
