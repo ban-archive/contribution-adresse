@@ -1,6 +1,6 @@
 const { h } = preact
 
-const Locator = ({ accuracy, fullscreen }) => {
+const Locator = ({ accuracy, fullscreen, display }) => {
   const dimensionMin = screen.width > screen.height ? screen.height - 150 : screen.width
   const accuracyMin = accuracy > dimensionMin ? dimensionMin : accuracy
   const margin = (accuracy / 2) * -1
@@ -15,6 +15,9 @@ const Locator = ({ accuracy, fullscreen }) => {
     marginTop: margin,
     marginLeft: margin,
   }
+
+  if (!display) return
+
   return (
     <div class="Locators" style={locatorStyle}>
       <div id="radar" style={radarStyle} />
