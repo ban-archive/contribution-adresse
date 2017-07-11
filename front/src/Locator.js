@@ -1,4 +1,4 @@
-import { h } from 'preact'
+import React from 'react'
 
 const Locator = ({ accuracy, fullscreen }) => {
   const dimensionMin = screen.width > screen.height ? screen.height - 150 : screen.width
@@ -16,7 +16,7 @@ const Locator = ({ accuracy, fullscreen }) => {
     marginLeft: margin,
   }
   return (
-    <div class="Locators" style={locatorStyle}>
+    <div className="Locators" style={locatorStyle}>
       <div id="radar" style={radarStyle} />
       <div id="user" />
     </div>

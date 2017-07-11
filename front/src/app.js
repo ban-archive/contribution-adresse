@@ -1,4 +1,4 @@
-import { h, render, Component } from 'preact'
+import React, { Component } from 'react'
 import { bind } from 'decko'
 
 import Error from './Error'
@@ -7,53 +7,19 @@ import Loading from './Loading'
 import TopNavigation from './TopNavigation'
 import BottomNavigation from './BottomNavigation'
 import Map from './Map'
-import badges from './badges.json'
 import Tuto from './Tuto'
 import NewBadge from './NewBadge'
 
-const stringArray = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','!','?']
+import { generateToken } from './helpers/token'
+import { getBadge } from './helpers/badges'
+import { useLocalStorage, isLocalStorageNameSupported } from './helpers/localStorage'
 
-function generateToken() {
-  let rndString = ''
-
-  for (let i = 0; i <= 15; i++) {
-    const rndNum = Math.ceil(Math.random() * stringArray.length) - 1
-    rndString = rndString + stringArray[rndNum]
-  }
-
-  return rndString
-}
-
-function isLocalStorageNameSupported() {
-  const testKey = 'test'
-  const storage = window.sessionStorage
-  try {
-    storage.setItem(testKey, '1')
-    storage.removeItem(testKey)
-    return true
-  } catch (error) {
-    return false
-  }
-}
-
-function useLocalStorage(fn, name, data) {
-  if (!isLocalStorageNameSupported()) return
-  if (fn === 'getItem') {
-    return JSON.parse(localStorage.getItem(name))
-  } else if (fn === 'setItem') {
-    return localStorage.setItem(name, JSON.stringify(data))
-  }
-  throw new Error(`localStorage function ${fn} unknown.`)
-}
-
-function getBadge(badgeName) {
-  return badges.find(badge => badge.name === badgeName)
-}
-
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      user: props.localUser,
+      addresses: [...props.localAddresses],
       tuto: 0,
       newBadge: null,
       showProfile: false,
@@ -66,7 +32,6 @@ class App extends Component {
       fullscreen: true,
       error: null,
     }
-    this.loadLocalStorage()
   }
 
   componentDidMount() {
@@ -82,12 +47,6 @@ class App extends Component {
     const { addresses, user } = this.state
     useLocalStorage('setItem', 'addresses', addresses)
     useLocalStorage('setItem', 'user', user)
-  }
-
-  loadLocalStorage() {
-    const addresses = useLocalStorage('getItem', 'addresses') || []
-    const user = useLocalStorage('getItem', 'user') || {token: null, badges: []}
-    this.setState({user, addresses})
   }
 
   @bind
@@ -258,9 +217,8 @@ class App extends Component {
     if (!user.token) return <Welcome skip={this.setToken}/>
     if (error) return <Error error={error} />
     if (!coords) return <Loading />
-
     return (
-      <div class="container">
+      <div className="container">
         {newBadge ?
           <NewBadge badge={newBadge} closeWindow={this.resetNewBadge} /> :
           <Tuto close={this.tutoNextStep} stepIndex={tuto} saveProgression={this.setEmail} done={this.unlockedBadge('tutorial')} />
@@ -272,6 +230,3 @@ class App extends Component {
     )
   }
 }
-
-// render an instance of App into <body>:
-render(<App />, document.body)

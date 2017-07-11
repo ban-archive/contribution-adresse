@@ -1,11 +1,11 @@
-import { h, Component } from 'preact'
+import React, { Component } from 'react'
 
 export default class Menu extends Component {
   render() {
     const { children } = this.props
 
     return (
-      <div class="Menu">
+      <div className="Menu">
         {children}
       </div>
     )

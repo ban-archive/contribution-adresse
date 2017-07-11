@@ -1,5 +1,5 @@
 import { bind } from 'decko'
-import { h, Component } from 'preact'
+import React, { Component } from 'react'
 
 export default class AddressContribution extends Component {
 
@@ -29,27 +29,27 @@ export default class AddressContribution extends Component {
     const userProposal = address.proposals.find(proposal => proposal.user.token === user.token)
 
     return (
-      <div class="Address">
+      <div className="Address">
         <p>Cette adresse est-elle correcte ?</p>
-        <div class="divider" />
-        <div class="address">
-          <img class="location_logo" src="location_logo.svg" alt="location_logo" />
-          <div class="address">
+        <div className="divider" />
+        <div className="address">
+          <img className="location_logo" src="location_logo.svg" alt="location_logo" />
+          <div className="address">
             {houseNumber} {additional} {street}
           </div>
         </div>
-        <div class="divider" />
+        <div className="divider" />
         {userProposal ?
-          <div class="thanks">
+          <div className="thanks">
             <p>Merci de votre contribution !</p>
-            <div>{userProposal.valid ? <img alt="valider" src="like.svg" /> : <img class="upside-down" alt="refuser" src="like.svg" />}</div>
+            <div>{userProposal.valid ? <img alt="valider" src="like.svg" /> : <img className="upside-down" alt="refuser" src="like.svg" />}</div>
             <div onClick={cancelContribution}>Modifier votre contribution</div>
           </div>:
           <div>
-            <div class="actions">
+            <div className="actions">
               <img onClick={this.valid} alt="valider" src="like.svg" />
-              <div class="divider vertical" />
-              <img class="upside-down" onClick={this.decline} alt="refuser" src="like.svg" />
+              <div className="divider vertical" />
+              <img className="upside-down" onClick={this.decline} alt="refuser" src="like.svg" />
             </div>
           </div>}
       </div>

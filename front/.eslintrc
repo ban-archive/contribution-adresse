@@ -16,13 +16,7 @@
       "jsx": true
     }
   },
-  "settings": {
-    "react": {
-      "pragma": "h"
-    }
-  },
   "globals": {
-    "preact": 1,
     "L": 1,
     "decko": 1
   },
@@ -51,7 +45,7 @@
     "indent": [2, 2, {"SwitchCase": 1}],
     "no-mixed-spaces-and-tabs": [2, "smart-tabs"],
     "no-trailing-spaces": [2, { "skipBlankLines": true }],
-    "max-nested-callbacks": [2, 3],
+    "max-nested-callbacks": [2, 4],
     "no-eval": 2,
     "no-implied-eval": 2,
     "no-new-func": 2,

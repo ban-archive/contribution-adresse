@@ -1,4 +1,4 @@
-import { h, Component } from 'preact'
+import React, { Component } from 'react'
 import { bind } from 'decko'
 
 export default class EmailForm extends Component {
@@ -35,11 +35,11 @@ export default class EmailForm extends Component {
     const formState = valid ? 'valid' : 'error'
 
     return (
-      <div class="EmailForm">
-        <input class={`${!email.length ? '' : formState}`} type="email" placeholder={userEmail || 'Email'} value={email} onInput={this.handleEmailChange} />
+      <div className="EmailForm">
+        <input className={`${!email.length ? '' : formState}`} type="email" placeholder={userEmail || 'Email'} value={email} onInput={this.handleEmailChange} />
         {valid ?
-          <button class="reverse" onClick={this.submit}>Enregister</button> :
-          <button class="reverse" disabled>Enregister</button>
+          <button className="reverse" onClick={this.submit}>Enregister</button> :
+          <button className="reverse" disabled>Enregister</button>
         }
       </div>
     )

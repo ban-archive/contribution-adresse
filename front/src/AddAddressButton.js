@@ -1,12 +1,12 @@
-import { h, Component } from 'preact'
+import React, { Component } from 'react'
 
 export default class AddAddressButton extends Component {
   render() {
     const { openForm } = this.props
 
     return (
-      <div class="circle" onClick={openForm}>
-        <div class="AddAddressButton">
+      <div className="circle" onClick={openForm}>
+        <div className="AddAddressButton">
           <img src="addHome.svg"/>
         </div>
       </div>
