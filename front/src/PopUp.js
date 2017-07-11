@@ -1,4 +1,4 @@
-import { h } from 'preact'
+import React from 'react'
 
 const PopUp = ({ close, arrowBox, children, position='', reverse=false }) => {
   if (arrowBox) return (
