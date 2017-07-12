@@ -1,21 +1,21 @@
 import badges from './badges.json'
-const { h, Component } = preact
+import React, { Component } from 'react'
 
 export default class BadgesMenu extends Component {
   render() {
     const { unlockedBadges, close } = this.props
 
     return (
-      <div class="menu">
+      <div className="menu">
         <div>
           <h2>Badges</h2>
-          <img class="close" onClick={close} src="close_icon.svg"/>
+          <img className="close" onClick={close} src="close_icon.svg"/>
         </div>
-        <div class="list">
+        <div className="list">
           {badges.map(badge => {
             const unlock = unlockedBadges.find(unlockedBadge => unlockedBadge.id === badge.id)
             return (
-              <div class="badge">
+              <div className="badge">
                 <img alt={badge.name} src={unlock ? badge.img : 'badges/locked.svg'} />
                 <div>{badge.condition}</div>
               </div>

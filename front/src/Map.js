@@ -1,4 +1,4 @@
-const { h, Component } = preact
+import React, { Component } from 'react'
 
 import LeafletMap from './LeafletMap'
 import Locator from './Locator'

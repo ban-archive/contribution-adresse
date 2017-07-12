@@ -1,5 +1,5 @@
-const { h, Component } = preact
-const { bind } = decko
+import { bind } from 'decko'
+import React, { Component } from 'react'
 
 import Dashboard from './Dashboard'
 import Menu from './Menu'

@@ -1,8 +1,8 @@
-const { h } = preact
+import React from 'react'
 
 const Loading = () => (
-  <div class="Loading">
-    <div class="spinner" />
+  <div className="Loading">
+    <div className="spinner" />
     <p>Chargement...</p>
   </div>
 )
