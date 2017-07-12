@@ -1,9 +1,9 @@
-import { h } from 'preact'
+import React from 'react'
 
 const Suggestions = ({ suggestions, selectSuggestion }) => (
-  <div class="menu">
+  <div className="menu">
     {suggestions.map(suggestion =>
-      <div class="suggestion" onClick={selectSuggestion}>{suggestion}</div>)}
+      <div className="suggestion" onClick={selectSuggestion}>{suggestion}</div>)}
   </div>
 )
 

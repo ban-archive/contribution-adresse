@@ -1,5 +1,5 @@
 import { bind } from 'decko'
-import { h, Component } from 'preact'
+import React, { Component } from 'react'
 import Error from './Error'
 import Suggestions from './Suggestions'
 
@@ -75,12 +75,12 @@ export default class AddressForm extends Component {
 
     return (
       <div>
-        <div class="address-form">
-          <input class="houseNumber-input" type="text" placeholder="N°" value={houseNumber} onInput={onHouseNumberChange} onClick={() => this.selectInput(inputs.houseNumbers)} />
-          <input class="additionals-input" type="text" placeholder=" " value={additional} onInput={onAdditionalChange} onClick={() => this.selectInput(inputs.additionals)} />
-          <input class="street-input" type="text" placeholder="Nom de la voie" value={street} onInput={onStreetChange} onClick={() => this.selectInput(inputs.streets)} />
+        <div className="address-form">
+          <input className="houseNumber-input" type="text" placeholder="N°" value={houseNumber} onInput={onHouseNumberChange} onClick={() => this.selectInput(inputs.houseNumbers)} />
+          <input className="additionals-input" type="text" placeholder=" " value={additional} onInput={onAdditionalChange} onClick={() => this.selectInput(inputs.additionals)} />
+          <input className="street-input" type="text" placeholder="Nom de la voie" value={street} onInput={onStreetChange} onClick={() => this.selectInput(inputs.streets)} />
         </div>
-        {houseNumber && street ? <div onClick={onSubmit} class="create-button">Créer le {houseNumber} {additional} {street}</div> : null}
+        {houseNumber && street ? <div onClick={onSubmit} className="create-button">Créer le {houseNumber} {additional} {street}</div> : null}
         <Suggestions suggestions={activeInput.suggestions} selectSuggestion={this.handleInput} />
       </div>
     )

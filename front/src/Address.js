@@ -1,4 +1,4 @@
-import { h } from 'preact'
+import React from 'react'
 
 import AddressContribution from './AddressContribution'
 
@@ -10,17 +10,17 @@ const Address = ({ user, address, editAddress, removeAddress, handleContribution
   }
 
   return (
-    <div class="Address">
-      <div class="address">
-        <img class="location_logo" src="location_logo.svg" alt="location_logo" />
-        <div class="address">
+    <div className="Address">
+      <div className="address">
+        <img className="location_logo" src="location_logo.svg" alt="location_logo" />
+        <div className="address">
           {houseNumber} {additional} {street}
         </div>
       </div>
-      <div class="divider" />
-      <div class="actions">
-        <button onClick={removeAddress} class="remove">Supprimer</button>
-        <button onClick={editAddress} class="edit">Modifier</button>
+      <div className="divider" />
+      <div className="actions">
+        <button onClick={removeAddress} className="remove">Supprimer</button>
+        <button onClick={editAddress} className="edit">Modifier</button>
       </div>
     </div>
   )

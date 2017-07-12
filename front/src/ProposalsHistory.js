@@ -1,14 +1,14 @@
-import { h } from 'preact'
+import React from 'react'
 
 const ProposalsHistory = ({ proposals }) => (
-  <div class="ProposalsHistory">
+  <div className="ProposalsHistory">
     <p>Historique</p>
-    <div class="list">
+    <div className="list">
       {proposals.map((proposal, idx) =>
-        <div class="row spread">
+        <div className="row spread">
           <div>{proposal.user.email.split('@')[0]}</div>
-          <div>{proposal.valid ? <img alt="valider" src="like.svg" /> : <img class="upside-down" alt="refuser" src="like.svg" />}</div>
-          {idx + 1 !== proposals.length ? <div class="half divider" /> : null}
+          <div>{proposal.valid ? <img alt="valider" src="like.svg" /> : <img className="upside-down" alt="refuser" src="like.svg" />}</div>
+          {idx + 1 !== proposals.length ? <div className="half divider" /> : null}
         </div>
       )}
     </div>

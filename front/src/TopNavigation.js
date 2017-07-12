@@ -1,4 +1,4 @@
-import { h, Component } from 'preact'
+import React, { Component } from 'react'
 import { bind } from 'decko'
 
 import EmailForm from './EmailForm'
@@ -35,15 +35,15 @@ export default class TopNavigation extends Component {
     const contributions = user.contributions || []
 
     if (minimize) return (
-      <div class="profile-menu-minimize" onClick={close}>{badges.length}</div>
+      <div className="profile-menu-minimize" onClick={close}>{badges.length}</div>
     )
 
     if (!user.email || editMail) return (
-      <div class="menu column">
-        <img class="close" onClick={close} src="close_icon.svg"/>
-        <div class="column center profile">
+      <div className="menu column">
+        <img className="close" onClick={close} src="close_icon.svg"/>
+        <div className="column center profile">
           <img alt="profile_icon" src="profile_icon.svg"/>
-          <div class="badges-number">{badges.length}</div>
+          <div className="badges-number">{badges.length}</div>
           <EmailForm userEmail={user.email} onSubmit={this.updateEmail}/>
         </div>
       </div>
