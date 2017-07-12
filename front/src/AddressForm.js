@@ -76,10 +76,10 @@ export default class AddressForm extends Component {
 
     return (
       <div>
-        <div class="address-form">
-          <input class="houseNumbers" type="text" placeholder="N°" value={houseNumber} onInput={onHouseNumberChange} onClick={this.selectInput} />
-          <input class="additionals" type="text" placeholder=" " value={additional} onInput={onAdditionalChange} onClick={this.selectInput} />
-          <input class="streets" type="text" placeholder="Nom de la voie" value={street} onInput={onStreetChange} onClick={this.selectInput} />
+        <div className="address-form">
+          <input className="houseNumbers" type="text" placeholder="N°" value={houseNumber} onInput={onHouseNumberChange} onClick={this.selectInput} />
+          <input className="additionals" type="text" placeholder=" " value={additional} onInput={onAdditionalChange} onClick={this.selectInput} />
+          <input className="streets" type="text" placeholder="Nom de la voie" value={street} onInput={onStreetChange} onClick={this.selectInput} />
         </div>
         {houseNumber && street ? <div onClick={onSubmit} className="create-button">Créer le {houseNumber} {additional} {street}</div> : null}
         <Suggestions suggestions={activeInput.suggestions} selectSuggestion={this.handleInput} />
