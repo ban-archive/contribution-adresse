@@ -1,12 +1,12 @@
 import React from 'react'
 
-const Locator = ({ accuracy, fullscreen, display }) => {
+const Locator = ({ accuracy, display }) => {
   const dimensionMin = screen.width > screen.height ? screen.height - 150 : screen.width
   const accuracyMin = accuracy > dimensionMin ? dimensionMin : accuracy
   const margin = (accuracy / 2) * -1
   const locatorStyle = {
     position: 'absolute',
-    top: fullscreen ? '50%' : '25%',
+    top: '50%',
     left: '50%',
   }
   const radarStyle = {
